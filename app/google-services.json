@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "342777528239",
+    "firebase_url": "https://diraksam-master-what-ssizzlin.firebaseio.com",
+    "project_id": "diraksam-master-what-ssizzlin",
+    "storage_bucket": "diraksam-master-what-ssizzlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342777528239:android:77b13b4b3e0af636",
+        "android_client_info": {
+          "package_name": "com.example.whatssizzlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342777528239-k9sp1hie0fn7g4o8j3midbdorjos7sd5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.whatssizzlin",
+            "certificate_hash": "8aece038d5512e9324ec367784abd1e48046700a"
+          }
+        },
+        {
+          "client_id": "342777528239-9p55pvhjh7l2e2dpcl2prhai7b4a32nk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1MJJW8kfTeCpJOf3m05F1GM7CCm4ABuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342777528239-9p55pvhjh7l2e2dpcl2prhai7b4a32nk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
