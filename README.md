@@ -32,12 +32,7 @@ BottomNavigation
 ----------------
 - I'm Currently in the process of trying to handle clickevent through the BottomNavigation bar with MenuItems. This in turn will start a new Intent View with the selected id for each MenuItem.
 - I have created some Activity screens that need to be implemented. 
-
-    --------------------
-    Screens to Implement
-    --------------------
-    STATUS:
-    -------
+     ------------------------------------
      - SearchActivity - [Not Started]
      - PantryActivity - [Not Started]
      - PreferencesActivity- [Not Started] (This is userProfile)
