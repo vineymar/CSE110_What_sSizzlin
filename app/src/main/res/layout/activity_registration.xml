@@ -4,225 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/usersignup2"
     tools:context=".RegistrationActivity">
 
+    <LinearLayout
+        android:layout_width="395dp"
+        android:layout_height="715dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
-
-    //Welcome
-    <TextView
-        android:id="@+id/welcome"
-        android:layout_width="145dp"
-        android:layout_height="24dp"
-        android:alpha=".80"
-        android:text="Welcome!"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    //Short Description
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="239dp"
-        android:layout_height="67dp"
-        android:alpha=".60"
-        android:text="What's Sizzlin' allows you to have the world's best recipes with the ingredients you have."
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="51dp" />
-
-
-    //Name
-    <EditText
-        android:id="@+id/name_id"
-        android:layout_width="62dp"
-        android:layout_height="43dp"
-        android:alpha=".80"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name:"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="134dp" />
-    //FirstName_id
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="127dp"
-        android:layout_height="41dp"
-        android:alpha=".80"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="First Name"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="134dp" />
-    //lastName_id
-    <EditText
-        android:id="@+id/lastName_id"
-        android:layout_width="127dp"
-        android:layout_height="41dp"
-        android:alpha=".80"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Last Name"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="249dp"
-        tools:layout_editor_absoluteY="134dp" />
-
-    //email
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="67dp"
-        android:layout_height="29dp"
-        android:alpha=".80"
-        android:ems="10"
-        android:text="Email:"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="211dp" />
-    //email_id
-    <EditText
-        android:id="@+id/email_ID"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:alpha=".80"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="Enter Email Address"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="204dp" />
-
-    //password
-    <EditText
-        android:id="@+id/Password_ID"
-        android:layout_width="95dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Password: "
-        android:alpha=".80"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="280dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="211dp"
-        android:layout_height="22dp"
-        android:text="Please Choose Your Password"
-        android:alpha=".95"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="13sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="280dp" />
-
-    <EditText
-        android:id="@+id/password_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Enter your password"
-        android:alpha=".95"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="316dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="211dp"
-        android:layout_height="22dp"
-        android:text="Please Enter the Password Again"
-        android:alpha=".95"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="13sp"
-        android:textStyle="italic"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="374dp"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/password_id2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Enter your password again"
-        android:alpha=".95"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="414dp" />
+        <EditText
+            android:id="@+id/editText8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Registration Page"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="0dp" />
 
 
 
+        <EditText
+            android:id="@+id/email_resgistrationid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:paddingBottom="5dp"
+            android:textAlignment="center"
+            android:visibility="visible"
+            android:hint="Email Address"
+           />
+
+
+        <EditText
+            android:id="@+id/password_resgistrationid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textCapCharacters"
+            android:paddingBottom="5dp"
+            android:textAlignment="center"
+            android:visibility="visible"
+            android:selectAllOnFocus="false" />
+
+
+        <Button
+            android:id="@+id/btnRegistrationUser_click"
+            android:onClick="btnRegistrationUser_click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register User" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

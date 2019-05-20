@@ -13,8 +13,28 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!-- Facebook Account Kit -->
+    <style name="AppLoginTheme" parent="Theme.AccountKit" >
+        <item name="android:windowNoTitle">true</item>
 
+        <item name="com_accountkit_primary_color">#FF631D</item>
+        <item name="com_accountkit_primary_text_color">@android:color/white</item>
+        <item name="com_accountkit_secondary_text_color">#FF631D</item>
+        <item name="com_accountkit_status_bar_color">@color/colorApp</item>
+        <!-- Button -->
+        <item name="com_accountkit_button_background_color">@color/colorApp</item>
+        <item name="com_accountkit_button_border_color">@color/colorApp</item>
+        <item name="com_accountkit_button_text_color">@android:color/white</item>
+        <item name="com_accountkit_button_pressed_background_color">#FF631D</item>
+
+        <!-- input -->
+        <item name="com_accountkit_input_accent_color">#FF631D</item>
+        <item name="com_accountkit_input_border_color">#000000</item>
+        <item name="com_accountkit_input_text_color">#000000</item>
+        <item name="com_accountkit_input_background_color">#E9E5ED</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
