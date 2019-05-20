@@ -36,8 +36,7 @@ BottomNavigation
     --------------------
     Screens to Implement
     --------------------
-                  Status
-
+    STATUS
      - SearchActivity - [Not Started]
      - PantryActivity - [Not Started]
      - PreferencesActivity- [Not Started] (This is userProfile)
