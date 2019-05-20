@@ -24,7 +24,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/Slogan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -34,9 +33,9 @@
         <TextView
             android:id="@+id/AppName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:paddingTop="25dp"
+            android:layout_height="127dp"
+            android:fontFamily="fonts/dancingScript"
+            android:paddingTop="50dp"
             android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
             android:text="What's Sizzlin"
             android:textAlignment="center"
@@ -53,7 +52,7 @@
             <ImageView
                 android:id="@+id/wslogo"
                 android:layout_width="match_parent"
-                android:layout_height="192dp"
+                android:layout_height="207dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="false"
                 android:alpha=".99"
@@ -111,7 +110,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="91dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -123,14 +122,13 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <ImageButton
                     android:id="@+id/btnGoogleLogIn"
-                    android:onClick="btnGoogleLogIn_Click"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
+                    android:onClick="btnGoogleLogIn_Click"
                     android:paddingLeft="5sp"
                     android:paddingRight="5sp"
                     android:scaleType="centerCrop"
@@ -139,15 +137,14 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <ImageButton
                     android:id="@+id/btnFacebookLogIn"
-                    android:onClick="btnFacebookLogIn_Click"
                     android:layout_width="90dp"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:onClick="btnFacebookLogIn_Click"
                     android:paddingLeft="5sp"
                     android:paddingRight="5sp"
                     android:scaleType="centerCrop"
@@ -156,15 +153,14 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <ImageButton
                     android:id="@+id/btnTwitterLogIn"
-                    android:onClick="btnTwitterLogIn_Click"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:onClick="btnTwitterLogIn_Click"
                     android:paddingLeft="5sp"
                     android:paddingRight="5sp"
                     android:scaleType="centerCrop"
@@ -173,15 +169,14 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <ImageButton
                     android:id="@+id/btnPhoneNumberLogIn"
-                    android:onClick="btnPhoneNumberLogIn_Click"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:onClick="btnPhoneNumberLogIn_Click"
                     android:paddingLeft="5sp"
                     android:paddingRight="5sp"
                     android:scaleType="centerCrop"
@@ -190,7 +185,7 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
 
                 </Space>
             </LinearLayout>

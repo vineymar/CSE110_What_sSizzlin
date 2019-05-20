@@ -19,28 +19,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         }
 
-    //Registration Button Click
+                                /*Navigation Buttons onClick*/
+
+    /*Registration Button Click*/
     public void btnRegistration_Click(View v){
         startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
     }
-    //Login Button Click
+    /*Login Button Click*/
     public void btnLogin_Click(View v){
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
-    //GoogleLogIn Button Click
+    /*GoogleLogIn Button Click*/
     public void btnGoogleLogIn_Click(View v){
         startActivity(new Intent(MainActivity.this, GoogleActivity.class));
     }
-    //FacebookLogIn Button Click
+    /*FacebookLogIn Button Click*/
     public void btnFacebookLogIn_Click(View v){
         startActivity(new Intent(MainActivity.this, FacebookActivity.class));
     }
-    //TwitterogIn Button Click
+    /*TwitterogIn Button Click*/
     public void btnTwitterLogIn_Click(View v){
         startActivity(new Intent(MainActivity.this, TwitterActivity.class));
     }
-    //PhoneNumberLogIn Button Click
+    /*/PhoneNumberLogIn Button Click*/
     public void btnPhoneNumberLogIn_Click(View v){
         startActivity(new Intent(MainActivity.this, PhoneNumberActivity.class));
     }
+
+                                /*Navigation Buttons onClick*/
 }
