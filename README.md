@@ -6,7 +6,6 @@ Welcome to What's Sizzlin
 This is a test version that I have made. Will probably get rid of the google,facebook and twitter sign in.
 Will keep email address, password, login with phone number, register user buttons
 
-      Status:
 
 TODO:
 -----------
@@ -37,18 +36,20 @@ BottomNavigation
     --------------------
     Screens to Implement
     --------------------
-          Status
      ------------------------------------
+                  Status
+                  ------
      - SearchActivity - [Not Started]
      - PantryActivity - [Not Started]
      - PreferencesActivity- [Not Started] (This is userProfile)
      ------------------------------------
-       As you can tell, these are the screens for each different icon in the BottomNavigationBar [Home, Search, Pantry, Preferences]
+       As you can tell, these are the screens for each different icon in the BottomNavigationBar [Home, Search, Pantry,Preferences]
        
 -----------
 LoginButton
 -----------
 - LoginButton does not authenticate through firebase. I don't know what the deal with that is. Probably some error in my logic. But either way, for test purposes just go ahead and click the login button. 
+
 -----------
 LogoutButton
 -----------
