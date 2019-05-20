@@ -38,7 +38,8 @@ BottomNavigation
      - PantryActivity - [Not Started]
      - PreferencesActivity- [Not Started] (This is userProfile)
      ------------------------------------
-       As you can tell, these are the screens for each different icon in the BottomNavigationBar [Home, Search, Pantry,Preferences]
+       As you can tell, these are the screens for each different icon in the BottomNavigationBar
+                                   [Home, Search, Pantry,Preferences]
        
 -----------
 LoginButton
