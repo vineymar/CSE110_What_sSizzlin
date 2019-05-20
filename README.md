@@ -1,2 +1,3 @@
-# CSE110What-sSizzlin
-Our CSE110 APP
+# CSE110: What's Sizzlin
+
+Welcome to What's Sizzlin
