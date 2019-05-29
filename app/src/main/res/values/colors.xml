@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorApp">#FF631D</color>
+
+    <color name="colorIngredientTag">#ADFF2F</color>
+    <color name="colorCultureTag">#FFFF00</color>
+    <color name="colorCategoryTag">#FFD163</color>
+
 </resources>
