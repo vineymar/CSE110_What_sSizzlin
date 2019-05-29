@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "112381735698",
+    "firebase_url": "https://whatsizzlin.firebaseio.com",
+    "project_id": "whatsizzlin",
+    "storage_bucket": "whatsizzlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112381735698:android:8d05ff32b01d961a",
+        "android_client_info": {
+          "package_name": "com.M8.Sizzlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112381735698-7mh1h5mf4flocv7qpnpmsgf3eomf4ttc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3R3678pj_8_NJDdqkqD9EvgNywhGCwOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112381735698-7mh1h5mf4flocv7qpnpmsgf3eomf4ttc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112381735698:android:af9d32031fcadd8a",
+        "android_client_info": {
+          "package_name": "com.m8.sizzlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112381735698-7mh1h5mf4flocv7qpnpmsgf3eomf4ttc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3R3678pj_8_NJDdqkqD9EvgNywhGCwOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112381735698-7mh1h5mf4flocv7qpnpmsgf3eomf4ttc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112381735698:android:acf7554199e17a7f",
+        "android_client_info": {
+          "package_name": "com.m8.whatssizzlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112381735698-k9bdh7mtimr08u2s3i4e6bv03c5qevsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.m8.whatssizzlin",
+            "certificate_hash": "06b19ae814e3287e97763d95d73a751c3481a016"
+          }
+        },
+        {
+          "client_id": "112381735698-7mh1h5mf4flocv7qpnpmsgf3eomf4ttc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3R3678pj_8_NJDdqkqD9EvgNywhGCwOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112381735698-7mh1h5mf4flocv7qpnpmsgf3eomf4ttc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
