@@ -30,7 +30,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
             boolean isChecked = menuItem.getItemId() == item.getItemId();
             menuItem.setChecked(isChecked);
         }
-
         switch (item.getItemId()) {
             case R.id.NavigationHome:
                 return true;
@@ -44,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 startActivity(new Intent(HomeActivity.this, PreferencesActivity.class));
                 return true;
             default:
-                return true;
+                return onNavigationItemSelected(item);
         }
     }
 //    @Override

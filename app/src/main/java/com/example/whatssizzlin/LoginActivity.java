@@ -29,8 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         /*Email/Password/Verifying links*/
-        email_id = findViewById(R.id.email_id);
-        password_id=findViewById(R.id.password_id);
+        email_id = findViewById(R.id.email_login_id);
+        password_id =findViewById(R.id.password_login_id);
+
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
@@ -54,31 +55,4 @@ public class LoginActivity extends AppCompatActivity {
     }
 }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
-//    }
 
-//    @Override//Check to see if the user is active
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//        updateUI(currentUser);
-//    }
-
-//    private void updateUI(FirebaseUser currentUser) {
-//    }
-//
-//    public void btnLogin_Click(View view){
-//        //get current authorization
-//        firebaseAuth.getInstance();
-//        //get current user
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//
-//
-//    }
-//}

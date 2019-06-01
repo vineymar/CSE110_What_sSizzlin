@@ -1,65 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistrationActivity">
+    android:background="@drawable/backgroundcolor"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="30dp">
+
+
+    //Welcome!
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="10dp"/>
+
+    <TextView
+        android:id="@+id/Welcome"
+        android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+        android:text="Welcome!"
+        android:textSize="65sp"
+        android:layout_height="100dp"
+        android:layout_width="match_parent"
+
+        android:fontFamily="@font/caveat_bold"
+
+
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
+        android:textColorHint="@color/common_google_signin_btn_text_light_pressed"
+        />
+    //WSLogo
+    <ImageView
+        android:id="@+id/wslogo"
+        android:layout_width="500dp"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="false"
+        android:alpha=".99"
+        android:contentDescription="TODO"
+        android:cropToPadding="false"
+        android:paddingTop="10dp"
+        android:src="@drawable/wslogo_white" />
+
 
     <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="715dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText8"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Registration Page"
-            android:textAlignment="center"
-            tools:layout_editor_absoluteX="107dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="1dp"
+                android:layout_height="20dp" />
+
+            //NameID
+
+            <EditText
+                android:id="@+id/name_registration_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/emailshape"
+
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:drawablePadding="10dp"
+                android:hint="Name"
+                android:padding="15dp"
+
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white"
 
 
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                />
 
-        <EditText
-            android:id="@+id/email_resgistrationid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:paddingBottom="5dp"
-            android:textAlignment="center"
-            android:visibility="visible"
-            android:hint="Email Address"
-           />
+            //emailAddress
 
+            <EditText
+                android:id="@+id/email_registration_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/emailshape"
 
-        <EditText
-            android:id="@+id/password_resgistrationid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textCapCharacters"
-            android:paddingBottom="5dp"
-            android:textAlignment="center"
-            android:visibility="visible"
-            android:selectAllOnFocus="false" />
+                android:drawableLeft="@drawable/ic_email_black_24dp"
+                android:drawablePadding="10dp"
+                android:hint="Email Address"
+                android:padding="15dp"
 
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white"
 
-        <Button
-            android:id="@+id/btnRegistrationUser_click"
-            android:onClick="btnRegistrationUser_click"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Register User" />
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                />
 
+            //passwordid
+            <EditText
+                android:id="@+id/password_registration_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/emailshape"
+                android:drawableLeft="@drawable/ic_lock_open_black_24dp"
+                android:drawablePadding="10dp"
+
+                android:hint="Password"
+                android:padding="15dp"
+
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white"
+
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                />
+            <CheckBox
+                android:text="Show Password"
+                android:id="@+id/show_password_id"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:checked="true"/>
+
+            <Space
+                android:layout_width="1dp"
+                android:layout_height="10dp" />
+
+            <Button
+                android:id="@+id/btnRegistration"
+                android:onClick="btnRegistrationUser_click"
+                android:background="@drawable/loginshape"
+
+                android:padding="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="30dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:shadowColor="@android:color/transparent"
+                android:text="Register Now" />
+
+            <Button
+                android:id="@+id/btnAlreadyMember"
+                android:onClick="btnAlreadyRegister_Click"
+                android:text="ALREADY A USER - CLICK HERE TO LOG IN"
+                android:textSize="12sp"
+                android:layout_height="34dp"
+
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white"
+                android:textAllCaps="false"
+                />
+
+        </LinearLayout>
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

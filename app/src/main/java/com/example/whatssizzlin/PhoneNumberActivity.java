@@ -19,8 +19,6 @@ import com.facebook.accountkit.ui.LoginType;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import butterknife.ButterKnife;
 /*            //Facebook stuff               */
 
 public class PhoneNumberActivity extends AppCompatActivity {
@@ -32,15 +30,16 @@ public class PhoneNumberActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         AccessToken accessToken = AccountKit.getCurrentAccessToken();
-        if (accessToken != null) {
-
-        } else { //we're already logged in
-            phoneLogin();
-            setContentView(R.layout.activity_home);
-            ButterKnife.bind(PhoneNumberActivity.this);
-        }
+//        if (accessToken != null) {
+//
+//        } else { //we're already logged in
+//            phoneLogin();
+//            ButterKnife.bind(PhoneNumberActivity.this);
+//            setContentView(R.layout.activity_home);
+//        }
+        phoneLogin();
     }
 
     public void phoneLogin() {
