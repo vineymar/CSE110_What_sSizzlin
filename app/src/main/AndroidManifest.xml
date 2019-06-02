@@ -43,9 +43,6 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".PhoneNumberActivity" />
 
-        <activity android:name=".TwitterActivity" />
-        <activity android:name=".FacebookActivity" />
-        <activity android:name=".GoogleActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity

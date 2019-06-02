@@ -1,37 +1,43 @@
 package com.example.whatssizzlin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText email_id, password_id;
     private CheckBox checkBoxShowPwd;
-
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
         addOnListenerShowPassword();
-        /*For password hidden feature*/
-        email_id = findViewById(R.id.email_login_id);
-        password_id = findViewById(R.id.password_login_id);
+        email_id=findViewById(R.id.email_login_id);
+        password_id=findViewById(R.id.password_login_id);
+        firebaseAuth = FirebaseAuth.getInstance();
     }
-
-
-
-
                                 /*Navigation Buttons onClick*/
-
     /*for hiding password feature*/
     public void addOnListenerShowPassword(){
         checkBoxShowPwd = findViewById(R.id.show_password_id);
@@ -51,18 +57,41 @@ public class MainActivity extends AppCompatActivity {
         });
         /*End password hidden feature*/
     }
+
     /*Registration Button Click*/
     public void btnRegistration_Click(View v){
-        setContentView(R.layout.activity_registration);
+        //setContentView(R.layout.activity_registration);
+        startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
     }
     /*Login Button Click*/
     public void btnLogin_Click(View v){
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        final ProgressDialog progressDialog = ProgressDialog.show(MainActivity.this, "Please wait...", "Proccessing...", true);
+
+        (firebaseAuth.signInWithEmailAndPassword(email_id.getText().toString(), password_id.getText().toString()))
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+
+                        if (task.isSuccessful()) {
+                            String email =firebaseAuth.getCurrentUser().getEmail();
+                            Toast.makeText(MainActivity.this, "Welcome, ",  Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                            i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
+                            startActivity(i);
+                        } else {
+                            Log.e("ERROR", task.getException().toString());
+                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
     }
     /*/PhoneNumberLogIn Button Click*/
     public void btnPhoneNumberLogIn_Click(View v){
         startActivity(new Intent(MainActivity.this, PhoneNumberActivity.class));
     }
+
 
                                 /*Navigation Buttons onClick*/
 }

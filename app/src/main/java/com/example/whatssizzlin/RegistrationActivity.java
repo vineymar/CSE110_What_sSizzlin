@@ -32,32 +32,32 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        FirebaseApp.initializeApp(this);
         addOnListenerShowPassword();
+        FirebaseApp.initializeApp(this);
 
-        /*Underline clickable link in registration page "Already a member - log in"*/
-        Button button = (Button) findViewById(R.id.btnAlreadyMember);
-        button.setPaintFlags(button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        /*Underline clickable link in registration page "Already a member - log in"*/
 
         /*Initialize stuff*/
         email_id = findViewById(R.id.email_registration_id);
         password_id = findViewById(R.id.password_registration_id);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        /*Underline clickable link in registration page "Already a member - log in"*/
+        Button button = (Button) findViewById(R.id.btnAlreadyMember);
+        button.setPaintFlags(button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        /*Underline clickable link in registration page "Already a member - log in"*/
     }
-
 
     /*for hiding password feature*/
     public void addOnListenerShowPassword() {
-        checkBoxShowPwd = findViewById(R.id.show_password_id);
+        checkBoxShowPwd = findViewById(R.id.show_password_registration_id);
         checkBoxShowPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // checkbox status is changed from uncheck to checked.
-                if (!isChecked) {
+                if (isChecked) {
                     // show password
                     password_id.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 } else {
@@ -69,34 +69,31 @@ public class RegistrationActivity extends AppCompatActivity {
         /*End password hidden feature*/
     }
 
+    /*Already a User Button Click*/
+    public void btnAlreadyRegister_Click(View v) {
+        startActivity(new Intent(this, MainActivity.class));
+    }
 
-
-
-    public void btnRegistrationUser_click(View v) {
-        final ProgressDialog progressDialog = ProgressDialog.show(RegistrationActivity.this,
-                "Please wait...", "Processing...", true);
-
-        (firebaseAuth.createUserWithEmailAndPassword(email_id.getText().toString(), email_id.getText().toString()))
+    /*Register Now Button Pressed*/
+    public void btnRegistrationUser_Click(View v) {
+        final ProgressDialog progressDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait...", "Processing...", true);
+        (firebaseAuth.createUserWithEmailAndPassword(email_id.getText().toString(), password_id.getText().toString()))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(RegistrationActivity.this, "Registration Successful!", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(RegistrationActivity.this, MainActivity.class);
-                            startActivity(i);
-                        } else {
-                            Log.e("Error", task.getException().toString());
+                            Toast.makeText(RegistrationActivity.this, "Registration successful, Welcome!", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(RegistrationActivity.this, HomeActivity.class));
+                        }
+                        else
+                        {
+                            Log.e("ERROR", task.getException().toString());
                             Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-    }
 
-    /*Already a User Button Click*/
-    public void btnAlreadyRegister_Click(View v) {
-        startActivity(new Intent(this, MainActivity.class));
     }
 }
 
