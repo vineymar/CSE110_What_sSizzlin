@@ -43,7 +43,6 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".PhoneNumberActivity" />
 
-        <activity android:name=".LoginActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity
             android:name=".MainActivity"
