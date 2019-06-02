@@ -26,12 +26,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mTimes = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, Context context) {
-        this.mContext = context;
+    public RecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> times,  Context context) {
         this.mNames = names;
         this.mImageUrls = imageUrls;
+        this.mTimes = times;
+        this.mContext = context;
     }
 
     @NonNull
@@ -51,7 +53,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .into(holder.image);
 
         holder.image_name.setText(mNames.get(position));
+        holder.image_time.setText(mTimes.get(position));
 
+        /*OnClickListener circuluarView*/
         holder.image.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -71,6 +75,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         CircleImageView image;
         TextView image_name;
+        TextView image_time;
 
         //default constructor
 
@@ -78,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             image = itemView.findViewById(R.id.image_view);
             image_name = itemView.findViewById(R.id.name);
+            image_time = itemView.findViewById(R.id.time);
         }
     }
 

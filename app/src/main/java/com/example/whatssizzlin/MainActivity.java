@@ -91,7 +91,5 @@ public class MainActivity extends AppCompatActivity {
     public void btnPhoneNumberLogIn_Click(View v){
         startActivity(new Intent(MainActivity.this, PhoneNumberActivity.class));
     }
-
-
-                                /*Navigation Buttons onClick*/
+                            /*Navigation Buttons onClick*/
 }
