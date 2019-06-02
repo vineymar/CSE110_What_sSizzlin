@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.txt_skip)
     TextView txt_skip;
+
 
     @OnClick(R.id.btn_login)
     void loginUser() {

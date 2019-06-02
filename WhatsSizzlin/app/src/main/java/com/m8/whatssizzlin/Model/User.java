@@ -1,17 +1,17 @@
 package com.m8.whatssizzlin.Model;
 
 public class User {
-    private String name, address, email, one, two, phoneNumber;
+    private String name, address, email, preference, two, phoneNumber;
 
     public User() {
 
     }
 
-    public User(String name, String address, String email, String one, String two, String phoneNumber) {
+    public User(String name, String address, String email, String preference, String two, String phoneNumber) {
         this.name = name;
         this.address = address;
         this.email = email;
-        this.one = one;
+        this.preference = preference;
         this.two = two;
         this.phoneNumber = phoneNumber;
     }
@@ -40,12 +40,12 @@ public class User {
         this.email = email;
     }
 
-    public String getOne() {
-        return one;
+    public String getPreference() {
+        return preference;
     }
 
-    public void setOne(String one) {
-        this.one = one;
+    public void setPreference(String preference) {
+        this.preference = preference;
     }
 
     public String getTwo() {

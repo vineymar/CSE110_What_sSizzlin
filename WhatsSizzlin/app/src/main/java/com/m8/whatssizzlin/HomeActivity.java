@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.facebook.accountkit.Account;
@@ -47,11 +48,15 @@ public class HomeActivity extends AppCompatActivity {
 
     AlertDialog dialog;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(HomeActivity.this);
+
+
 
 
         userRef = FirebaseFirestore.getInstance().collection("User");
@@ -73,6 +78,9 @@ public class HomeActivity extends AppCompatActivity {
                                         DocumentSnapshot userSnapshot = task.getResult();
                                         if (!userSnapshot.exists()) {
                                             showUpdateDialog(account.getPhoneNumber().toString());
+                                        } else {
+                                            Common.currenUser = userSnapshot.toObject(User.class);
+                                            bottomNavigationView.setSelectedItemId(R.id.action_home);
                                         }
                                         if (dialog.isShowing()) {
                                             dialog.dismiss();
@@ -85,13 +93,15 @@ public class HomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(AccountKitError accountKitError) {
-                        Toast.makeText(HomeActivity.this, ""+accountKitError.getErrorType().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this, ""+accountKitError.getErrorType().
+                                getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         }
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.
+                OnNavigationItemSelectedListener() {
             Fragment fragment = null;
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -108,8 +118,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavigationView.setSelectedItemId(R.id.action_home);
+
     }
+
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
@@ -131,7 +142,7 @@ public class HomeActivity extends AppCompatActivity {
         final TextInputEditText edt_name = (TextInputEditText)sheetView.findViewById(R.id.edit_name);
         final TextInputEditText edt_address = (TextInputEditText)sheetView.findViewById(R.id.edit_address);
         final TextInputEditText edt_email = (TextInputEditText)sheetView.findViewById(R.id.edit_email);
-        final TextInputEditText edt_one = (TextInputEditText)sheetView.findViewById(R.id.edit_one);
+        final TextInputEditText edt_preference = (TextInputEditText)sheetView.findViewById(R.id.edit_preference);
         final TextInputEditText edt_two = (TextInputEditText)sheetView.findViewById(R.id.edit_two);
 
         btn_update.setOnClickListener(new View.OnClickListener() {
@@ -140,8 +151,8 @@ public class HomeActivity extends AppCompatActivity {
                 if (!dialog.isShowing()) {
                     dialog.show();
                 }
-                User user = new User(edt_name.getText().toString(), edt_address.getText().toString(),
-                        edt_email.getText().toString(), edt_one.getText().toString(),
+                final User user = new User(edt_name.getText().toString(), edt_address.getText().toString(),
+                        edt_email.getText().toString(), edt_preference.getText().toString(),
                         edt_two.getText().toString(), phoneNumber);
 
                 userRef.document(phoneNumber).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -151,6 +162,10 @@ public class HomeActivity extends AppCompatActivity {
                         if (dialog.isShowing()) {
                             dialog.dismiss();
                         }
+
+                        Common.currenUser = user;
+                        bottomNavigationView.setSelectedItemId(R.id.action_home);
+
                         Toast.makeText(HomeActivity.this, "Thank you", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
