@@ -2,7 +2,6 @@ package com.example.whatssizzlin.Fragments;
 
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetDialog;
@@ -14,18 +13,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.whatssizzlin.Common.Common;
-import com.example.whatssizzlin.MainActivity;
 import com.example.whatssizzlin.R;
-import com.example.whatssizzlin.Service.PicassonImageLoadingService;
-import com.facebook.accountkit.AccountKit;
 import com.google.firebase.firestore.CollectionReference;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
-import ss.com.bannerslider.Slider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,36 +55,8 @@ public class PreferencesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_preferences, container, false);
-        unbinder = ButterKnife.bind(this, view);
-
-        Slider.init(new PicassonImageLoadingService());
-
-        if (AccountKit.getCurrentAccessToken() != null) {
-            setUserInformation();
-        }
-
-        return view;
+        return null;
     }
 
-    @OnClick(R.id.btn_edit)
-    void editUserInformation() {
-
-    }
-
-    @OnClick(R.id.btn_logout)
-    void logoutUser() {
-        AccountKit.logOut();
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-    }
-
-
-
-    private void setUserInformation() {
-        layout_user_information.setVisibility(View.VISIBLE);
-        txt_user_name.setText(Common.currenUser.getName());
-        txt_user_preference.setText(Common.currenUser.getPreference());
-    }
 
 }

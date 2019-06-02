@@ -5,22 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-
-import com.example.whatssizzlin.Fragments.HomeFragment;
-import com.example.whatssizzlin.Fragments.PantryFragment;
-import com.example.whatssizzlin.Fragments.PreferencesFragment;
-import com.example.whatssizzlin.Fragments.SearchFragment;
-import com.google.firebase.firestore.CollectionReference;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 /*---------------------------Imports-------------------------------*/
 
@@ -40,12 +34,16 @@ public class HomeActivity extends AppCompatActivity {
     /*For our images into our view*/
 
 
-    @BindView(R.id.BottomNavigation)
-    BottomNavigationView bottomNavigationView;
+    /*Fragments and Navigation Bar*/
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout mainFrameView;
+    private HomeFragment homeFragment;
+    private SearchFragment searchFragment;
+    private PantryFragment pantryFragment;
+    private PreferenceFragment preferenceFragment;
+    /*Fragments and Navigation Bar*/
 
-    CollectionReference userRef;
-    AlertDialog dialog;
-    /*Bottom Navigation*/
+
 
     /*OnCreate method*/
     @Override
@@ -53,45 +51,62 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(HomeActivity.this);
-        getRecommendedImages();
+        //getRecommendedImages();
 
 
+        mainFrameView=findViewById(R.id.main_frame);
+        bottomNavigationView = findViewById(R.id.BottomNavigation);
         /*Bottom Navigation stuff*/
+        homeFragment = new HomeFragment();
+        searchFragment = new SearchFragment();
+        pantryFragment = new PantryFragment();
+        preferenceFragment = new PreferenceFragment();
+        setFragment(homeFragment);
+
+        /*Navigation bar clicking*/
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.
                 OnNavigationItemSelectedListener() {
-            Fragment fragment = null;
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                if (menuItem.getItemId() == R.id.NavigationHome) {
-//                    fragment = new HomeFragment();
-//                } else if (menuItem.getItemId() == R.id.NavigationSearch) {
-//                    fragment = new SearchFragment();
-//                } else if (menuItem.getItemId() == R.id.NavigationPantry) {
-//                    fragment = new PantryFragment();
-//                } else if (menuItem.getItemId() == R.id.NavigationPreferences) {
-//                    fragment = new PreferencesFragment();
-//                }
-                switch(menuItem.getItemId()){
-                    case R.id.NavigationHome: fragment = new HomeFragment(); break;
-                    case R.id.NavigationSearch: fragment = new SearchFragment(); break;
-                    case R.id.NavigationPantry: fragment = new PantryFragment(); break;
-                    case R.id.NavigationPreferences: fragment = new PreferencesFragment(); break;
+                switch (menuItem.getItemId()) {
+                    case R.id.NavigationHome:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(homeFragment);
+                        return true;
+                    case R.id.NavigationSearch:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(searchFragment);
+                        return true;
+                    case R.id.NavigationPantry:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(pantryFragment);
+                        return true;
+                    case R.id.NavigationPreferences:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(preferenceFragment);
+                        return true;
+                        default:
+                            return false;
                 }
-                return loadFragment(fragment);
+            }
+            private void setFragment(Fragment fragment) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_frame, fragment);
+                fragmentTransaction.commit();
+
             }
         });
 
+    }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.commit();
 
     }
 
-    private boolean loadFragment(Fragment fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-            return true;
-        }
-        return false;
-    }
-
+//
     private void getRecommendedImages(){
         Log.d(TAG, "Inside getImages: ");
 
@@ -136,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
         mFavTimes.add("30 min");
         /*Favorite end For loop ideally*/
 
-        initRecyclerView();
+      initRecyclerView();
     }
 
     private void initRecyclerView(){

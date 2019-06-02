@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.PantryFragment">
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/BottomNavigation">
+    tools:context=".HomeFragment"
+    android:layout_above="@+id/BottomNavigation">
 
         <LinearLayout
+            android:id="@+id/linearLayoutPantry"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -24,16 +18,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/caveat_bold"
                 android:text="My Pantry"
+                android:background="@drawable/text_border"
                 android:textAlignment="center"
                 android:textColor="#FF631D"
                 android:textSize="70sp"
                 android:typeface="normal" />
-            <Button
-                android:id="@+id/addBtn"
-                android:text="Add an Ingredient"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                />
+
             <EditText
                 android:id="@+id/ingredient_id"
                 android:layout_width="match_parent"
@@ -41,7 +31,8 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/emailshape"
                 android:drawablePadding="10dp"
-                android:hint="Ingredient"
+                android:hint="Add Ingredient Here"
+                android:textAlignment="center"
                 android:imeOptions="actionNext"
                 android:padding="15dp"
                 android:singleLine="true"
@@ -50,17 +41,24 @@
                 android:textColorHighlight="#FF631D"
                 android:textColorHint="#FF631D" />
 
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="142dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/backgroundcolor"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Add an Ingredient"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:textSize="20dp" />
+
             <ListView
-                android:id="@+id/ingredientList"
+                android:id="@+id/ingredientListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
 
-
-
-
         </LinearLayout>
-    </FrameLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>

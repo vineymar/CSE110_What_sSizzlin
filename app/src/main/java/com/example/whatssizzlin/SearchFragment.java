@@ -1,4 +1,4 @@
-package com.example.whatssizzlin.Fragments;
+package com.example.whatssizzlin;
 
 
 import android.os.Bundle;
@@ -7,15 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.whatssizzlin.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PantryFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
 
-    public PantryFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +23,7 @@ public class PantryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pantry2, container, false);
+        return inflater.inflate(R.layout.fragment_search2, container, false);
     }
 
 }

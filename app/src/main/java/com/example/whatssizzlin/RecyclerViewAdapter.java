@@ -27,13 +27,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mTimes = new ArrayList<>();
+    private HomeFragment homeFragment;
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> times,  Context context) {
+    public RecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> times, Context context) {
         this.mNames = names;
         this.mImageUrls = imageUrls;
         this.mTimes = times;
-        this.mContext = context;
+        this.mContext=context;
+        //this.mContext = context;
+
     }
 
     @NonNull
