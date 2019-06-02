@@ -1,18 +1,13 @@
 package com.example.whatssizzlin;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,11 +17,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,18 +62,6 @@ public class SearchActivity extends AppCompatActivity {
         tags = new ArrayList<>();
         getTags();
         setupSearchBar();
-
-
-        /*tagButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        addTagToChipGroup(tagText.getText().toString());
-                        tagText.setText("");
-                    }
-                }
-        );*/
-
 
     }
 
@@ -130,11 +111,10 @@ public class SearchActivity extends AppCompatActivity {
 
     private void addTagToChipGroup(Tag tag){
         tagText.setText("");
-        if(tag.getName().trim().isEmpty()) return;
         final Chip chip = new Chip(this);
         chip.setText(tag.getName());
         chip.setCloseIconVisible(true);
-        chip.setChipBackgroundColor(getResources().getColorStateList(getTagColor(tag)));
+        chip.setChipBackgroundColor(getResources().getColorStateList(tag.getTagColor()));
         chip.setOnCloseIconClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -155,18 +135,19 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getTags(){
         List<String> ingredients = Arrays.asList(getResources().getStringArray(R.array.ingredients));
+        int i = 0;
         for(String ingredient : ingredients){
-            tags.add(new Tag(ingredient, Tag.INGREDIENT));
+            tags.add(new IngredientTag(ingredient,i++));
         }
 
         List<String> cultures = Arrays.asList(getResources().getStringArray(R.array.culture));
         for(String culture : cultures){
-            tags.add(new Tag(culture, Tag.CULTURE));
+            tags.add(new CultureTag(culture,i++));
         }
 
         List<String> categories = Arrays.asList(getResources().getStringArray(R.array.category));
         for(String category : categories){
-            tags.add(new Tag(category, Tag.CATEGORY));
+            tags.add(new CategoryTag(category, i++));
         }
 
     }
@@ -186,7 +167,7 @@ public class SearchActivity extends AppCompatActivity {
             if(tag.getName().startsWith(name) || tag.getName().contains(" "+name)){
                 TextView txt = new TextView(this);
                 txt.setText(tag.getName());
-                txt.setBackgroundColor(getResources().getColor(getTagColor(tag)));
+                txt.setBackgroundColor(getResources().getColor(tag.getTagColor()));
                 txt.setClickable(true);
                 txt.setOnClickListener(
                         new View.OnClickListener() {
@@ -213,25 +194,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-    private int getTagColor(Tag tag) {
-        int tagColor;
-        switch(tag.getType()){
-            case Tag.INGREDIENT:
-                tagColor = R.color.colorIngredientTag;
-                break;
-            case Tag.CULTURE:
-                tagColor = R.color.colorCultureTag;
-                break;
-            case Tag.CATEGORY:
-                tagColor = R.color.colorCategoryTag;
-                break;
-            default:
-                tagColor = android.R.color.black;
-
-        }
-        return tagColor;
     }
 
     //https://stackoverflow.com/questions/6677969/tap-outside-edittext-to-lose-focus/36411427

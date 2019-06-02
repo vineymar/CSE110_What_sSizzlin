@@ -12,6 +12,7 @@
         android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="50dp"
         android:layout_alignParentTop="true">
 
     </android.support.design.chip.ChipGroup>
@@ -111,5 +112,46 @@
         </android.support.design.chip.ChipGroup>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serving Size"/>
+            <EditText
+                android:id="@+id/serving_min_txt"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:inputType="number"
+                />
+            <EditText
+                android:id="@+id/serving_max_txt"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:inputType="number"
+                />
+        </LinearLayout>
+        <com.edmodo.rangebar.RangeBar
+            xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/servings_range"
+            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            custom:tickCount="7"
+            />
+
+
+    </LinearLayout>>
 
 </RelativeLayout>
