@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
     /*TwitterogIn Button Click*/
     public void btnTwitterLogIn_Click(View v){
-        startActivity(new Intent(MainActivity.this, TwitterActivity.class));
+        startActivity(new Intent(MainActivity.this, SearchActivity.class));
     }
     /*/PhoneNumberLogIn Button Click*/
     public void btnPhoneNumberLogIn_Click(View v){
