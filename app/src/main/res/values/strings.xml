@@ -7,6 +7,9 @@
     <string name="action_settings">Settings</string>
     <string name="Slogan">Whether you\'re someone who likes to cook on the weekends for your friends and family, an amateur chef that dares to take a leap of faith on the next dish, or a professional who always aspires to learn, What\'s Sizzlin is the app that let\'s you pick your ingredients to create a 5 star meal of your choice. </string>
 
+
+    <string name="Already_A_User"><u>ALREADY A USER - LOG IN</u></string>
+
     //added
     <string name="title_home">Home</string>
     <string name="title_preferences">Preferences</string>

@@ -30,54 +30,48 @@
 
     <LinearLayout
         android:layout_width="406dp"
-        android:layout_height="532dp"
+        android:layout_height="666dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
+            android:fontFamily="@font/caveat_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recommended"
             android:textColor="#FF631D"
-            android:textSize="22sp"
+            android:textSize="50sp"
             android:typeface="normal" />
 
-        <HorizontalScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="220dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </HorizontalScrollView>
+
+        </android.support.v7.widget.RecyclerView>
 
         <TextView
             android:id="@+id/textView2"
+            android:fontFamily="@font/caveat_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Favorites"
             android:textColor="#FF631D"
-            android:textSize="22sp" />
+            android:textSize="50sp" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
+            android:layout_height="230dp">
         </HorizontalScrollView>
+
 
     </LinearLayout>
 
