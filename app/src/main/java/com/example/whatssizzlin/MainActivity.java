@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         email_id=findViewById(R.id.email_login_id);
         password_id=findViewById(R.id.password_login_id);
         firebaseAuth = FirebaseAuth.getInstance();
+
     }
                                 /*Navigation Buttons onClick*/
     /*for hiding password feature*/
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
     /*Login Button Click*/
     public void btnLogin_Click(View v){
+        //firebaseAuth = FirebaseAuth.getInstance();
         final ProgressDialog progressDialog = ProgressDialog.show(MainActivity.this, "Please wait...", "Proccessing...", true);
 
         (firebaseAuth.signInWithEmailAndPassword(email_id.getText().toString(), password_id.getText().toString()))
@@ -91,7 +93,5 @@ public class MainActivity extends AppCompatActivity {
     public void btnPhoneNumberLogIn_Click(View v){
         startActivity(new Intent(MainActivity.this, PhoneNumberActivity.class));
     }
-
-
-                                /*Navigation Buttons onClick*/
+                            /*Navigation Buttons onClick*/
 }

@@ -1,75 +1,114 @@
 package com.example.whatssizzlin;
 /*---------------------------Imports-------------------------------*/
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+
+import java.util.ArrayList;
+
+import butterknife.ButterKnife;
 /*---------------------------Imports-------------------------------*/
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    private BottomNavigationView mBtmView;
-    private int mMenuId;
+public class HomeActivity extends AppCompatActivity {
+
+    private final static String TAG = "HomeActivity: Imaging";
+    /*For our images into our Recommended view*/
+    private ArrayList<String> mRecNames = new ArrayList<>();
+    private ArrayList<String> mRecImageUrls = new ArrayList<>();
+    private ArrayList<String> mRecTimes = new ArrayList<>();
+    /*For our images into our view*/
+
+    /*For our images into our Recommended view*/
+    private ArrayList<String> mFavNames = new ArrayList<>();
+    private ArrayList<String> mFavImageUrls = new ArrayList<>();
+    private ArrayList<String> mFavTimes = new ArrayList<>();
+    /*For our images into our view*/
+
+    final int DISPLAY_CATEGORY_COUNT = 2;
+
+    int calls = 0;
+
+    /*Fragments and Navigation Bar*/
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout mainFrameView;
+    private HomeFragment homeFragment;
+    private SearchFragment searchFragment;
+    private PantryFragment pantryFragment;
+    private PreferenceFragment preferenceFragment;
+    /*Fragments and Navigation Bar*/
+
+
+
     /*OnCreate method*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mBtmView = (BottomNavigationView) findViewById(R.id.BottomNavigation);
-        mBtmView.setOnNavigationItemSelectedListener(this);
-        mBtmView.getMenu().findItem(R.id.NavigationHome).setChecked(true);
+        ButterKnife.bind(HomeActivity.this);
+        //getRecommendedImages();
+
+
+        mainFrameView=findViewById(R.id.main_frame);
+        bottomNavigationView = findViewById(R.id.BottomNavigation);
+        /*Bottom Navigation stuff*/
+        homeFragment = new HomeFragment();
+        searchFragment = new SearchFragment();
+        pantryFragment = new PantryFragment();
+        preferenceFragment = new PreferenceFragment();
+        setFragment(homeFragment);
+
+        /*Navigation bar clicking*/
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.
+                OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.NavigationHome:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(homeFragment);
+                        return true;
+                    case R.id.NavigationSearch:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(searchFragment);
+                        return true;
+                    case R.id.NavigationPantry:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(pantryFragment);
+                        return true;
+                    case R.id.NavigationPreferences:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(preferenceFragment);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            private void setFragment(Fragment fragment) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_frame, fragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+
     }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // uncheck the other items.
-        mMenuId = item.getItemId();
-        for (int i = 0; i < mBtmView.getMenu().size(); i++) {
-            MenuItem menuItem = mBtmView.getMenu().getItem(i);
-            boolean isChecked = menuItem.getItemId() == item.getItemId();
-            menuItem.setChecked(isChecked);
-        }
-        switch (item.getItemId()) {
-            case R.id.NavigationHome:
-                return true;
-            case R.id.NavigationSearch:
-                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
-                return true;
-            case R.id.NavigationPantry:
-                startActivity(new Intent(HomeActivity.this, PantryActivity.class));
-                return true;
-            case R.id.NavigationPreferences:
-                startActivity(new Intent(HomeActivity.this, PreferencesActivity.class));
-                return true;
-            default:
-                return onNavigationItemSelected(item);
-        }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.commit();
     }
-//    @Override
-////    public boolean onCreateOptionsMenu(Menu menu) {
-////        MenuInflater inflater = getMenuInflater();
-////        inflater.inflate(R.menu.navigation, menu);
-////        return true;
-////    }
-////
-////    @Override
-////    public boolean onOptionsItemSelected(MenuItem item) {
-////        // Handle item selection
-////        switch (item.getItemId()) {
-////            case R.id.NavigationHome:
-////                return true;
-////            case R.id.NavigationSearch:
-////                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
-////                return true;
-////            case R.id.NavigationPantry:
-////                startActivity(new Intent(HomeActivity.this, PantryActivity.class));
-////                return true;
-////            case R.id.NavigationPreferences:
-////                startActivity(new Intent(HomeActivity.this, PreferencesActivity.class));
-////                return true;
-////            default:
-////                return super.onOptionsItemSelected(item);
-////        }
-////    }
+
+
+
+
+
+
+
 }

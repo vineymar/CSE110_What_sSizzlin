@@ -3,48 +3,72 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="1dp">
+    android:layout_margin="1dp"
+    android:background="@android:color/white">
 
     <android.support.v7.widget.CardView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:cardCornerRadius="4dp"
-        app:cardMaxElevation="2dp"
+        android:layout_width="300dp"
+        android:layout_height="360dp"
+        app:cardCornerRadius="6dp"
+        app:cardMaxElevation="4dp"
         app:cardElevation="1dp"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        >
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_view"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="300dp"
+                android:layout_height="160dp"
                 android:scaleType="centerCrop"
+                app:civ_border_width="4dp"
+                app:civ_border_color="#FF631D"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/backgroundcolor"/>
+                />
+
 
             <TextView
-                android:text="Name_test"
                 android:id="@+id/name"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_height="20dp"
-                android:autoSizeMinTextSize="8sp"
-                android:autoSizeMaxTextSize="15sp"
-
-                android:layout_width="wrap_content"
+                android:layout_width="229dp"
+                android:layout_height="31dp"
                 android:layout_below="@+id/image_view"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="3dp"
+
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="14sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
 
-                android:textColor="#000"
+                android:text="Name_test"
 
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="80dp"
+
+                android:layout_height="30dp"
+                android:layout_below="@+id/name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="14sp"
                 android:autoSizeTextType="uniform"
-                />
+                android:gravity="center"
+
+                android:text="time_test"
+
+                android:textColor="#000" />
 
         </RelativeLayout>
 

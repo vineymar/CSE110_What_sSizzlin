@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment"
+    android:layout_above="@+id/BottomNavigation">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPantry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:text="My Pantry"
+                android:background="@drawable/text_border"
+                android:textAlignment="center"
+                android:textColor="#FF631D"
+                android:textSize="70sp"
+                android:typeface="normal" />
+
+            <EditText
+                android:id="@+id/ingredient_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/emailshape"
+                android:drawablePadding="10dp"
+                android:hint="Add Ingredient Here"
+                android:textAlignment="center"
+                android:imeOptions="actionNext"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="#ff631D"
+                android:fontFamily="@font/caveat_bold"
+                android:textColorHighlight="#FF631D"
+                android:textColorHint="#FF631D" />
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="142dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/backgroundcolor"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Add an Ingredient"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/ingredientListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </LinearLayout>
+
+</FrameLayout>
