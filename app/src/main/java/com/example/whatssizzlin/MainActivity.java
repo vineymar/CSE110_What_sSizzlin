@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             String email =firebaseAuth.getCurrentUser().getEmail();
+                            RegistrationActivity.name = firebaseAuth.getCurrentUser().getDisplayName();
                             Toast.makeText(MainActivity.this, "Welcome, ",  Toast.LENGTH_LONG).show();
                             Intent i = new Intent(MainActivity.this, HomeActivity.class);
                             i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
