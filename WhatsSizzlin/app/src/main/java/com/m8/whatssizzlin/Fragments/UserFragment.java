@@ -9,6 +9,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.m8.whatssizzlin.Common.Common;
+import com.m8.whatssizzlin.CookBookActivity;
+import com.m8.whatssizzlin.EditActivity;
 import com.m8.whatssizzlin.HomeActivity;
 import com.m8.whatssizzlin.MainActivity;
 import com.m8.whatssizzlin.Model.User;
@@ -40,14 +43,6 @@ import ss.com.bannerslider.adapters.SliderAdapter;
  */
 public class UserFragment extends Fragment {
 
-    BottomNavigationView bottomNavigationView;
-
-    BottomSheetDialog bottomSheetDialog;
-
-    CollectionReference userRef;
-
-    AlertDialog dialog;
-
     private Unbinder unbinder;
 
     @BindView(R.id.layout_user_information)
@@ -56,10 +51,17 @@ public class UserFragment extends Fragment {
     TextView txt_user_name;
     @BindView(R.id.txt_user_preference)
     TextView txt_user_preference;
-    @BindView(R.id.btn_edit)
-    Button btn_edit;
     @BindView(R.id.btn_logout)
     Button btn_logout;
+    @OnClick(R.id.card_edit)
+    void editInfo() {
+        startActivity(new Intent(getActivity(), EditActivity.class));
+    }
+    @OnClick(R.id.card_cookbook)
+    void cookBook() {
+        startActivity(new Intent(getActivity(), CookBookActivity.class));
+    }
+
 
 
     public UserFragment() {
@@ -83,10 +85,6 @@ public class UserFragment extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.btn_edit)
-    void editUserInformation() {
-
-    }
 
     @OnClick(R.id.btn_logout)
     void logoutUser() {
