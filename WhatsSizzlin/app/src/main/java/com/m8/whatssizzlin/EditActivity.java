@@ -40,43 +40,12 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         ButterKnife.bind(EditActivity.this);
 
+
+
         userRef = FirebaseFirestore.getInstance().collection("User");
 
-        if (getIntent() != null) {
-            boolean isLogin = getIntent().getBooleanExtra(Common.IS_LOGIN, false);
-            if (true) {
-                AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
-                    @Override
-                    public void onSuccess(final Account account) {
-                        if (account != null) {
-                            DocumentReference currentUser = userRef.document(account.getPhoneNumber().toString());
-                            currentUser.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot userSnapshot = task.getResult();
-                                        if (!userSnapshot.exists()) {
-                                            showUpdateDialog(account.getPhoneNumber().toString());
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    }
 
-                    @Override
-                    public void onError(AccountKitError accountKitError) {
-                        Toast.makeText(EditActivity.this, ""+accountKitError.getErrorType().
-                                getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }
-    }
-
-    private void showUpdateDialog(final String phoneNumber) {
-
-        View sheetView = getLayoutInflater().inflate(R.layout.layout_update_information, null);
+        View sheetView = getLayoutInflater().inflate(R.layout.activity_cook_book, null);
 
         Button btn_update = (Button)sheetView.findViewById(R.id.btn_update);
         final TextInputEditText edt_name = (TextInputEditText)sheetView.findViewById(R.id.edit_name);
@@ -85,20 +54,22 @@ public class EditActivity extends AppCompatActivity {
         final TextInputEditText edt_preference = (TextInputEditText)sheetView.findViewById(R.id.edit_preference);
         final TextInputEditText edt_two = (TextInputEditText)sheetView.findViewById(R.id.edit_two);
 
+
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final User user = new User(edt_name.getText().toString(), edt_address.getText().toString(),
                         edt_email.getText().toString(), edt_preference.getText().toString(),
-                        edt_two.getText().toString(), phoneNumber);
+                        edt_two.getText().toString(), Common.currenUser.getPhoneNumber().toString());
 
-                userRef.document(phoneNumber).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                userRef.document(Common.currenUser.getPhoneNumber().toString()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
                         Common.currenUser = user;
-                        Intent intent = new Intent(this, HomeActivity.class);
-                        startActivity(intent);
+
+
 
                         Toast.makeText(EditActivity.this, "Thank you", Toast.LENGTH_SHORT).show();
                     }

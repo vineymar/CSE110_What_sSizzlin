@@ -52,6 +52,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btn_user"
         android:orientation="horizontal"
         android:layout_below="@+id/layout_user_information"
         android:weightSum="4"
@@ -179,6 +180,14 @@
 
         </android.support.v7.widget.CardView>-->
     </LinearLayout>
+
+    <TextView
+        android:text="Your Recipes"
+        android:layout_below="@+id/btn_user"
+        android:layout_centerHorizontal="true"
+        android:textSize="33sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 
