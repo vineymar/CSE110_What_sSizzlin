@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
         /*End password hidden feature*/
     }
-
+////
     /*Registration Button Click*/
     public void btnRegistration_Click(View v){
         //setContentView(R.layout.activity_registration);
