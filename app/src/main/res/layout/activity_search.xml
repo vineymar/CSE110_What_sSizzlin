@@ -8,41 +8,62 @@
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
-    <android.support.design.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        android:layout_alignParentTop="true">
-
-    </android.support.design.chip.ChipGroup>
-
     <LinearLayout
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/chipGroup">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/search_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:padding="0dp"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            <Button
+                android:id="@+id/filter_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Filters" />
 
-        <EditText
+            <Button
+                android:id="@+id/inv_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add Inventory" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/search_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                app:srcCompat="@android:drawable/ic_menu_search" />
+
+            <EditText
                 android:id="@+id/tag_txt"
                 android:layout_width="310dp"
                 android:layout_height="60dp"
-                android:layout_below="@id/chipGroup"
                 android:inputType="text" />
+        </LinearLayout>
+
 
     </LinearLayout>
+    <android.support.design.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        android:layout_below="@id/search_bar">
 
+    </android.support.design.chip.ChipGroup>
 
 
     <LinearLayout
@@ -50,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/search_bar">
+        android:layout_below="@id/chipGroup">
 
         <TextView
             android:id="@+id/search_results_tmp"
@@ -110,48 +131,9 @@
             android:orientation="vertical">
 
         </android.support.design.chip.ChipGroup>
-    </LinearLayout>
+    </LinearLayout><![CDATA[
 
-    <LinearLayout
-        android:id="@+id/filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
+    >
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Serving Size"/>
-            <EditText
-                android:id="@+id/serving_min_txt"
-                android:layout_height="30dp"
-                android:layout_width="30dp"
-                android:inputType="number"
-                />
-            <EditText
-                android:id="@+id/serving_max_txt"
-                android:layout_height="30dp"
-                android:layout_width="30dp"
-                android:inputType="number"
-                />
-        </LinearLayout>
-        <com.edmodo.rangebar.RangeBar
-            xmlns:custom="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/servings_range"
-            android:layout_height="wrap_content"
-            android:layout_width="300dp"
-            custom:tickCount="7"
-            />
-
-
-    </LinearLayout>>
-
+]]>
 </RelativeLayout>

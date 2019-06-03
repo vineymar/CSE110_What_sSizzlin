@@ -1,6 +1,7 @@
 package com.example.whatssizzlin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.chip.Chip;
@@ -30,6 +31,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private static final int SET_FILTER = 100;
     private TextView mTextMessage;
     private ChipGroup searchChipGroup;
     private Button tagButton;
@@ -38,6 +40,11 @@ public class SearchActivity extends AppCompatActivity {
     private ChipGroup suggestedIngredients;
     private ChipGroup suggestedCultures;
     private ChipGroup suggestedCategories;
+
+    private int min_serving = 0;
+    private int max_serving = 21;
+    private int min_time = 0;
+    private int max_time = 361;
 
     private List<Tag> tags;
 
@@ -66,6 +73,20 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupSearchBar(){
+        ((Button)findViewById(R.id.filter_btn)).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getApplicationContext(), FilterActivity.class);
+                        i.putExtra("min_time",min_time);
+                        i.putExtra("max_time",max_time);
+                        i.putExtra("min_serving",min_serving);
+                        i.putExtra("max_serving",max_serving);
+                        startActivityForResult(i,SET_FILTER);
+                    }
+                }
+        );
+
         ((ImageButton)findViewById(R.id.search_btn)).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -95,7 +116,6 @@ public class SearchActivity extends AppCompatActivity {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        System.out.println("text changes");
                         setSuggestionVisibility();
                         setTagSuggestionsByName(charSequence.toString());
                     }
@@ -130,7 +150,7 @@ public class SearchActivity extends AppCompatActivity {
     private void setSuggestionVisibility(){
         findViewById(R.id.tag_dropdown).setVisibility(tagText.hasFocus() &&
                 !tagText.getText().toString().isEmpty()?View.VISIBLE:View.INVISIBLE);
-        System.out.println("visibility "+findViewById(R.id.tag_dropdown).getVisibility());
+
     }
 
     private void getTags(){
@@ -173,7 +193,6 @@ public class SearchActivity extends AppCompatActivity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                System.out.println("tag"+tag.getName() + " pressed");
                                 addTagToChipGroup(tag);
                                 //tagText.clearFocus();
                             }
@@ -254,6 +273,20 @@ public class SearchActivity extends AppCompatActivity {
 
 
         return search;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == SET_FILTER) {
+            if (resultCode == RESULT_OK) {
+                min_serving = data.getIntExtra("min_serving",0);
+                max_serving = data.getIntExtra("max_serving",21);
+                min_time = data.getIntExtra("min_time",0);
+                max_time = data.getIntExtra("max_time",361);
+
+            }
+        }
     }
 
 }
