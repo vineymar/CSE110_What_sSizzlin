@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,11 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 /*---------------------------Imports-------------------------------*/
 
@@ -53,12 +53,16 @@ public class HomeActivity extends AppCompatActivity {
 
     int calls = 0;
 
-    @BindView(R.id.BottomNavigation)
-    BottomNavigationView bottomNavigationView;
+    /*Fragments and Navigation Bar*/
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout mainFrameView;
+    private HomeFragment homeFragment;
+    private SearchFragment searchFragment;
+    private PantryFragment pantryFragment;
+    private PreferenceFragment preferenceFragment;
+    /*Fragments and Navigation Bar*/
 
-    CollectionReference userRef;
-    AlertDialog dialog;
-    /*Bottom Navigation*/
+
 
     /*OnCreate method*/
     @Override
@@ -69,40 +73,55 @@ public class HomeActivity extends AppCompatActivity {
         getRecommendedImages();
 
 
+        mainFrameView=findViewById(R.id.main_frame);
+        bottomNavigationView = findViewById(R.id.BottomNavigation);
         /*Bottom Navigation stuff*/
+        homeFragment = new HomeFragment();
+        searchFragment = new SearchFragment();
+        pantryFragment = new PantryFragment();
+        preferenceFragment = new PreferenceFragment();
+        setFragment(homeFragment);
+
+        /*Navigation bar clicking*/
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.
                 OnNavigationItemSelectedListener() {
-            Fragment fragment = null;
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                if (menuItem.getItemId() == R.id.NavigationHome) {
-//                    fragment = new HomeFragment();
-//                } else if (menuItem.getItemId() == R.id.NavigationSearch) {
-//                    fragment = new SearchFragment();
-//                } else if (menuItem.getItemId() == R.id.NavigationPantry) {
-//                    fragment = new PantryFragment();
-//                } else if (menuItem.getItemId() == R.id.NavigationPreferences) {
-//                    fragment = new PreferencesFragment();
-//                }
-                switch(menuItem.getItemId()){
-                    case R.id.NavigationHome: fragment = new HomeFragment(); break;
-                    case R.id.NavigationSearch: fragment = new SearchFragment(); break;
-                    case R.id.NavigationPantry: fragment = new PantryFragment(); break;
-                    case R.id.NavigationPreferences: fragment = new PreferencesFragment(); break;
+                switch (menuItem.getItemId()) {
+                    case R.id.NavigationHome:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(homeFragment);
+                        return true;
+                    case R.id.NavigationSearch:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(searchFragment);
+                        return true;
+                    case R.id.NavigationPantry:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(pantryFragment);
+                        return true;
+                    case R.id.NavigationPreferences:
+                        bottomNavigationView.setItemBackgroundResource(R.color.colorApp);
+                        setFragment(preferenceFragment);
+                        return true;
+                        default:
+                            return false;
                 }
-                return loadFragment(fragment);
+            }
+            private void setFragment(Fragment fragment) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_frame, fragment);
+                fragmentTransaction.commit();
+
             }
         });
 
-
     }
 
-    private boolean loadFragment(Fragment fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-            return true;
-        }
-        return false;
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.commit();
     }
 
     private void addRecRecipe(final List<String> ID, final int index){
@@ -184,6 +203,9 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+    }
+
+//
     private void getRecommendedImages(){
         Log.d(TAG, "Inside getImages: ");
         ArrayList<String> rec = new ArrayList<String>() {
@@ -209,26 +231,6 @@ public class HomeActivity extends AppCompatActivity {
 
         addFavRecipe(fav, 0);
         addRecRecipe(rec, 0);
-
-        /* Need a way to pull image urls and image_names
-         * mImageUrls.add(Image URL stuff)
-         * mNames.add(Image URL stuff)
-         * */
-        /*Recommended For loop ideally
-        mRecImageUrls.add("https://www.onceuponachef.com/images/2017/10/How-To-Make-Hard-Boiled-Eggs-760x516.jpg");
-        mRecNames.add("Eggs");
-        mRecTimes.add("5 min");
-        mRecImageUrls.add("https://www.thespruceeats.com/thmb/CtGnnAdHCVd5jms3JyTDfIgDzR0=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/French-Toast-58addf8e5f9b58a3c9d41348.jpg");
-        mRecNames.add("Toast");
-        mRecTimes.add("2 min");
-        mRecImageUrls.add("https://i.kinja-img.com/gawker-media/image/upload/s--_iU5hnjV--/c_scale,f_auto,fl_progressive,q_80,w_800/naiqjp2jbpvcylp09utj.png");
-        mRecNames.add("Batman");
-        mRecTimes.add("20 min");
-        mRecImageUrls.add("https://media.wired.com/photos/5c54ee6a4feec32ca0f590d8/master/w_2400,c_limit/superman-922909434.jpg");
-        mRecNames.add("Superman");
-        mRecTimes.add("50 min");
-        */
-        /*Recommended end For loop ideally*/
 
 
     }
