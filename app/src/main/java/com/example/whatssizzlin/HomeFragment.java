@@ -83,7 +83,6 @@ public class HomeFragment extends Fragment {
     }
 /*
     private void initializeRecycleView(){
-
         /*Recommended Views*/
 /*
         LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -93,15 +92,13 @@ public class HomeFragment extends Fragment {
         recyclerRecView.setAdapter(adapterRecommended);
         /*Recommended Views*/
 
-        /*Favorite Views*/
+    /*Favorite Views*/
     /*
         LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
         RecyclerView recyclerFavView = view.findViewById(R.id.recycleFavoritesView);
         recyclerFavView.setLayoutManager(layoutFavManager);
         RecyclerViewAdapter adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
         recyclerFavView.setAdapter(adapterFavorite);
-
-
     }
 */
     private void addRecRecipe(final List<String> ID, final int index){

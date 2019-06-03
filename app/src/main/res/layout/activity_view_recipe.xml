@@ -1,15 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ViewRecipe">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="372dp"
-        android:layout_height="103dp"
-        android:text="SomeRecipe"
-        android:textSize="50dp"
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/BottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FF631D"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation"
+
         />
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="397dp"
+            android:layout_height="660dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/BottomNavigation"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="8dp">
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="411dp"
+                android:layout_height="390dp"
+                android:adjustViewBounds="true"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+            <TextView
+                android:id="@+id/recipeName"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Recipe Name"
+                android:textColor="@color/colorApp"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/recipeIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:paddingLeft="12sp"
+                android:text="Ingredients"
+                android:textColor="@color/colorApp"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/ingredientsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:paddingLeft="18sp"
+                android:text="Ingredients List"
+                android:textColor="@android:color/black"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/recipeInstuctions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:paddingLeft="12sp"
+                android:text="Instructions"
+                android:textColor="@color/colorApp"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/instructionsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:paddingLeft="18sp"
+                android:text="Instructions List"
+                android:textColor="@android:color/black"
+                android:textSize="25sp" />
+
+
+            <TextView
+                android:id="@+id/recipeCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:paddingLeft="12sp"
+                android:text="Category"
+                android:textColor="@color/colorApp"
+                android:textSize="35sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

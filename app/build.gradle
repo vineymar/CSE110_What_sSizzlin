@@ -69,6 +69,9 @@ dependencies {
     //For bottom navigation bar
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.google.firebase:firebase-database:17.0.0'
+    implementation 'com.firebaseui:firebase-ui:0.4.2'
 }
 
 
