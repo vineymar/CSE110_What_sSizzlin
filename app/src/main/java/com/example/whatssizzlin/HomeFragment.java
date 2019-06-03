@@ -1,7 +1,9 @@
 package com.example.whatssizzlin;
 
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.widget.GridLayout.HORIZONTAL;
 
@@ -21,6 +33,11 @@ import static android.widget.GridLayout.HORIZONTAL;
  *
  */
 public class HomeFragment extends Fragment {
+    final int CATEGORY_COUNT = 2;
+    private View view;
+    private boolean wait = true;
+    RecyclerViewAdapter adapterRecommended;
+    RecyclerViewAdapter adapterFavorite;
     private final static String TAG = "HomeActivity: Imaging";
     /*For our images into our Recommended view*/
     private ArrayList<String> mRecNames = new ArrayList<>();
@@ -44,9 +61,31 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home2, container, false);
+        view = inflater.inflate(R.layout.fragment_home2, container, false);
         getRecommendedImages();
         /*Recommended Views*/
+        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerRecView = view.findViewById(R.id.recycleRecommendedView);
+        recyclerRecView.setLayoutManager(layoutRecManager);
+        adapterRecommended = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, this.getContext());
+
+        recyclerRecView.setAdapter(adapterRecommended);
+        /*Recommended Views*/
+
+        /*Favorite Views*/
+        LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
+        RecyclerView recyclerFavView = view.findViewById(R.id.recycleFavoritesView);
+        recyclerFavView.setLayoutManager(layoutFavManager);
+        adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
+        recyclerFavView.setAdapter(adapterFavorite);
+
+        return view;
+    }
+/*
+    private void initializeRecycleView(){
+
+        /*Recommended Views*/
+/*
         LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerRecView = view.findViewById(R.id.recycleRecommendedView);
         recyclerRecView.setLayoutManager(layoutRecManager);
@@ -55,83 +94,129 @@ public class HomeFragment extends Fragment {
         /*Recommended Views*/
 
         /*Favorite Views*/
+    /*
         LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
         RecyclerView recyclerFavView = view.findViewById(R.id.recycleFavoritesView);
         recyclerFavView.setLayoutManager(layoutFavManager);
         RecyclerViewAdapter adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
         recyclerFavView.setAdapter(adapterFavorite);
-        /*Favorite Views*/
 
-        return view;
+
+    }
+*/
+    private void addRecRecipe(final List<String> ID, final int index){
+        FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Recipe r = dataSnapshot.getValue(Recipe.class);
+                //mRecImageUrls.add("htpps:"+r.img_url);
+                mRecNames.add(r.name);
+                // Create a storage reference from our app
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference sr = storage.getReference();
+                StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
+                pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        mRecImageUrls.add(uri.toString());
+                        if(index == (ID.size() - 1)){
+                            adapterRecommended.notifyDataSetChanged();
+                        }
+                        else{
+                            addRecRecipe(ID, index + 1);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+                mRecTimes.add(r.time.get(0).get("prep").get("mins"));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
+    private void addFavRecipe(final List<String> ID, final int index){
+        FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Recipe r = dataSnapshot.getValue(Recipe.class);
+                //mRecImageUrls.add("htpps:"+r.img_url);
+                mFavNames.add(r.name);
+                // Create a storage reference from our app
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference sr = storage.getReference();
+                StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
+                pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        mFavImageUrls.add(uri.toString());
+                        if(index == (ID.size() - 1)){
+                            adapterFavorite.notifyDataSetChanged();
+                        }
+                        else{
+                            addFavRecipe(ID, index + 1);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+                mFavTimes.add(r.time.get(0).get("prep").get("mins"));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+    //
     private void getRecommendedImages(){
         Log.d(TAG, "Inside getImages: ");
+        ArrayList<String> rec = new ArrayList<String>() {
+            {
+                add("0");
+                add("1");
+                add("2");
+                add("3");
+                add("4");
+                add("5");
+            }
+        };
+        ArrayList<String> fav = new ArrayList<String>() {
+            {
+                add("6");
+                add("7");
+                add("8");
+                add("9");
+                add("10");
+                add("11");
+            }
+        };
+
+        addFavRecipe(fav, 0);
+        addRecRecipe(rec, 0);
 
 
-        /* Need a way to pull image urls and image_names
-         * mImageUrls.add(Image URL stuff)
-         * mNames.add(Image URL stuff)
-         * */
-        /*Recommended For loop ideally*/
-        mRecImageUrls.add("https://www.onceuponachef.com/images/2017/10/How-To-Make-Hard-Boiled-Eggs-760x516.jpg");
-        mRecNames.add("Eggs");
-        mRecTimes.add("5 min");
-        mRecImageUrls.add("https://www.thespruceeats.com/thmb/CtGnnAdHCVd5jms3JyTDfIgDzR0=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/French-Toast-58addf8e5f9b58a3c9d41348.jpg");
-        mRecNames.add("Toast");
-        mRecTimes.add("2 min");
-        mRecImageUrls.add("https://i.kinja-img.com/gawker-media/image/upload/s--_iU5hnjV--/c_scale,f_auto,fl_progressive,q_80,w_800/naiqjp2jbpvcylp09utj.png");
-        mRecNames.add("Batman");
-        mRecTimes.add("20 min");
-        mRecImageUrls.add("https://media.wired.com/photos/5c54ee6a4feec32ca0f590d8/master/w_2400,c_limit/superman-922909434.jpg");
-        mRecNames.add("Superman");
-        mRecTimes.add("50 min");
-        /*Recommended end For loop ideally*/
-
-        /*Favorite For loop ideally*/
-        mFavImageUrls.add("https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/chicken_pasta_bake_25701_16x9.jpg");
-        mFavNames.add("Pasta");
-        mFavTimes.add("20 min");
-
-        mFavImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-keto-pizza-073-1544039876.jpg");
-        mFavNames.add("Pizza");
-        mFavTimes.add("30 min");
-
-        mFavImageUrls.add("https://www.tasteofhome.com/wp-content/uploads/2017/10/exps28800_UG143377D12_18_1b_RMS-696x696.jpg");
-        mFavNames.add("Burger");
-        mFavTimes.add("35 min");
-
-        mFavImageUrls.add("https://s23209.pcdn.co/wp-content/uploads/2019/04/Mexican-Street-TacosIMG_9091.jpg");
-        mFavNames.add("Tacos");
-        mFavTimes.add("20 min");
-
-        mFavImageUrls.add("https://s23209.pcdn.co/wp-content/uploads/2018/06/Creamy-Chorizo-Queso-DipIMG_5112-copy.jpg");
-        mFavNames.add("Lasagna");
-        mFavTimes.add("30 min");
-        /*Favorite end For loop ideally*/
-
-        //initRecyclerView();
     }
 
-//    private void initRecyclerView(){
-//        Log.d(TAG, "Initializing RecyclerView");
-//
-//        /*Recommended Views*/
-//        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
-//        RecyclerView recyclerRecView = getView().findViewById(R.id.recycleRecommendedView);
-//        recyclerRecView.setLayoutManager(layoutRecManager);
-//        RecyclerViewAdapter adapterRecommended = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, this.getContext());
-//        recyclerRecView.setAdapter(adapterRecommended);
-//        /*Recommended Views*/
-//
-//        /*Favorite Views*/
-//        LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
-//        RecyclerView recyclerFavView = getView().findViewById(R.id.recycleFavoritesView);
-//        recyclerFavView.setLayoutManager(layoutFavManager);
-//        RecyclerViewAdapter adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
-//        recyclerFavView.setAdapter(adapterFavorite);
-//        /*Favorite Views*/
-//    }
+
+
 
 
 
