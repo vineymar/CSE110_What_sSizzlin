@@ -33,22 +33,26 @@ import static android.widget.GridLayout.HORIZONTAL;
  *
  */
 public class HomeFragment extends Fragment {
-    final int CATEGORY_COUNT = 2;
     private View view;
     private boolean wait = true;
     RecyclerViewAdapter adapterRecommended;
     RecyclerViewAdapter adapterFavorite;
+    public HomeActivity home;
     private final static String TAG = "HomeActivity: Imaging";
     /*For our images into our Recommended view*/
     private ArrayList<String> mRecNames = new ArrayList<>();
     private ArrayList<String> mRecImageUrls = new ArrayList<>();
     private ArrayList<String> mRecTimes = new ArrayList<>();
+    private ArrayList<Recipe> mRecRecs = new ArrayList<>();
+    public ArrayList<String> mRecIDs;
     /*For our images into our view*/
 
     /*For our images into our Recommended view*/
     private ArrayList<String> mFavNames = new ArrayList<>();
     private ArrayList<String> mFavImageUrls = new ArrayList<>();
     private ArrayList<String> mFavTimes = new ArrayList<>();
+    private ArrayList<Recipe> mFavRecs = new ArrayList<>();
+    public ArrayList<String> mFavIDs;
     /*For our images into our view*/
 
 
@@ -67,7 +71,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerRecView = view.findViewById(R.id.recycleRecommendedView);
         recyclerRecView.setLayoutManager(layoutRecManager);
-        adapterRecommended = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, this.getContext());
+        adapterRecommended = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, mRecRecs,this.getContext(), this);
 
         recyclerRecView.setAdapter(adapterRecommended);
         /*Recommended Views*/
@@ -76,13 +80,14 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
         RecyclerView recyclerFavView = view.findViewById(R.id.recycleFavoritesView);
         recyclerFavView.setLayoutManager(layoutFavManager);
-        adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
+        adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, mFavRecs,this.getContext(), this);
         recyclerFavView.setAdapter(adapterFavorite);
 
         return view;
     }
 /*
     private void initializeRecycleView(){
+
         /*Recommended Views*/
 /*
         LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -92,15 +97,6 @@ public class HomeFragment extends Fragment {
         recyclerRecView.setAdapter(adapterRecommended);
         /*Recommended Views*/
 
-    /*Favorite Views*/
-    /*
-        LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
-        RecyclerView recyclerFavView = view.findViewById(R.id.recycleFavoritesView);
-        recyclerFavView.setLayoutManager(layoutFavManager);
-        RecyclerViewAdapter adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
-        recyclerFavView.setAdapter(adapterFavorite);
-    }
-*/
     private void addRecRecipe(final List<String> ID, final int index){
         FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,6 +105,8 @@ public class HomeFragment extends Fragment {
                 Recipe r = dataSnapshot.getValue(Recipe.class);
                 //mRecImageUrls.add("htpps:"+r.img_url);
                 mRecNames.add(r.name);
+                r.id = ID.get(index);
+                mRecRecs.add(r);
                 // Create a storage reference from our app
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference sr = storage.getReference();
@@ -141,7 +139,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void addFavRecipe(final List<String> ID, final int index){
+    public void addFavRecipe(final List<String> ID, final int index){
         FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -149,6 +147,8 @@ public class HomeFragment extends Fragment {
                 Recipe r = dataSnapshot.getValue(Recipe.class);
                 //mRecImageUrls.add("htpps:"+r.img_url);
                 mFavNames.add(r.name);
+                r.id = ID.get(index);
+                mFavRecs.add(r);
                 // Create a storage reference from our app
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference sr = storage.getReference();
@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment {
     //
     private void getRecommendedImages(){
         Log.d(TAG, "Inside getImages: ");
-        ArrayList<String> rec = new ArrayList<String>() {
+        mRecIDs = new ArrayList<String>() {
             {
                 add("0");
                 add("1");
@@ -195,7 +195,7 @@ public class HomeFragment extends Fragment {
                 add("5");
             }
         };
-        ArrayList<String> fav = new ArrayList<String>() {
+        mFavIDs = new ArrayList<String>() {
             {
                 add("6");
                 add("7");
@@ -206,8 +206,9 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        addFavRecipe(fav, 0);
-        addRecRecipe(rec, 0);
+
+        addFavRecipe(mFavIDs, 0);
+        addRecRecipe(mRecIDs, 0);
 
 
     }

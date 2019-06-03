@@ -1,6 +1,8 @@
 package com.example.whatssizzlin;
 /*---------------------------Imports-------------------------------*/
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -61,7 +63,9 @@ public class HomeActivity extends AppCompatActivity {
         searchFragment = new SearchFragment();
         pantryFragment = new PantryFragment();
         preferenceFragment = new PreferenceFragment();
+        homeFragment.home = this;
         setFragment(homeFragment);
+
 
         /*Navigation bar clicking*/
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.
@@ -99,11 +103,20 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void setFragment(Fragment fragment) {
+    private void viewRecipe(Recipe rec){
+        Intent myIntent = new Intent(HomeActivity.this, ViewRecipe.class);
+        //myIntent.putExtra("recipe", rec);
+        //myIntent.putE
+
+    }
+
+    public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment);
         fragmentTransaction.commit();
     }
+
+
 
 
 
