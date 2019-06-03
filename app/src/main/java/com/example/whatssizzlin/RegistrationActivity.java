@@ -124,6 +124,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mDatabase.child("users").child(userId).setValue(user);
         UserPref preferences = new UserPref();
         mDatabase.child("users").child(userId).child("preferences").setValue(preferences);
+
     }
 }
 

@@ -5,12 +5,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +30,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +76,10 @@ public class SearchFragment extends Fragment {
 
     private final int MAX_SUGGESTIONS = 20;
 
+    /*Vertical View*/
+    RecyclerViewAdapter adapterSearch;
+    private ArrayList<String> mSearchIDs;
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -83,12 +100,83 @@ public class SearchFragment extends Fragment {
         suggestedCategories = (ChipGroup)view.findViewById(R.id.category_grp);
         tags = new ArrayList<>();
 
+
+        getSearchImages();
+        /*For RecyclerView*/
+        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerSearchView = view.findViewById(R.id.recycleSearchView);
+        recyclerSearchView.setLayoutManager(layoutRecManager);
+
+                                                    /*From Recipes, grab arraylist names, urls, times, recipes */
+        adapterSearch = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, mRecRecs,this.getContext(), this);
+
+        recyclerSearchView.setAdapter(adapterSearch);
+
+        /*Tag stuff*/
         getTags();
         setupTouchListener();
         setupSearchBar();
         System.out.println("SETUP SEARCHVIEW");
         return view;
     }
+
+
+    private void getSearchImages(){
+        //Log.d(TAG, "Inside getImages: ");
+        mSearchIDs = new ArrayList<String>() {
+            {
+//               //Do stuff
+            }
+        };
+        /*This is what hayden had below. */
+       // addSearchRecipe(mRecIDs, 0);
+    }
+//    private void addRecRecipe(final List<String> ID, final int index){
+//        FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                Recipe r = dataSnapshot.getValue(Recipe.class);
+//                //mRecImageUrls.add("htpps:"+r.img_url);
+//                mRecNames.add(r.name);
+//                r.id = ID.get(index);
+//                mRecRecs.add(r);
+//                // Create a storage reference from our app
+//                FirebaseStorage storage = FirebaseStorage.getInstance();
+//                StorageReference sr = storage.getReference();
+//                StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
+//                pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        mRecImageUrls.add(uri.toString());
+//                        if(index == (ID.size() - 1)){
+//                            adapterRecommended.notifyDataSetChanged();
+//                        }
+//                        else{
+//                            addRecRecipe(ID, index + 1);
+//                        }
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Handle any errors
+//                    }
+//                });
+//                mRecTimes.add(r.time.get(0).get("prep").get("mins"));
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
+
+
+
+
+
     private void setupTouchListener(){
         view.setOnTouchListener(
                 new View.OnTouchListener() {
