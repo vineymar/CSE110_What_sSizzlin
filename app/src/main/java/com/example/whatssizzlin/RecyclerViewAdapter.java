@@ -5,6 +5,8 @@ package com.example.whatssizzlin;
 //viewHolderClass inside adapter
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,14 +29,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mTimes = new ArrayList<>();
+    private ArrayList<Recipe> mRecs = new ArrayList<>();
     private HomeFragment homeFragment;
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> times, Context context) {
+    public RecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> times, ArrayList<Recipe> recs, Context context, HomeFragment hf) {
         this.mNames = names;
         this.mImageUrls = imageUrls;
         this.mTimes = times;
         this.mContext=context;
+        this.mRecs = recs;
+        homeFragment = hf;
         //this.mContext = context;
 
     }
@@ -62,8 +67,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.image.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                ViewRecipe nn = new ViewRecipe();
+                nn.home = homeFragment;
+                Bundle bundle = new Bundle();
+                bundle.putString("name", mRecs.get(position).name);
+                String str = new String();
+
+                for (String s : mRecs.get(position).ingredients){
+                    str += s + '\n';
+                }
+                bundle.putString("ingredients", str);
+                Log.d("hi", str);
+                String inv = new String();
+                for (String s : mRecs.get(position).method){
+                    inv += s + '\n';
+                }
+
+                bundle.putString("instructions", inv);
+                Log.d("bye", inv);
+                bundle.putString("id", mRecs.get(position).id);
+                nn.setArguments(bundle);
+                //nn.setID(mIDs.get(position));
+                homeFragment.home.setFragment(nn);
+
+
+               /*
+                Intent tvr = new Intent(homeFragment.getActivity(), ViewRecipe.class);
+                tvr.putExtra("id", mIDs.get(position));
+                homeFragment.startActivity(tvr);
+
+                //homeFragment.startActivity(homeFragment., ViewRecipe.class);
                 Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
                 Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+                */
             }
         });
     }
