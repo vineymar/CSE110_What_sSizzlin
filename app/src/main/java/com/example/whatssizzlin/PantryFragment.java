@@ -1,21 +1,31 @@
 package com.example.whatssizzlin;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.design.chip.ChipGroup;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 ////
 
 /**
@@ -25,6 +35,8 @@ public class PantryFragment extends Fragment  {
 
     SparseBooleanArray sparseBooleanArray ;
     final ArrayList<String> ingredientItemList = new ArrayList<String>();
+    ListView mIngredientList;
+    ArrayAdapter<String> mListViewAdapter;
     String[] ItemList;
     ArrayList<String>itemsList;
     ArrayAdapter<String> adapter;
@@ -32,6 +44,32 @@ public class PantryFragment extends Fragment  {
     Button addBtn;
     ListView lv;
     private String my_sel_items;
+
+
+    /*Search bar stuff*/
+    private static final int SET_FILTER = 100;
+    private TextView mTextMessage;
+    private ChipGroup searchChipGroup;
+    private Button tagButton;
+    private EditText tagText;
+
+    private ChipGroup suggestedIngredients;
+    private ChipGroup suggestedCultures;
+    private ChipGroup suggestedCategories;
+
+    private int min_serving = 0;
+    private int max_serving = 21;
+    private int min_time = 0;
+    private int max_time = 361;
+
+
+    private List<Tag> tags;
+    private View view;
+    private Activity activity;
+
+    private final int MAX_SUGGESTIONS = 20;
+    /*Search bar stuff*/
+
 
     public PantryFragment() {
         // Required empty public constructor
@@ -41,15 +79,25 @@ public class PantryFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        view = inflater.inflate(R.layout.fragment_pantry2, container, false);
+
+
+        tagText = (EditText) view.findViewById(R.id.tag_txt);
+        suggestedIngredients = (ChipGroup) view.findViewById(R.id.ingredient_grp);
+        suggestedCultures = (ChipGroup) view.findViewById(R.id.culture_grp);
+        suggestedCategories = (ChipGroup)view.findViewById(R.id.category_grp);
+        tags = new ArrayList<>();
+
+        getTags();
         my_sel_items=new String();
-        View view = inflater.inflate(R.layout.fragment_pantry2, container, false);
 
         /*Where we add and show our list of ingredients*/
 
-        final ListView mIngredientList = view.findViewById(R.id.ingredientListView);
+        mIngredientList = view.findViewById(R.id.ingredientListView);
 
         /*Adapter for Adding Ingredients*/
-        final ArrayAdapter<String> mListViewAdapter = new ArrayAdapter<String>(
+        mListViewAdapter = new ArrayAdapter<String>(
                 getContext(),
                 android.R.layout.simple_list_item_multiple_choice,
                 //R.id.listIngredientView,
@@ -59,35 +107,37 @@ public class PantryFragment extends Fragment  {
         mIngredientList.setAdapter(mListViewAdapter);
         mIngredientList.getAdapter();
 
-        final EditText editText = view.findViewById(R.id.ingredient_id);
-        Button btnAddIngredient = view.findViewById(R.id.btnAdd);
-        btnAddIngredient.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(editText.getText().toString().matches("")) {
-                    Toast.makeText(getContext(), "Please Enter an Ingredient", Toast.LENGTH_SHORT).show();
-                }else{
-                    ingredientItemList.add(editText.getText().toString());
-                    editText.setText("");
-                    mListViewAdapter.notifyDataSetChanged();
-                }
-            }
-        }); /*Adapter for Adding Ingredients*/
-        /*Check Box Adapter*/
-        mIngredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+//        final EditText editText = view.findViewById(R.id.ingredient_id);
+//        Button btnAddIngredient = view.findViewById(R.id.btnAdd);
+//        btnAddIngredient.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                if(editText.getText().toString().matches("")) {
+//                    Toast.makeText(getContext(), "Please Enter an Ingredient", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    //editText.setTextColor(getResources().getColor(android.R.color.white));
+//                    ingredientItemList.add(editText.getText().toString());
+//                    editText.setText("");
+//
+//                    mListViewAdapter.notifyDataSetChanged();
+//                }
+//            }
+//        }); /*Adapter for Adding Ingredients*/
 
+        /*Check Box Adapter*/
+
+        mIngredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         mIngredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView arg0, View arg1, int arg2,long arg3)
             {
                 my_sel_items=new String("Selected Items");
+                mIngredientList.setBackgroundResource(R.drawable.backgroundcolor);
                 SparseBooleanArray a = mIngredientList.getCheckedItemPositions();
-
                 for(int i = 0; i < ingredientItemList.size() ; i++)
                 {
                     if (a.valueAt(i))
                     {
-
                         my_sel_items = my_sel_items + ","
                                 + (String) mIngredientList.getAdapter().getItem(i);
                     }
@@ -98,6 +148,141 @@ public class PantryFragment extends Fragment  {
 
         /*Check Box Adapter*/
 
+        setupSearchBar();
+        setupTouchListener();
+
         return view;
     }
+
+
+    /*Pantry Search with SearchImplementationTags<>*/
+    private void setupSearchBar(){
+        tagText.setOnFocusChangeListener(
+                new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        setSuggestionVisibility();
+                    }
+                }
+        );
+        tagText.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        setSuggestionVisibility();
+                        setTagSuggestionsByName(charSequence.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                }
+        );
+
+    }
+
+    private void setSuggestionVisibility(){
+        view.findViewById(R.id.tag_dropdown).setVisibility(tagText.hasFocus() &&
+                !tagText.getText().toString().isEmpty()?View.VISIBLE:View.INVISIBLE);
+
+    }
+
+    private void getTags(){
+        List<String> ingredients = Arrays.asList(getResources().getStringArray(R.array.ingredients));
+        int i = 0;
+        for(String ingredient : ingredients){
+            tags.add(new IngredientTag(ingredient,i++));
+        }
+
+        List<String> cultures = Arrays.asList(getResources().getStringArray(R.array.culture));
+        for(String culture : cultures){
+            tags.add(new CultureTag(culture,i++));
+        }
+
+        List<String> categories = Arrays.asList(getResources().getStringArray(R.array.category));
+        for(String category : categories){
+            tags.add(new CategoryTag(category, i++));
+        }
+
+    }
+    private void setTagSuggestionsByName(String name){
+
+        int count = 0;
+        suggestedIngredients.removeAllViews();
+        suggestedCultures.removeAllViews();
+        suggestedCategories.removeAllViews();
+
+        if(name.isEmpty()) return;
+
+
+        for(final Tag tag : tags){
+            if(count > MAX_SUGGESTIONS)break;
+            if(tag.getName().startsWith(name) || tag.getName().contains(" "+name)){
+                final TextView txt = new TextView(view.getContext());
+                txt.setText(tag.getName());
+                txt.setBackgroundColor(getResources().getColor(tag.getTagColor()));
+                txt.setClickable(true);
+                txt.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                //addTagToChipGroup(tag);
+                                ingredientItemList.add(txt.getText().toString());
+                                mListViewAdapter.notifyDataSetChanged();
+                                //tagText.clearFocus();
+
+                            }
+                        }
+                );
+                switch (tag.getType()){
+                    case Tag.INGREDIENT:
+                        suggestedIngredients.addView(txt);
+                        break;
+                    case Tag.CULTURE:
+                        suggestedCultures.addView(txt);
+                        break;
+                    case Tag.CATEGORY:
+                        suggestedCategories.addView(txt);
+                        break;
+                }
+                count++;
+            }
+        }
+
+    }
+
+    private void setupTouchListener(){
+        view.setOnTouchListener(
+                new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            View v = activity.getCurrentFocus();
+                            if ( v instanceof EditText) {
+                                Rect outRect = new Rect();
+                                Rect outRect2 = new Rect();
+                                v.getGlobalVisibleRect(outRect);
+                                view.findViewById(R.id.tag_dropdown).getGlobalVisibleRect(outRect2);
+                                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY()) && !outRect2.contains((int)event.getRawX(), (int)event.getRawY())){
+                                    v.clearFocus();
+                                    InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                }
+                            }
+                        }
+                        return false;
+                    }
+                }
+        );
+
+    }
+
+
 }
