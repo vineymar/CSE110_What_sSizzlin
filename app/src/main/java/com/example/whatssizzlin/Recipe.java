@@ -22,7 +22,6 @@ public class Recipe  {
     public String id;
 
 
-
     public Recipe(String author,
                   String description,
                   List<String> difficulty,

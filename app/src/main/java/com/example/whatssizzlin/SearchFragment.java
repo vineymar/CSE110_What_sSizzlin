@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +43,8 @@ public class SearchFragment extends Fragment {
     private static final int SET_FILTER = 100;
     private TextView mTextMessage;
     private ChipGroup searchChipGroup;
+    private List<Tag> selectedTagList;
+
     private Button tagButton;
     private EditText tagText;
 
@@ -72,6 +75,7 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search2, container, false);
         activity = getActivity();
 
+        selectedTagList = new ArrayList<Tag>();
         searchChipGroup = (ChipGroup)view.findViewById(R.id.chipGroup);
         tagText = (EditText) view.findViewById(R.id.tag_txt);
         suggestedIngredients = (ChipGroup) view.findViewById(R.id.ingredient_grp);
@@ -167,9 +171,11 @@ public class SearchFragment extends Fragment {
 
     }
 
-    private void addTagToChipGroup(Tag tag){
+    private void addTagToChipGroup(final Tag tag){
+        if(selectedTagList.contains(tag))return;
         tagText.setText("");
         final Chip chip = new Chip(view.getContext());
+        selectedTagList.add(tag);
         chip.setText(tag.getName());
         chip.setCloseIconVisible(true);
         chip.setChipBackgroundColor(getResources().getColorStateList(tag.getTagColor()));
@@ -178,6 +184,7 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         searchChipGroup.removeView(chip);
+                        selectedTagList.remove(tag);
                     }
                 }
         );
@@ -257,7 +264,7 @@ public class SearchFragment extends Fragment {
     private void doSearchRequest() throws JSONException {
         final TextView textView = view.findViewById(R.id.search_results_tmp);
 
-        String url = "http://dummy.restapiexample.com/api/v1/create";
+        String url = "https://7b7b73ea-c723-41e0-9f97-f435e9a611ea.mock.pstmn.io/";
         JSONObject jsonRequest = buildSearchJSON();
         System.out.println("doing search request");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -266,15 +273,23 @@ public class SearchFragment extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        String txt = "";
                         System.out.println("received response");
-                        textView.setText("Response: " + response.toString());
+                        try {
+                            JSONArray arr = response.getJSONArray("tags");
+                            for(int i = 0 ; i < arr.length() ; i++){
+                                txt += arr.getString(i) + " ";
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        textView.setText("Response: " + response.toString() + "\n" + txt);
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        textView.setText("ERROR: Request failed");
-                        error.printStackTrace();
+                        textView.setText("ERROR: Request failed\n" + error.getMessage());
 
                     }
                 });
@@ -286,13 +301,24 @@ public class SearchFragment extends Fragment {
     }
 
     private JSONObject buildSearchJSON() throws JSONException {
+        String[] tags = {"1","2","3"};
         JSONObject search = new JSONObject();
         search.accumulate("name","test" + ((EditText)view.findViewById(R.id.tag_txt)).getText());
         search.accumulate("salary","123");
         search.accumulate("age","12");
+        search.accumulate("tags",tags);
+
 
 
         return search;
+    }
+
+    private String[] getSelectedTagsStringArray(){
+        String[] tagStringArray = new String[selectedTagList.size()];
+        for(int i = 0 ; i < selectedTagList.size() ; i++){
+            tagStringArray[i] = selectedTagList.get(i).getName();
+        }
+        return tagStringArray;
     }
 
     @Override
