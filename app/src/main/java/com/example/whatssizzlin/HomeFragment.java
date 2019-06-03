@@ -3,12 +3,16 @@ package com.example.whatssizzlin;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+
+import static android.widget.GridLayout.HORIZONTAL;
 
 
 /**
@@ -41,7 +45,22 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home2, container, false);
-        //addRecommendedImages();
+        getRecommendedImages();
+        /*Recommended Views*/
+        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerRecView = view.findViewById(R.id.recycleRecommendedView);
+        recyclerRecView.setLayoutManager(layoutRecManager);
+        RecyclerViewAdapter adapterRecommended = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, this.getContext());
+        recyclerRecView.setAdapter(adapterRecommended);
+        /*Recommended Views*/
+
+        /*Favorite Views*/
+        LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
+        RecyclerView recyclerFavView = view.findViewById(R.id.recycleFavoritesView);
+        recyclerFavView.setLayoutManager(layoutFavManager);
+        RecyclerViewAdapter adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
+        recyclerFavView.setAdapter(adapterFavorite);
+        /*Favorite Views*/
 
         return view;
     }
@@ -98,22 +117,22 @@ public class HomeFragment extends Fragment {
 //        Log.d(TAG, "Initializing RecyclerView");
 //
 //        /*Recommended Views*/
-//        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this, HORIZONTAL, false);
-//        RecyclerView recyclerRecView = getView().findViewById(recycleRecommendedView);
+//        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        RecyclerView recyclerRecView = getView().findViewById(R.id.recycleRecommendedView);
 //        recyclerRecView.setLayoutManager(layoutRecManager);
-//        RecyclerViewAdapter adapterRecommended = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, this);
+//        RecyclerViewAdapter adapterRecommended = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, this.getContext());
 //        recyclerRecView.setAdapter(adapterRecommended);
 //        /*Recommended Views*/
 //
 //        /*Favorite Views*/
-//        LinearLayoutManager layoutFavManager = new LinearLayoutManager(this, HORIZONTAL, false);
+//        LinearLayoutManager layoutFavManager = new LinearLayoutManager(this.getContext(), HORIZONTAL, false);
 //        RecyclerView recyclerFavView = getView().findViewById(R.id.recycleFavoritesView);
 //        recyclerFavView.setLayoutManager(layoutFavManager);
-//        RecyclerViewAdapter adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this);
+//        RecyclerViewAdapter adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, this.getContext());
 //        recyclerFavView.setAdapter(adapterFavorite);
 //        /*Favorite Views*/
 //    }
-//
+
 
 
 
