@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         password_id=findViewById(R.id.password_login_id);
         firebaseAuth = FirebaseAuth.getInstance();
 
+
     }
                                 /*Navigation Buttons onClick*/
     /*for hiding password feature*/
