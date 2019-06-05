@@ -97,17 +97,6 @@ public class SearchFragment extends Fragment {
         tags = new ArrayList<>();
 
 
-        getSearchImages();
-        /*For RecyclerView*/
-        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView recyclerSearchView = view.findViewById(R.id.recycleSearchView);
-        recyclerSearchView.setLayoutManager(layoutRecManager);
-
-                                                    /*From Recipes, grab arraylist names, urls, times, recipes */
-        adapterSearch = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, mRecRecs,this.getContext(), this);
-
-        recyclerSearchView.setAdapter(adapterSearch);
-
         /*Tag stuff*/
         getTags();
         setupTouchListener();

@@ -14,18 +14,19 @@
        >
 
         <TextView
-            android:text="Recommended"
+            android:text="Discover"
             android:id="@+id/textView"
+
             android:textColor="#FF631D"
             android:background="@drawable/text_border"
-            android:fontFamily="@font/caveat_bold"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
 
-            android:textSize="70sp"
+            android:textSize="40sp"
             android:typeface="normal"
-            android:textAlignment="center"/>
+            />
         <Space
             android:layout_width="1dp"
             android:layout_height="15dp"/>
@@ -43,15 +44,13 @@
             android:layout_height="15dp"/>
 
         <TextView
-            android:textAlignment="center"
             android:id="@+id/textView2"
-            android:fontFamily="@font/caveat_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Favorites"
             android:background="@drawable/text_border"
             android:textColor="#FF631D"
-            android:textSize="70sp" />
+            android:textSize="40sp" />
         <Space
             android:layout_width="1dp"
             android:layout_height="15dp"/>
