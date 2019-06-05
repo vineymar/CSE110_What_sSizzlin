@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/ClickFocusableTheme"
     tools:context=".SearchFragment">
 
     <RelativeLayout
@@ -81,11 +82,7 @@
         android:layout_below="@id/chipGroup"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/search_results_tmp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Search Results" />
+
     </LinearLayout>
 
 
@@ -97,11 +94,17 @@
             android:layout_marginTop="18dp"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/search_results_tmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search Results" />
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleSearchView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
             </android.support.v7.widget.RecyclerView>
 
@@ -114,6 +117,7 @@
             android:layout_below="@id/search_bar"
             android:layout_marginLeft="120dp"
             android:background="@android:color/white"
+            android:focusableInTouchMode="false"
             android:orientation="vertical"
             android:visibility="invisible">
 

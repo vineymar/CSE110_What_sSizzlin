@@ -158,6 +158,7 @@ public class PantryFragment extends Fragment  {
     /*Pantry Search with SearchImplementationTags<>*/
     private void setupSearchBar(){
         tagText.setOnFocusChangeListener(
+
                 new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View view, boolean b) {
@@ -234,9 +235,7 @@ public class PantryFragment extends Fragment  {
                             public void onClick(View view) {
 
                                 //addTagToChipGroup(tag);
-                                ingredientItemList.add(txt.getText().toString());
-                                mListViewAdapter.notifyDataSetChanged();
-                                //tagText.clearFocus();
+                                AddIngredient(txt);
 
                             }
                         }
@@ -258,13 +257,21 @@ public class PantryFragment extends Fragment  {
 
     }
 
+    private void AddIngredient(TextView txt) {
+        tagText.setText("");
+        ingredientItemList.add(txt.getText().toString());
+        mListViewAdapter.notifyDataSetChanged();
+        tagText.clearFocus();
+    }
+
     private void setupTouchListener(){
         view.setOnTouchListener(
                 new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            View v = activity.getCurrentFocus();
+                            Activity a = (Activity) view.getContext();
+                            View v = a.getCurrentFocus();
                             if ( v instanceof EditText) {
                                 Rect outRect = new Rect();
                                 Rect outRect2 = new Rect();

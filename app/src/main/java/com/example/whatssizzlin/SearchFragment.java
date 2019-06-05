@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -64,6 +65,11 @@ public class SearchFragment extends Fragment {
     private ChipGroup suggestedIngredients;
     private ChipGroup suggestedCultures;
     private ChipGroup suggestedCategories;
+
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mTimes = new ArrayList<>();
+    private ArrayList<Recipe> mRecs = new ArrayList<>();
 
     private int min_serving = 0;
     private int max_serving = 21;
@@ -108,7 +114,7 @@ public class SearchFragment extends Fragment {
         recyclerSearchView.setLayoutManager(layoutRecManager);
 
                                                     /*From Recipes, grab arraylist names, urls, times, recipes */
-        adapterSearch = new RecyclerViewAdapter(mRecNames, mRecImageUrls, mRecTimes, mRecRecs,this.getContext(), this);
+        adapterSearch = new RecyclerViewAdapter(mNames, mImageUrls, mTimes, mRecs, this.getContext(), null);
 
         recyclerSearchView.setAdapter(adapterSearch);
 
@@ -173,17 +179,83 @@ public class SearchFragment extends Fragment {
 //
 //    }
 
+    private void addRecipeToResults(Recipe r){
+        mNames.add(r.name);
+        mImageUrls.add(r.img_url);
+        mTimes.add("60h");//r.getStringTime());
+        mRecs.add(r);
+        adapterSearch.notifyDataSetChanged();
+
+    }
 
 
+    private void testAddRecipeToResults(){
+        String jsonString = "{\n" +
+                "  \"author\" : \"Good Food\",\n" +
+                "  \"description\" : \"These individual portions of butter-topped paté can be frozen ahead for a dinner party with friends\",\n" +
+                "  \"difficulty\" : [ \" Easy \" ],\n" +
+                "  \"img_url\" : \"//www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--816517_10.jpg?itok=4FTIN3gm\",\n" +
+                "  \"ingredients\" : [ \"50g unsalted butter\", \"2 shallots, finely chopped\", \"400g pack duck or chicken liver, cleaned\", \"1 heaped tsp thyme leaves\", \"2 tbsp gin\", \"170ml pot double cream\", \"100g unsalted butter\", \"16 juniper berries, chopped\", \"2 tsp thyme leaves\", \"thinly sliced seed bread or brioche, toasted\", \"a few gherkins or cornichons\" ],\n" +
+                "  \"method\" : [ \"Melt the butter for the pâté in a pan and fry the shallots for 5 mins. Tip in the livers, thyme and plenty of black pepper and cook for about 5 mins until browned. Stir in the gin and cook for 1 min more.\", \"Tip the mixture into a food processor, scraping in all of the buttery juices. Blend with the cream and 1⁄2 tsp salt until smooth. Spoon into 6 ramekins and smooth the surface.\", \"For the topping, melt the butter with the juniper berries, thyme and a good grinding of black pepper, then spoon over the pâté. Chill until the butter sets. If you want to freeze them, wrap in cling film, then foil. To defrost, thaw in the fridge for 24 hrs.\", \"To serve, place on a plate with toast and gherkins or cornichons.\" ],\n" +
+                "  \"name\" : \"Duck liver & gin parfait\",\n" +
+                "  \"nutrition\" : {\n" +
+                "    \"carbs\" : \"1g\",\n" +
+                "    \"fat\" : \"37g\",\n" +
+                "    \"fibre\" : \"0g\",\n" +
+                "    \"kcal\" : \"401\",\n" +
+                "    \"protein\" : \"12g\",\n" +
+                "    \"salt\" : \"0.15g\",\n" +
+                "    \"saturates\" : \"22g\",\n" +
+                "    \"sugars\" : \"1g\"\n" +
+                "  },\n" +
+                "  \"servings\" : \" Serves 6 \",\n" +
+                "  \"time\" : [ {\n" +
+                "    \"cook\" : {\n" +
+                "      \"mins\" : \"10 mins\"\n" +
+                "    },\n" +
+                "    \"prep\" : {\n" +
+                "      \"mins\" : \"20 mins\"\n" +
+                "    }\n" +
+                "  } ]\n" +
+                "}";
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            //addRecipeToResults(new Recipe(json));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private void setupTouchListener2(){
+        tagText.setOnFocusChangeListener(
+                new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        setSuggestionVisibility();
+                    }
+                }
+        );
+        LinearLayout tagDrop = (LinearLayout)view.findViewById(R.id.tag_dropdown);
+        tagDrop.setOnFocusChangeListener(
+                new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        setSuggestionVisibility();
+                    }
+                }
+        );
+
+    }
 
 
     private void setupTouchListener(){
         view.setOnTouchListener(
                 new View.OnTouchListener() {
                     @Override
-                    public boolean onTouch(View view, MotionEvent event) {
+                    public boolean onTouch(View _view, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            View v = activity.getCurrentFocus();
+                            Activity a = (Activity) view.getContext();
+                            View v = a.getCurrentFocus();
                             if ( v instanceof EditText) {
                                 Rect outRect = new Rect();
                                 Rect outRect2 = new Rect();
@@ -221,6 +293,8 @@ public class SearchFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        //testAddRecipeToResults();
+                        tagText.setText("");
                         try {
                             doSearchRequest();
                         } catch (JSONException e) {
@@ -233,6 +307,7 @@ public class SearchFragment extends Fragment {
                 new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View view, boolean b) {
+                        System.out.println("focus changed " + b);
                         setSuggestionVisibility();
                     }
                 }
@@ -352,7 +427,7 @@ public class SearchFragment extends Fragment {
     private void doSearchRequest() throws JSONException {
         final TextView textView = view.findViewById(R.id.search_results_tmp);
 
-        String url = "https://7b7b73ea-c723-41e0-9f97-f435e9a611ea.mock.pstmn.io/";
+        String url = "http://54.185.10.110:8080/";
         JSONObject jsonRequest = buildSearchJSON();
         System.out.println("doing search request");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -361,17 +436,9 @@ public class SearchFragment extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        String txt = "";
                         System.out.println("received response");
-                        try {
-                            JSONArray arr = response.getJSONArray("tags");
-                            for(int i = 0 ; i < arr.length() ; i++){
-                                txt += arr.getString(i) + " ";
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        textView.setText("Response: " + response.toString() + "\n" + txt);
+
+                        textView.setText("Response: " + response.toString() + "\n" );
                     }
                 }, new Response.ErrorListener() {
 
@@ -391,16 +458,20 @@ public class SearchFragment extends Fragment {
     private JSONObject buildSearchJSON() throws JSONException {
         String[] tags = {"1","2","3"};
         JSONObject search = new JSONObject();
-        search.accumulate("name","test" + ((EditText)view.findViewById(R.id.tag_txt)).getText());
-        search.accumulate("salary","123");
-        search.accumulate("age","12");
-        search.accumulate("tags",tags);
-
-
+        String query = "";
+        for(Tag tag:selectedTagList){
+            System.out.println(tag.getName());
+            query += tag.getName() + " ";
+        }
+        query += getSearchName();
+        search.accumulate("query",query);
 
         return search;
     }
 
+    private String getSearchName(){
+        return tagText.getText().toString();
+    }
     private String[] getSelectedTagsStringArray(){
         String[] tagStringArray = new String[selectedTagList.size()];
         for(int i = 0 ; i < selectedTagList.size() ; i++){
