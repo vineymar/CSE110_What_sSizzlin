@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/txt_user_name"
-                android:text="Guest"
+                android:text="Diraksa"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:layout_width="match_parent"

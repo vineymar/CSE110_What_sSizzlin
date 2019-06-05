@@ -126,11 +126,6 @@
 
                         </android.support.design.chip.ChipGroup>
 
-                        <TextView
-                            android:id="@+id/culture_lbl"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Culture" />
 
                         <android.support.design.chip.ChipGroup
                             android:id="@+id/culture_grp"
@@ -140,11 +135,6 @@
 
                         </android.support.design.chip.ChipGroup>
 
-                        <TextView
-                            android:id="@+id/category_lbl"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Category" />
 
                         <android.support.design.chip.ChipGroup
                             android:id="@+id/category_grp"

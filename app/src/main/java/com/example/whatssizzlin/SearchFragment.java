@@ -189,63 +189,6 @@ public class SearchFragment extends Fragment {
     }
 
 
-    private void testAddRecipeToResults(){
-        String jsonString = "{\n" +
-                "  \"author\" : \"Good Food\",\n" +
-                "  \"description\" : \"These individual portions of butter-topped paté can be frozen ahead for a dinner party with friends\",\n" +
-                "  \"difficulty\" : [ \" Easy \" ],\n" +
-                "  \"img_url\" : \"//www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--816517_10.jpg?itok=4FTIN3gm\",\n" +
-                "  \"ingredients\" : [ \"50g unsalted butter\", \"2 shallots, finely chopped\", \"400g pack duck or chicken liver, cleaned\", \"1 heaped tsp thyme leaves\", \"2 tbsp gin\", \"170ml pot double cream\", \"100g unsalted butter\", \"16 juniper berries, chopped\", \"2 tsp thyme leaves\", \"thinly sliced seed bread or brioche, toasted\", \"a few gherkins or cornichons\" ],\n" +
-                "  \"method\" : [ \"Melt the butter for the pâté in a pan and fry the shallots for 5 mins. Tip in the livers, thyme and plenty of black pepper and cook for about 5 mins until browned. Stir in the gin and cook for 1 min more.\", \"Tip the mixture into a food processor, scraping in all of the buttery juices. Blend with the cream and 1⁄2 tsp salt until smooth. Spoon into 6 ramekins and smooth the surface.\", \"For the topping, melt the butter with the juniper berries, thyme and a good grinding of black pepper, then spoon over the pâté. Chill until the butter sets. If you want to freeze them, wrap in cling film, then foil. To defrost, thaw in the fridge for 24 hrs.\", \"To serve, place on a plate with toast and gherkins or cornichons.\" ],\n" +
-                "  \"name\" : \"Duck liver & gin parfait\",\n" +
-                "  \"nutrition\" : {\n" +
-                "    \"carbs\" : \"1g\",\n" +
-                "    \"fat\" : \"37g\",\n" +
-                "    \"fibre\" : \"0g\",\n" +
-                "    \"kcal\" : \"401\",\n" +
-                "    \"protein\" : \"12g\",\n" +
-                "    \"salt\" : \"0.15g\",\n" +
-                "    \"saturates\" : \"22g\",\n" +
-                "    \"sugars\" : \"1g\"\n" +
-                "  },\n" +
-                "  \"servings\" : \" Serves 6 \",\n" +
-                "  \"time\" : [ {\n" +
-                "    \"cook\" : {\n" +
-                "      \"mins\" : \"10 mins\"\n" +
-                "    },\n" +
-                "    \"prep\" : {\n" +
-                "      \"mins\" : \"20 mins\"\n" +
-                "    }\n" +
-                "  } ]\n" +
-                "}";
-        try {
-            JSONObject json = new JSONObject(jsonString);
-            //addRecipeToResults(new Recipe(json));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-    private void setupTouchListener2(){
-        tagText.setOnFocusChangeListener(
-                new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View view, boolean b) {
-                        setSuggestionVisibility();
-                    }
-                }
-        );
-        LinearLayout tagDrop = (LinearLayout)view.findViewById(R.id.tag_dropdown);
-        tagDrop.setOnFocusChangeListener(
-                new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View view, boolean b) {
-                        setSuggestionVisibility();
-                    }
-                }
-        );
-
-    }
 
 
     private void setupTouchListener(){
@@ -293,8 +236,6 @@ public class SearchFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //testAddRecipeToResults();
-                        tagText.setText("");
                         try {
                             doSearchRequest();
                         } catch (JSONException e) {
@@ -307,7 +248,6 @@ public class SearchFragment extends Fragment {
                 new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View view, boolean b) {
-                        System.out.println("focus changed " + b);
                         setSuggestionVisibility();
                     }
                 }
@@ -437,8 +377,7 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println("received response");
-
-                        textView.setText("Response: " + response.toString() + "\n" );
+                        textView.setText("Response: " + response.toString());
                     }
                 }, new Response.ErrorListener() {
 
@@ -456,7 +395,6 @@ public class SearchFragment extends Fragment {
     }
 
     private JSONObject buildSearchJSON() throws JSONException {
-        String[] tags = {"1","2","3"};
         JSONObject search = new JSONObject();
         String query = "";
         for(Tag tag:selectedTagList){

@@ -23,6 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static android.widget.GridLayout.HORIZONTAL;
 
@@ -187,12 +188,13 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "Inside getImages: ");
         mRecIDs = new ArrayList<String>() {
             {
-                add("0");
-                add("1");
-                add("2");
-                add("3");
-                add("4");
-                add("5");
+
+                for(int i = 0; i < 5; i++){
+                    Random r = new Random();
+                    int randomInt = r.nextInt(30) + 1;
+                    String random = Integer.toString(randomInt);
+                    add(random);
+                }
             }
         };
         mFavIDs = new ArrayList<String>() {

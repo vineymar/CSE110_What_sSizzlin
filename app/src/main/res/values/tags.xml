@@ -15,6 +15,17 @@
         <item>quail egg</item>
         <item>milk</item>
         <item>goat milk</item>
+        <item>potatoes</item>
+        <item>lettuce</item>
+        <item>onion</item>
+        <item>hot sauce</item>
+        <item>orange juice</item>
+        <item>corn starch</item>
+        <item>flour</item>
+        <item>beef</item>
+        <item>chicken</item>
+        <item>fish</item>
+        <item>shrimp</item>
 
     </string-array>
     <string-array name="culture">

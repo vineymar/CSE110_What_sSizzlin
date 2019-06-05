@@ -201,15 +201,15 @@ public class PantryFragment extends Fragment  {
             tags.add(new IngredientTag(ingredient,i++));
         }
 
-        List<String> cultures = Arrays.asList(getResources().getStringArray(R.array.culture));
-        for(String culture : cultures){
-            tags.add(new CultureTag(culture,i++));
-        }
-
-        List<String> categories = Arrays.asList(getResources().getStringArray(R.array.category));
-        for(String category : categories){
-            tags.add(new CategoryTag(category, i++));
-        }
+//        List<String> cultures = Arrays.asList(getResources().getStringArray(R.array.culture));
+//        for(String culture : cultures){
+//            tags.add(new CultureTag(culture,i++));
+//        }
+//
+//        List<String> categories = Arrays.asList(getResources().getStringArray(R.array.category));
+//        for(String category : categories){
+//            tags.add(new CategoryTag(category, i++));
+//        }
 
     }
     private void setTagSuggestionsByName(String name){
