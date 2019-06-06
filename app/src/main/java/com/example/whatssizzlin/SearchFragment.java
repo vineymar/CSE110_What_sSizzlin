@@ -236,8 +236,11 @@ public class SearchFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        System.out.println("search pressed");
                         try {
                             doSearchRequest();
+                            tagText.clearFocus();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -337,6 +340,7 @@ public class SearchFragment extends Fragment {
                 txt.setText(tag.getName());
                 txt.setBackgroundColor(getResources().getColor(tag.getTagColor()));
                 txt.setClickable(true);
+                txt.setFocusableInTouchMode(false);
                 txt.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
@@ -398,10 +402,11 @@ public class SearchFragment extends Fragment {
         JSONObject search = new JSONObject();
         String query = "";
         for(Tag tag:selectedTagList){
-            System.out.println(tag.getName());
             query += tag.getName() + " ";
         }
         query += getSearchName();
+
+        System.out.println("query:"+query);
         search.accumulate("query",query);
 
         return search;

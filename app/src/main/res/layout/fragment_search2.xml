@@ -53,6 +53,7 @@
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:padding="0dp"
+                    android:focusableInTouchMode="false"
                     app:srcCompat="@android:drawable/ic_menu_search" />
 
                 <EditText
@@ -125,12 +126,14 @@
                 android:id="@+id/ingredient_lbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:text="Ingredients" />
 
             <android.support.design.chip.ChipGroup
                 android:id="@+id/ingredient_grp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:orientation="vertical">
 
             </android.support.design.chip.ChipGroup>
@@ -139,12 +142,14 @@
                 android:id="@+id/culture_lbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:text="Culture" />
 
             <android.support.design.chip.ChipGroup
                 android:id="@+id/culture_grp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:orientation="vertical">
 
             </android.support.design.chip.ChipGroup>
@@ -153,12 +158,14 @@
                 android:id="@+id/category_lbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:text="Category" />
 
             <android.support.design.chip.ChipGroup
                 android:id="@+id/category_grp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:orientation="vertical">
 
             </android.support.design.chip.ChipGroup>
