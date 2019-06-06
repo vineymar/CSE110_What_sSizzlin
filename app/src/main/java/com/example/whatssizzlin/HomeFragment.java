@@ -1,6 +1,7 @@
 package com.example.whatssizzlin;
 
 
+import android.icu.text.UnicodeSet;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,11 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.whatssizzlin.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.widget.GridLayout.HORIZONTAL;
+import static com.example.whatssizzlin.UserDB.FBUser;
 
 
 /**
@@ -55,6 +60,8 @@ public class HomeFragment extends Fragment {
     public ArrayList<String> mFavIDs;
     /*For our images into our view*/
 
+    public static ArrayList<String> favList = new ArrayList<>();
+    //public static int count = 1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -195,19 +202,33 @@ public class HomeFragment extends Fragment {
                 add("5");
             }
         };
-        mFavIDs = new ArrayList<String>() {
-            {
-                add("6");
-                add("7");
-                add("8");
-                add("9");
-                add("10");
-                add("11");
+        if(favList.size() == 0) {
+            //Toast.makeText(home, "Only once", Toast.LENGTH_SHORT).show();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/favorites");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Integer recipeId = dataSnapshot1.getValue(Integer.class);
+                        if(!favList.contains(recipeId.toString())) {
+                            favList.add(recipeId.toString());
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            if (favList.isEmpty()) {
+                favList.add("1");
             }
-        };
 
-
-        addFavRecipe(mFavIDs, 0);
+        }
+        addFavRecipe(favList, 0);
         addRecRecipe(mRecIDs, 0);
 
 

@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.facebook.accountkit.internal.AccountKitController.getApplicationContext;
+import static java.lang.Integer.parseInt;
 
 public class ViewRecipe extends Fragment {
 
@@ -39,7 +40,7 @@ public class ViewRecipe extends Fragment {
     Uri uri;
     TextView name;
     String mName;
-    private final List<String> s = new ArrayList<String>();
+    public final List<String> s = new ArrayList<String>();
 
     public ViewRecipe(){}
 
@@ -83,7 +84,9 @@ public class ViewRecipe extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Recipe Added", Toast.LENGTH_LONG).show();
                 home.mRecIDs.add(getArguments().getString("id"));
-
+                //Toast.makeText(getContext(), getArguments().getString("id"), Toast.LENGTH_SHORT).show();
+                int recipeID = Integer.parseInt(getArguments().getString("id"));
+                UserDB.addFav( recipeID);
                 s.add(getArguments().getString("id"));
                 home.addFavRecipe(s, 0 );
 

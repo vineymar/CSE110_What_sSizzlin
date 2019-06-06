@@ -297,7 +297,7 @@ public class SearchFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
+                                 Intent data) {
         if (requestCode == SET_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
                 min_serving = data.getIntExtra("min_serving",0);
