@@ -6,13 +6,10 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -44,7 +41,6 @@ public class RegistrationActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        addOnListenerShowPassword();
         FirebaseApp.initializeApp(this);
 
 
@@ -60,24 +56,6 @@ public class RegistrationActivity extends AppCompatActivity {
         /*Underline clickable link in registration page "Already a member - log in"*/
     }
 
-    /*for hiding password feature*/
-    public void addOnListenerShowPassword() {
-        checkBoxShowPwd = findViewById(R.id.show_password_registration_id);
-        checkBoxShowPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // checkbox status is changed from uncheck to checked.
-                if (isChecked) {
-                    // show password
-                    password_id.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    // hide password
-                    password_id.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-            }
-        });
-        /*End password hidden feature*/
-    }
 
     /*Already a User Button Click*/
     public void btnAlreadyRegister_Click(View v) {
