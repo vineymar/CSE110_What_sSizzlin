@@ -54,8 +54,6 @@ public class PantryFragment extends Fragment  {
     private EditText tagText;
 
     private ChipGroup suggestedIngredients;
-    private ChipGroup suggestedCultures;
-    private ChipGroup suggestedCategories;
 
     private int min_serving = 0;
     private int max_serving = 21;
@@ -85,8 +83,6 @@ public class PantryFragment extends Fragment  {
 
         tagText = (EditText) view.findViewById(R.id.tag_txt);
         suggestedIngredients = (ChipGroup) view.findViewById(R.id.ingredient_grp);
-        suggestedCultures = (ChipGroup) view.findViewById(R.id.culture_grp);
-        suggestedCategories = (ChipGroup)view.findViewById(R.id.category_grp);
         tags = new ArrayList<>();
 
         getTags();
@@ -216,8 +212,6 @@ public class PantryFragment extends Fragment  {
 
         int count = 0;
         suggestedIngredients.removeAllViews();
-        suggestedCultures.removeAllViews();
-        suggestedCategories.removeAllViews();
 
         if(name.isEmpty()) return;
 
@@ -229,6 +223,7 @@ public class PantryFragment extends Fragment  {
                 txt.setText(tag.getName());
                 txt.setBackgroundColor(getResources().getColor(tag.getTagColor()));
                 txt.setClickable(true);
+                txt.setFocusableInTouchMode(false);
                 txt.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
@@ -240,17 +235,7 @@ public class PantryFragment extends Fragment  {
                             }
                         }
                 );
-                switch (tag.getType()){
-                    case Tag.INGREDIENT:
-                        suggestedIngredients.addView(txt);
-                        break;
-                    case Tag.CULTURE:
-                        suggestedCultures.addView(txt);
-                        break;
-                    case Tag.CATEGORY:
-                        suggestedCategories.addView(txt);
-                        break;
-                }
+                suggestedIngredients.addView(txt);
                 count++;
             }
         }

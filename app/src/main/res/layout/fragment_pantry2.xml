@@ -116,34 +116,20 @@
                             android:id="@+id/ingredient_lbl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:focusableInTouchMode="false"
                             android:text="Ingredients" />
 
                         <android.support.design.chip.ChipGroup
                             android:id="@+id/ingredient_grp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:focusableInTouchMode="false"
                             android:orientation="vertical">
 
                         </android.support.design.chip.ChipGroup>
 
 
-                        <android.support.design.chip.ChipGroup
-                            android:id="@+id/culture_grp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                        </android.support.design.chip.ChipGroup>
-
-
-                        <android.support.design.chip.ChipGroup
-                            android:id="@+id/category_grp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                        </android.support.design.chip.ChipGroup>
-                    </LinearLayout>
+                     </LinearLayout>
                 </RelativeLayout>
 
 
