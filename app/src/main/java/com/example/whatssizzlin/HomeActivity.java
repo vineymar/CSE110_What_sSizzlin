@@ -2,7 +2,6 @@ package com.example.whatssizzlin;
 /*---------------------------Imports-------------------------------*/
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Toast.makeText( this, "Welcome " + RegistrationActivity.name, Toast.LENGTH_LONG).show();
         ButterKnife.bind(HomeActivity.this);
         //getRecommendedImages();
 

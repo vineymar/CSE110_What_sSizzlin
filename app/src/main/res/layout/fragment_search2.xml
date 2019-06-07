@@ -1,14 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Search Fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/filter_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Filters" />
+
+                <Button
+                    android:id="@+id/inv_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add Inventory" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/search_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    app:srcCompat="@android:drawable/ic_menu_search" />
+
+                <EditText
+                    android:id="@+id/tag_txt"
+                    android:layout_width="310dp"
+                    android:layout_height="60dp"
+                    android:inputType="text" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <android.support.design.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_bar"
+            android:minHeight="100dp">
+
+        </android.support.design.chip.ChipGroup>
+
+
+        <LinearLayout
+        android:id="@+id/results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chipGroup"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/search_results_tmp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search Results" />
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/vertical_view"
+            android:layout_width="match_parent"
+            android:layout_height="605dp"
+            android:layout_below="@id/chipGroup"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tag_dropdown"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_bar"
+            android:layout_marginLeft="120dp"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/ingredient_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingredients" />
+
+            <android.support.design.chip.ChipGroup
+                android:id="@+id/ingredient_grp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </android.support.design.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/culture_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Culture" />
+
+            <android.support.design.chip.ChipGroup
+                android:id="@+id/culture_grp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </android.support.design.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/category_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category" />
+
+            <android.support.design.chip.ChipGroup
+                android:id="@+id/category_grp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </android.support.design.chip.ChipGroup>
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 </FrameLayout>

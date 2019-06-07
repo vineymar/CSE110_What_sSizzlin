@@ -3,6 +3,7 @@ package com.example.whatssizzlin;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,6 +39,7 @@ public class ViewRecipe extends Fragment {
     Uri uri;
     TextView name;
     String mName;
+    private final List<String> s = new ArrayList<String>();
 
     public ViewRecipe(){}
 
@@ -75,14 +77,19 @@ public class ViewRecipe extends Fragment {
             }
         });
 
-        Button btnAddIngredient = v.findViewById(R.id.btnAdd);
+        final Button btnAddIngredient = v.findViewById(R.id.btnAdd);
         btnAddIngredient.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "Recipe Added", Toast.LENGTH_LONG).show();
                 home.mRecIDs.add(getArguments().getString("id"));
-                List<String> s = new ArrayList<String>();
+
                 s.add(getArguments().getString("id"));
                 home.addFavRecipe(s, 0 );
+
+                //Makes the button unclickable
+                btnAddIngredient.setClickable(false);
+                btnAddIngredient.setBackgroundColor(Color.TRANSPARENT);
             }
         });
 

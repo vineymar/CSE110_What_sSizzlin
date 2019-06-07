@@ -11,39 +11,33 @@
 
 
     //Welcome!
-    <Space
-        android:layout_width="1dp"
-        android:layout_height="10dp"/>
-
     <TextView
         android:id="@+id/Welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/audiowide"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
         android:text="Welcome!"
-        android:textSize="65sp"
-        android:layout_height="100dp"
-        android:layout_width="match_parent"
-
-        android:fontFamily="@font/caveat_bold"
-
 
         android:textAlignment="center"
+
+
         android:textColor="@android:color/white"
         android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
         android:textColorHint="@color/common_google_signin_btn_text_light_pressed"
-        />
+        android:textSize="45sp" />
     //WSLogo
+
     <ImageView
         android:id="@+id/wslogo"
         android:layout_width="500dp"
-        android:layout_height="170dp"
+        android:layout_height="207dp"
         android:layout_gravity="center"
         android:adjustViewBounds="false"
-        android:alpha=".99"
         android:contentDescription="TODO"
         android:cropToPadding="false"
         android:paddingTop="10dp"
-        android:src="@drawable/wslogo_white" />
-
+        android:src="@drawable/wslogo_rounded" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,16 +65,15 @@
                 android:drawableLeft="@drawable/ic_person_black_24dp"
                 android:drawablePadding="10dp"
                 android:hint="Name"
-                android:padding="15dp"
-
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-
-
                 android:imeOptions="actionNext"
+
+                android:padding="15dp"
                 android:singleLine="true"
-                />
+                android:textColor="@color/white"
+
+
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white" />
 
             //emailAddress
 
@@ -94,17 +87,17 @@
                 android:drawableLeft="@drawable/ic_email_black_24dp"
                 android:drawablePadding="10dp"
                 android:hint="Email Address"
-                android:padding="15dp"
-
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-
                 android:imeOptions="actionNext"
+
+                android:padding="15dp"
                 android:singleLine="true"
-                />
+                android:textColor="@color/white"
+
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white" />
 
             //passwordid
+
             <EditText
                 android:id="@+id/password_registration_id"
                 android:layout_width="match_parent"
@@ -115,27 +108,14 @@
                 android:drawablePadding="10dp"
 
                 android:hint="Password"
-                android:padding="15dp"
-
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-
                 android:imeOptions="actionNext"
+
+                android:padding="15dp"
                 android:singleLine="true"
-                />
-            <CheckBox
-                android:text="Hide Password"
-                android:id="@+id/show_password_registration_id"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:checked="false"/>
+
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white" />
 
             <Space
                 android:layout_width="1dp"
@@ -143,37 +123,53 @@
 
             <Button
                 android:id="@+id/btnRegistration"
-                android:onClick="btnRegistrationUser_Click"
-                android:background="@drawable/loginshape"
-
-                android:padding="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="30dp"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/loginshape"
+
+                android:onClick="btnRegistrationUser_Click"
+                android:padding="15dp"
 
                 android:shadowColor="@android:color/transparent"
                 android:text="Register Now" />
 
+            <Space
+                android:layout_width="1dp"
+                android:layout_height="25dp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Already Have an Account?"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
             <Button
                 android:id="@+id/btnAlreadyMember"
-                android:onClick="btnAlreadyRegister_Click"
-                android:text="ALREADY A USER - CLICK HERE TO LOG IN"
-                android:textSize="13sp"
-                android:layout_height="34dp"
-
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/audiowide"
+                android:onClick="btnAlreadyRegister_Click"
+
+                android:layout_marginBottom="13dp"
+                android:text="CLICK HERE TO LOG IN"
+
                 android:textAlignment="center"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/white"
                 android:textColorHint="@color/white"
-                android:textAllCaps="false"
-                />
+                android:textSize="15dp" />
+            <Space
+                android:layout_width="1dp"
+                android:layout_height="10dp" />
 
         </LinearLayout>
     </LinearLayout>

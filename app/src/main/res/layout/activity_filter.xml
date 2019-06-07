@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup_bg"
+    tools:context="com.example.whatssizzlin.FilterActivity">
+
+    <RelativeLayout
+        android:id="@+id/serving_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:id="@+id/serving_lbl"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="10dp"
+            android:text="Serving Size"/>
+
+        <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+            android:id="@+id/serving_rng_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/serving_lbl"
+            app:corner_radius="10"
+            app:min_value="0"
+            app:max_value="21"
+            app:gap="1"
+            app:bar_color="#8990C4"
+            app:bar_highlight_color="#2434AD"
+            app:left_thumb_color="#1A246D"
+            app:right_thumb_color="#1A246D"
+            app:left_thumb_color_pressed="#030B47"
+            app:right_thumb_color_pressed="#030B47"
+            app:data_type="_integer"/>
+        <TextView
+            android:id="@+id/serving_min_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_below="@id/serving_rng_bar"
+            android:layout_alignParentLeft="true"/>
+        <TextView
+            android:id="@+id/serving_max_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20+"
+            android:layout_below="@id/serving_rng_bar"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_below="@id/serving_filter">
+        <TextView
+            android:id="@+id/time_lbl"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="10dp"
+            android:text="Time"/>
+
+        <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+            android:id="@+id/time_rng_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_lbl"
+            app:corner_radius="10"
+            app:min_value="0"
+            app:max_value="361"
+            app:gap="5"
+            app:bar_color="#8990C4"
+            app:bar_highlight_color="#2434AD"
+            app:left_thumb_color="#1A246D"
+            app:right_thumb_color="#1A246D"
+            app:left_thumb_color_pressed="#030B47"
+            app:right_thumb_color_pressed="#030B47"
+            app:data_type="_integer"/>
+        <TextView
+            android:id="@+id/time_min_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 m"
+            android:layout_below="@id/time_rng_bar"
+            android:layout_alignParentLeft="true"/>
+        <TextView
+            android:id="@+id/time_max_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6+ h"
+            android:layout_below="@id/time_rng_bar"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/filter_apply_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply"/>
+
+</RelativeLayout>
