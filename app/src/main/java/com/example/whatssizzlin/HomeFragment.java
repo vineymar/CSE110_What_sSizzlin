@@ -85,22 +85,7 @@ public class HomeFragment extends Fragment {
         adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, mFavRecs,this.getContext(), this);
         recyclerFavView.setAdapter(adapterFavorite);
 
-        Recipe r = new Recipe();
-        String str = FirebaseDatabase.getInstance().getReference().child("meals").push().getKey();
-        r.ingredients = new ArrayList<>();
-        r.ingredients.add("test");
-        r.author = "im good";
-        r.img_url = "123.png";
-        r.difficulty = new ArrayList<>();
-        r.difficulty.add("Easy");
-        r.description = "its easy dude";
-        r.time = new ArrayList<>();
-        r.servings = "3";
-        r.id = str;
-        r.method = new ArrayList<>();
-        r.nutrition = new ArrayMap<>();
-        FirebaseDatabase.getInstance().getReference().child("meals").child(str).setValue(r);
-        Log.d("im good", str);
+        
         return view;
     }
 /*
