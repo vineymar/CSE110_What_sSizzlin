@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
         adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, mFavRecs,this.getContext(), this);
         recyclerFavView.setAdapter(adapterFavorite);
 
-        
+
         return view;
     }
 /*

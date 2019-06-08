@@ -131,7 +131,7 @@
                 android:textSize="30sp" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/recipeDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -147,7 +147,7 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/servings"
+                android:id="@+id/recipeServings"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -158,11 +158,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-            <Button
-                android:id="@+id/submit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="submit" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/submit_button"
+                    android:layout_width="211dp"
+                    android:layout_height="wrap_content"
+                    android:text="submit" />
+
+                <Button
+                    android:id="@+id/recipeCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

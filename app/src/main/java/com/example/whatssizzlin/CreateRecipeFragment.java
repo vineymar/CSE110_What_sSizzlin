@@ -1,8 +1,10 @@
 package com.example.whatssizzlin;
 
-import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,13 +17,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 /**
@@ -48,6 +57,7 @@ public class CreateRecipeFragment extends Fragment {
     private LinearLayout mLayout_ing;
     private EditText mEditText_ing;
     private Button mButton_ing;
+    private Button mButton_addImage;
     TextInputEditText ingInp;
     TextInputEditText qInp;
     ListView mIngs;
@@ -55,6 +65,8 @@ public class CreateRecipeFragment extends Fragment {
     ArrayList<String> quants;
     ArrayList<String> inps;
     ArrayAdapter<String> arrayAdapter;
+    private Uri filePath;
+    private static final int GET_FROM_GALLERY = 3;
     //
 
     public CreateRecipeFragment() {
@@ -105,6 +117,7 @@ public class CreateRecipeFragment extends Fragment {
         List<Map<String, Map<String, String>>> time;
 
 
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_recipe, container, false);
 
@@ -120,6 +133,19 @@ public class CreateRecipeFragment extends Fragment {
         inps = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, inps);
         mIngs.setAdapter(arrayAdapter);
+        mButton_addImage = view.findViewById(R.id.button_addImage);
+        
+        mButton_addImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+            }
+
+
+        });
+
+
+        
         mButton_ing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,17 +160,101 @@ public class CreateRecipeFragment extends Fragment {
         });
 
         final TextInputEditText t = view.findViewById(R.id.recipeInstructions);
+        final TextInputEditText rn = view.findViewById(R.id.recipeName);
+        final EditText rd = view.findViewById(R.id.recipeDescription);
+        final EditText te = view.findViewById(R.id.time_estimate);
+        final EditText servs = view.findViewById(R.id.recipeServings);
 
+        Button c = (Button) view.findViewById(R.id.recipeCancel);
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_frame, new PreferenceFragment());
+                fragmentTransaction.commit();
+            }
+        });
 
         Button b = (Button) view.findViewById(R.id.submit_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Recipe r = new Recipe();
+                HomeActivity h = (HomeActivity) getActivity();
+                if(h.getBitmap() == null){
+                    Toast.makeText(getContext(), "Please select an image", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(rn.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Please enter the recipe name", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(ings.size() == 0){
+                    Toast.makeText(getContext(), "Please enter the ingredients", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(t.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Please enter the instructions", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(rd.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Please enter the recipe description", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(te.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Please enter the time estimate", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(servs.getText().toString().equals("") || servs.getText().toString() == null){
+                    Toast.makeText(getContext(), "Please enter the servings", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                final Recipe r = new Recipe();
+                r.name = rn.getText().toString();
                 r.nutrition = new HashMap<>();
                 r.method = new ArrayList<>();
                 r.method.add(t.getText().toString());
-                Log.d("CRE", r.method.get(0));
+                r.servings = servs.getText().toString();
+                //Log.d("CRE", r.servings);
+                r.servingTag = Integer.parseInt(r.servings);
+                r.description = rd.getText().toString();
+                r.author = RegistrationActivity.name;
+                r.difficulty = new ArrayList<>();
+                r.ingredients = inps;
+                r.time = new ArrayList<>();
+                r.ingredientTags = ings;
+                r.timeTag = Integer.parseInt(te.getText().toString());
+
+                final String key = FirebaseDatabase.getInstance().getReference().child("meals").push().getKey();
+                r.id = key;
+
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                Bitmap b = h.getBitmap();
+                b.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                StorageReference imgRef = FirebaseStorage.getInstance().getReference().child("mealImages/"+key+".jpg");
+                UploadTask uploadTask = imgRef.putBytes(data);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getContext(), "Error uploading image", Toast.LENGTH_LONG).show();
+                        return;
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        FirebaseDatabase.getInstance().getReference().child("meals").child(key).setValue(r);
+                        Log.d("CRE", key);
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_frame, new PreferenceFragment());
+                        fragmentTransaction.commit();
+                        Toast.makeText(getContext(), "Recipe submitted", Toast.LENGTH_LONG).show();
+
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
+                    }
+                });
             }
         });
        // mButton_ing.setOnClickListener(ing_onClick());
@@ -155,6 +265,8 @@ public class CreateRecipeFragment extends Fragment {
         inflater.inflate(R.layout.fragment_create_recipe, container, false);
         return view;
     }
+
+
 
 /*
     private View.OnClickListener ing_onClick() {
