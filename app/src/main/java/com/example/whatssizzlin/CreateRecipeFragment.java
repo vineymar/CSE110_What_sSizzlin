@@ -3,15 +3,22 @@ package com.example.whatssizzlin;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +48,13 @@ public class CreateRecipeFragment extends Fragment {
     private LinearLayout mLayout_ing;
     private EditText mEditText_ing;
     private Button mButton_ing;
+    TextInputEditText ingInp;
+    TextInputEditText qInp;
+    ListView mIngs;
+    ArrayList<String> ings;
+    ArrayList<String> quants;
+    ArrayList<String> inps;
+    ArrayAdapter<String> arrayAdapter;
     //
 
     public CreateRecipeFragment() {
@@ -96,15 +110,49 @@ public class CreateRecipeFragment extends Fragment {
 
         //Add ingredients
         //setContentView(R.layout.fragment_create_recipe);
-        mLayout_ing = (LinearLayout) view.findViewById(R.id.linearLayout_ing);
-        mEditText_ing = (EditText) view.findViewById(R.id.editText_ingredient);
-        mButton_ing = (Button) view.findViewById(R.id.button);
+
+        ingInp = (TextInputEditText) view.findViewById(R.id.mIng);
+        qInp = (TextInputEditText) view.findViewById(R.id.mQuant);
+        mIngs = (ListView) view.findViewById(R.id.listIngredients);
+        mButton_ing = (Button) view.findViewById(R.id.button_ing);
+        ings = new ArrayList<>();
+        quants = new ArrayList<>();
+        inps = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, inps);
+        mIngs.setAdapter(arrayAdapter);
+        mButton_ing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ns = qInp.getText().toString() + " " + ingInp.getText().toString();
+                ings.add(ingInp.getText().toString());
+                quants.add(qInp.getText().toString());
+                inps.add(ns);
+
+                arrayAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+        final TextInputEditText t = view.findViewById(R.id.recipeInstructions);
+
+
+        Button b = (Button) view.findViewById(R.id.submit_button);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Recipe r = new Recipe();
+                r.nutrition = new HashMap<>();
+                r.method = new ArrayList<>();
+                r.method.add(t.getText().toString());
+                Log.d("CRE", r.method.get(0));
+            }
+        });
        // mButton_ing.setOnClickListener(ing_onClick());
        // TextView textView = new TextView(Objects.requireNonNull(getActivity()).getApplicationContext()); //this
        // textView.setText("New text");
 
        // Recipe recipe = new Recipe(author, description, difficulty, ingredients, method, name, nutrition, servings. time);
-
+        inflater.inflate(R.layout.fragment_create_recipe, container, false);
         return view;
     }
 
