@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PantryFragment extends Fragment  {
+public class RestrictionFragment extends Fragment  {
 
     SparseBooleanArray sparseBooleanArray ;
     final ArrayList<String> ingredientItemList = new ArrayList<String>();
@@ -55,8 +55,7 @@ public class PantryFragment extends Fragment  {
     private EditText tagText;
 
     private ChipGroup suggestedIngredients;
-    private ChipGroup suggestedCultures;
-    private ChipGroup suggestedCategories;
+
 
     private int min_serving = 0;
     private int max_serving = 21;
@@ -73,7 +72,7 @@ public class PantryFragment extends Fragment  {
     /*Search bar stuff*/
 
 
-    public PantryFragment() {
+    public RestrictionFragment() {
         // Required empty public constructor
     }
 
@@ -82,13 +81,12 @@ public class PantryFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_pantry2, container, false);
+        view = inflater.inflate(R.layout.fragment_restrictions, container, false);
 
-        final Button deleteItems = (Button) view.findViewById(R.id.pantryRemove);
-        tagText = (EditText) view.findViewById(R.id.tag_txt);
-        suggestedIngredients = (ChipGroup) view.findViewById(R.id.ingredient_grp);
-        suggestedCultures = (ChipGroup) view.findViewById(R.id.culture_grp);
-        suggestedCategories = (ChipGroup)view.findViewById(R.id.category_grp);
+        final Button deleteItems = (Button) view.findViewById(R.id.restrictionRemove);
+        tagText = (EditText) view.findViewById(R.id.restrictions_tag_txt);
+        suggestedIngredients = (ChipGroup) view.findViewById(R.id.restriction_chipGroup);
+
         tags = new ArrayList<>();
 
         getTags();
@@ -96,8 +94,8 @@ public class PantryFragment extends Fragment  {
 
         /*Where we add and show our list of ingredients*/
 
-        mIngredientList = view.findViewById(R.id.ingredientListView);
-        tag_dropdown = view.findViewById(R.id.tag_dropdown);
+        mIngredientList = view.findViewById(R.id.restrictions_ingredientListView);
+        tag_dropdown = view.findViewById(R.id.restrictions_tag_dropdown);
 
         /*Adapter for Adding Ingredients*/
         mListViewAdapter = new ArrayAdapter<String>(
@@ -110,7 +108,7 @@ public class PantryFragment extends Fragment  {
         mIngredientList.setAdapter(mListViewAdapter);
         mIngredientList.getAdapter();
 
-        Button b = view.findViewById(R.id.pantryClear);
+        Button b = view.findViewById(R.id.restrictionClear);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +116,7 @@ public class PantryFragment extends Fragment  {
                 int j = 0;
                 while(ingredientItemList.size() > 0)
                 {
-                        ingredientItemList.remove(0);
+                    ingredientItemList.remove(0);
                 }
                 mListViewAdapter.notifyDataSetChanged();
             }
@@ -236,14 +234,15 @@ public class PantryFragment extends Fragment  {
     }
 
     private void setSuggestionVisibility(){
-        Log.d("RES", tagText.hasFocus() + " " + tagText.getText().toString());
-        view.findViewById(R.id.tag_dropdown).setVisibility(tagText.hasFocus() &&
-                !tagText.getText().toString().isEmpty()?View.VISIBLE:View.INVISIBLE);
+        //Log.d("RES", tagText.hasFocus() + " " + tagText.getText().toString());
+        //view.findViewById(R.id.restrictions_tag_txt).setVisibility(
+        //        !tagText.getText().toString().isEmpty()?View.VISIBLE:View.INVISIBLE);
+
 
     }
 
     private void getTags(){
-        List<String> ingredients = Arrays.asList(getResources().getStringArray(R.array.ingredients));
+        List<String> ingredients = Arrays.asList(getResources().getStringArray(R.array.restrictions));
         int i = 0;
         for(String ingredient : ingredients){
             tags.add(new IngredientTag(ingredient,i++));
@@ -264,8 +263,7 @@ public class PantryFragment extends Fragment  {
 
         int count = 0;
         suggestedIngredients.removeAllViews();
-        suggestedCultures.removeAllViews();
-        suggestedCategories.removeAllViews();
+
 
         if(name.isEmpty()) return;
 
@@ -297,12 +295,7 @@ public class PantryFragment extends Fragment  {
                     case Tag.INGREDIENT:
                         suggestedIngredients.addView(txt);
                         break;
-                    case Tag.CULTURE:
-                        suggestedCultures.addView(txt);
-                        break;
-                    case Tag.CATEGORY:
-                        suggestedCategories.addView(txt);
-                        break;
+
                 }
                 count++;
             }

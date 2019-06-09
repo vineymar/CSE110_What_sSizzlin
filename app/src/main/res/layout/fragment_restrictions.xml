@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment"
+    android:layout_above="@+id/BottomNavigation">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRestrictions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/audiowide"
+            android:background="#FF631D"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:text="Dietary Restrictions"
+            android:textAlignment="center"
+
+            android:typeface="normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="470dp"
+            android:orientation="vertical">
+
+            <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/restrictions_search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/restrictions_tag_txt"
+                            android:layout_width="302dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/emailshape"
+                            android:drawablePadding="10dp"
+                            android:hint="Add Restriction Here"
+                            android:imeOptions="actionNext"
+                            android:padding="15dp"
+                            android:singleLine="true"
+                            android:textAlignment="center"
+                            android:textColor="#ff631D"
+                            android:textColorHighlight="#FF631D"
+                            android:textColorHint="#FF631D" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <android.support.design.chip.ChipGroup
+                    android:id="@+id/restriction_chipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/restrictions_search_bar"
+                    android:minHeight="100dp">
+
+                </android.support.design.chip.ChipGroup>
+
+
+                <LinearLayout
+                    android:id="@+id/restrictions_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/restriction_chipGroup"
+                    android:orientation="vertical">
+                    <ListView
+                        android:id="@+id/restrictions_ingredientListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:textColor="#000"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/restrictions_tag_dropdown"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/restrictions_search_bar"
+                    android:layout_marginLeft="120dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:id="@+id/restrictions_lbl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Restrictions" />
+
+                    <android.support.design.chip.ChipGroup
+                        android:id="@+id/restrictions_grp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    </android.support.design.chip.ChipGroup>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/restrictionRemove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F03232"
+            android:text="Remove Items"
+            android:textColor="#FFFFFF"
+            android:visibility="invisible" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="5dp"/>
+
+
+        <Button
+            android:id="@+id/restrictionClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F03232"
+            android:text="Clear Restrictions"
+            android:textColor="#FFFFFF" />
+
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

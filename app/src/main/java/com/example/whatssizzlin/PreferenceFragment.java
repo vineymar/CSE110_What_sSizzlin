@@ -31,6 +31,16 @@ public class PreferenceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_preference, container, false);
 
+        CardView c = view.findViewById(R.id.card_edit);
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_frame, new RestrictionFragment());
+                fragmentTransaction.commit();
+            }
+        });
+
         CardView b = view.findViewById(R.id.card_cookbook);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
