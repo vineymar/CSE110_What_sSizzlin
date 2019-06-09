@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (task.isSuccessful()) {
+                            UserDB.populateArrays();
                             String email =firebaseAuth.getCurrentUser().getEmail();
                             RegistrationActivity.name = firebaseAuth.getCurrentUser().getDisplayName();
                             Intent i = new Intent(MainActivity.this, HomeActivity.class);

@@ -168,6 +168,7 @@ public class HomeFragment extends Fragment {
                 // Create a storage reference from our app
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference sr = storage.getReference();
+
                 StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
                 pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override

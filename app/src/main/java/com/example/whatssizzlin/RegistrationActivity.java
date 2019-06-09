@@ -105,6 +105,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                               UserDB.writeNewUser( user.getUid(), user.getDisplayName(), user.getEmail());
+                                              UserDB.populateArrays();
                                             }
                                         }
                                     });

@@ -34,6 +34,34 @@ public class UserDB {
         mDatabase.child("users").child(userId).child("preferences").setValue(preferences);
     }
 
+    public static void populateArrays( ){
+        readInventory();
+        readFav();
+    }
+
+
+    public static void readFav() {
+        //Toast.makeText(home, "Only once", Toast.LENGTH_SHORT).show();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/favorites");
+        //DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meals/");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Integer recipeId = dataSnapshot1.getValue(Integer.class);
+                    if (!favRecipeList.contains(recipeId.toString())) {
+                        favRecipeList.add(recipeId);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     public static void addFav( Integer recipeId ){
         favRecipeList.add(recipeId);
         HomeFragment.favList.add(recipeId.toString());

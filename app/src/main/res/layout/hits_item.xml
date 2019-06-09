@@ -11,7 +11,7 @@
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:scaleType="fitCenter"
-            algolia:attribute='@{"image"}'/>
+            algolia:attribute='@{"img_url"}'/>
 
         <TextView
             android:id="@+id/product_name"
@@ -19,10 +19,5 @@
             android:layout_height="wrap_content"
             algolia:attribute='@{"name"}' />
 
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            algolia:attribute='@{"salePrice"}'/>
     </LinearLayout>
 </layout>

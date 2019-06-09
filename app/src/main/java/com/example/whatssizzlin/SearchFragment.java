@@ -25,10 +25,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.algolia.instantsearch.core.helpers.Searcher;
 import com.algolia.instantsearch.core.model.SearchResults;
 import com.algolia.instantsearch.core.searchclient.DefaultSearchClient;
 import com.algolia.instantsearch.core.searchclient.SearchResultsHandler;
+import com.algolia.instantsearch.ui.helpers.InstantSearch;
+import com.algolia.instantsearch.ui.views.Hits;
+import com.algolia.instantsearch.ui.views.SearchBox;
 import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.CompletionHandler;
 import com.algolia.search.saas.Query;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -77,6 +82,8 @@ public class SearchFragment extends Fragment {
     private List<Tag> tags;
     public static View view;
     private Activity activity;
+    public SearchBox searchBox;
+    public Hits hits;
 
     private final int MAX_SUGGESTIONS = 20;
 
@@ -96,8 +103,12 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search2, container, false);
         activity = getActivity();
 
-        View hits = view.findViewById(R.id.hits);
+        hits = view.findViewById(R.id.hits);
+        //View hits = view.findViewById(R.id.hits);
 
+        //TextView searchbox = view.findViewById(R.id.tag_txt);
+        //Searcher searcher = new Searcher();
+        //InstantSearch search = new InstantSearch(searchbox, searcher);
         selectedTagList = new ArrayList<Tag>();
         searchChipGroup = (ChipGroup)view.findViewById(R.id.chipGroup);
         tagText = (EditText) view.findViewById(R.id.tag_txt);
@@ -217,6 +228,9 @@ public class SearchFragment extends Fragment {
         );
 
     }
+
+
+
     private void setupSearchBar(){
         ((Button)view.findViewById(R.id.filter_btn)).setOnClickListener(
                 new View.OnClickListener() {
@@ -236,11 +250,17 @@ public class SearchFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         try {
                             doSearchRequest();
+                            SearchResults lol = new SearchResults(jsonResult);
+                            hits.onResults(lol, false);
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
                 }
         );
@@ -382,6 +402,7 @@ public class SearchFragment extends Fragment {
                         System.out.println("received response");
                         textView.setText("Response: " + response.toString());
                         doSearchWrapper(response);
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -432,6 +453,8 @@ public class SearchFragment extends Fragment {
             }
         }
     }
+
+
 
 
 
