@@ -114,6 +114,7 @@ public class HomeFragment extends Fragment {
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference sr = storage.getReference();
                 StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
+                Log.d("CRD", pic.getDownloadUrl().toString());
                 pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {

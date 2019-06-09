@@ -137,8 +137,9 @@ public class PantryFragment extends Fragment  {
 
                 SparseBooleanArray a = mIngredientList.getCheckedItemPositions();
                 int j = 0;
-                for(int i = 0; i < ingredientItemList.size() ; i++)
+                for(int i = 0; i < a.size() ; i++)
                 {
+                    Log.d("PAN", i+ " " + j + " " + a);
                     if (a.valueAt(j))
                     {
                         ingredientItemList.remove(j);
@@ -271,6 +272,7 @@ public class PantryFragment extends Fragment  {
                                 tag_dropdown.setVisibility(View.INVISIBLE);
                                 tagText.setText("");
                                 mListViewAdapter.notifyDataSetChanged();
+                                mIngredientList.setItemChecked(ingredientItemList.size() - 1, false);
                                 //tagText.clearFocus();
 
                             }
