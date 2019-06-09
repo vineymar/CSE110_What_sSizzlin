@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import static com.example.whatssizzlin.UserDB.FBUser;
 
 
 /**
@@ -31,7 +34,7 @@ public class PreferenceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_preference, container, false);
 
-        CardView c = view.findViewById(R.id.card_edit);
+        Button c = view.findViewById(R.id.button2);
         c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +44,7 @@ public class PreferenceFragment extends Fragment {
             }
         });
 
-        CardView b = view.findViewById(R.id.card_cookbook);
+        Button b = view.findViewById(R.id.button4);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,8 +53,12 @@ public class PreferenceFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        TextView text = view.findViewById(R.id.txt_user_name);
+
+        text.setText(FBUser.getDisplayName());
 
         //Create Recipe Button
+        /*
         Button btnCreateRecipe = view.findViewById(R.id.button_createRecipe);
         btnCreateRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +69,7 @@ public class PreferenceFragment extends Fragment {
             }
         });
 
-
+*/
         Button btnLogout_Click=view.findViewById(R.id.btn_logout);
         btnLogout_Click.setOnClickListener(new View.OnClickListener() {
             @Override

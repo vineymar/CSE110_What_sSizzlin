@@ -1,9 +1,14 @@
 package com.example.whatssizzlin;
 
 
+import android.icu.text.UnicodeSet;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,21 +17,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.algolia.instantsearch.core.searchclient.DefaultSearchClient;
+import com.algolia.instantsearch.core.searchclient.SearchResultsHandler;
+import com.algolia.search.saas.AlgoliaException;
+import com.example.whatssizzlin.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static android.widget.GridLayout.HORIZONTAL;
+import static com.example.whatssizzlin.UserDB.FBUser;
 
 
 /**
@@ -57,6 +71,8 @@ public class HomeFragment extends Fragment {
     public ArrayList<String> mFavIDs;
     /*For our images into our view*/
 
+    public static ArrayList<String> favList = new ArrayList<>();
+    //public static int count = 1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -156,6 +172,7 @@ public class HomeFragment extends Fragment {
                 // Create a storage reference from our app
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference sr = storage.getReference();
+
                 StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
                 pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -201,29 +218,39 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        mFavIDs = new ArrayList<String>() {
-            {
-                add("6");
-                add("7");
-                add("8");
-                add("9");
-                add("10");
-                add("11");
+        if(favList.size() == 0) {
+            //Toast.makeText(home, "Only once", Toast.LENGTH_SHORT).show();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/favorites");
+            //DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meals/");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Integer recipeId = dataSnapshot1.getValue(Integer.class);
+                        if(!favList.contains(recipeId.toString())) {
+                            favList.add(recipeId.toString());
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            if (favList.isEmpty()) {
+                favList.add("1");
             }
-        };
 
+        }
 
-        addFavRecipe(mFavIDs, 0);
+        addFavRecipe(favList, 0);
+
         addRecRecipe(mRecIDs, 0);
 
 
     }
-
-
-
-
-
-
-
 
 }

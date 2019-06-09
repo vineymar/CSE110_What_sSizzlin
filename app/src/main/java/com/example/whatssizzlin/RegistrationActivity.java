@@ -82,7 +82,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                              writeNewUser( user.getUid(), user.getDisplayName(), user.getEmail());
+                                              UserDB.writeNewUser( user.getUid(), user.getDisplayName(), user.getEmail());
+                                              UserDB.populateArrays();
                                             }
                                         }
                                     });
@@ -97,14 +98,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
 
-        mDatabase.child("users").child(userId).setValue(user);
-        UserPref preferences = new UserPref();
-        mDatabase.child("users").child(userId).child("preferences").setValue(preferences);
-
-    }
 }
 
 
