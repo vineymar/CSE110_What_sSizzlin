@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -61,6 +62,7 @@ public class PantryFragment extends Fragment  {
     private int max_serving = 21;
     private int min_time = 0;
     private int max_time = 361;
+    private LinearLayout tag_dropdown;
 
 
     private List<Tag> tags;
@@ -82,7 +84,7 @@ public class PantryFragment extends Fragment  {
 
         view = inflater.inflate(R.layout.fragment_pantry2, container, false);
 
-
+        final Button deleteItems = (Button) view.findViewById(R.id.pantryRemove);
         tagText = (EditText) view.findViewById(R.id.tag_txt);
         suggestedIngredients = (ChipGroup) view.findViewById(R.id.ingredient_grp);
         suggestedCultures = (ChipGroup) view.findViewById(R.id.culture_grp);
@@ -95,6 +97,7 @@ public class PantryFragment extends Fragment  {
         /*Where we add and show our list of ingredients*/
 
         mIngredientList = view.findViewById(R.id.ingredientListView);
+        tag_dropdown = view.findViewById(R.id.tag_dropdown);
 
         /*Adapter for Adding Ingredients*/
         mListViewAdapter = new ArrayAdapter<String>(
@@ -106,6 +109,7 @@ public class PantryFragment extends Fragment  {
         /*More adapter*/
         mIngredientList.setAdapter(mListViewAdapter);
         mIngredientList.getAdapter();
+
 
 //        final EditText editText = view.findViewById(R.id.ingredient_id);
 //        Button btnAddIngredient = view.findViewById(R.id.btnAdd);
@@ -126,18 +130,48 @@ public class PantryFragment extends Fragment  {
 
         /*Check Box Adapter*/
 
+        deleteItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                SparseBooleanArray a = mIngredientList.getCheckedItemPositions();
+                int j = 0;
+                for(int i = 0; i < a.size() ; i++)
+                {
+                    Log.d("PAN", i+ " " + j + " " + a);
+                    if (a.valueAt(j))
+                    {
+                        ingredientItemList.remove(j);
+                    }
+                    else{
+                        j++;
+                    }
+                }
+
+                mListViewAdapter.notifyDataSetChanged();
+                for(int i = 0; i < ingredientItemList.size(); i++){
+                    mIngredientList.setItemChecked(i, false);
+                }
+                deleteItems.setVisibility(View.INVISIBLE);
+            }
+        });
+
         mIngredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         mIngredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView arg0, View arg1, int arg2,long arg3)
             {
                 my_sel_items=new String("Selected Items");
+                deleteItems.setVisibility(View.INVISIBLE);
                 mIngredientList.setBackgroundResource(R.drawable.backgroundcolor);
                 SparseBooleanArray a = mIngredientList.getCheckedItemPositions();
+
                 for(int i = 0; i < ingredientItemList.size() ; i++)
                 {
                     if (a.valueAt(i))
                     {
+                        deleteItems.setVisibility(View.VISIBLE);
                         my_sel_items = my_sel_items + ","
                                 + (String) mIngredientList.getAdapter().getItem(i);
                     }
@@ -235,7 +269,10 @@ public class PantryFragment extends Fragment  {
 
                                 //addTagToChipGroup(tag);
                                 ingredientItemList.add(txt.getText().toString());
+                                tag_dropdown.setVisibility(View.INVISIBLE);
+                                tagText.setText("");
                                 mListViewAdapter.notifyDataSetChanged();
+                                mIngredientList.setItemChecked(ingredientItemList.size() - 1, false);
                                 //tagText.clearFocus();
 
                             }
@@ -264,6 +301,9 @@ public class PantryFragment extends Fragment  {
                     @Override
                     public boolean onTouch(View view, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            if(activity == null){
+                                return false;
+                            }
                             View v = activity.getCurrentFocus();
                             if ( v instanceof EditText) {
                                 Rect outRect = new Rect();

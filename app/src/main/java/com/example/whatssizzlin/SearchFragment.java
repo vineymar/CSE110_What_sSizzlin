@@ -202,6 +202,8 @@ public class SearchFragment extends Fragment {
 
     }
 
+
+
     private void addTagToChipGroup(Tag tag){
         tagText.setText("");
         final Chip chip = new Chip(view.getContext());

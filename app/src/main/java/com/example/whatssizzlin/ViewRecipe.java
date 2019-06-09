@@ -97,7 +97,7 @@ public class ViewRecipe extends Fragment {
         return v;
 
     }
-
+/*
     public void setID(final String ID){
         FirebaseDatabase.getInstance().getReference().child("meals").child(ID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -129,7 +129,7 @@ public class ViewRecipe extends Fragment {
             }
         });
     }
-
+*/
     private void configureScreen(){
 
         //final TextView name = this.view.findViewById(R.id.recipeName);
