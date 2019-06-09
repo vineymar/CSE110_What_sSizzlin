@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ingredients">
+        <item>apple</item>
+        <item>orange</item>
+        <item>banana</item>
+        <item>lemon</item>
+        <item>lemon juice</item>
+        <item>egg</item>
+        <item>egg yolk</item>
+        <item>egg white</item>
+        <item>tomato</item>
+        <item>chicken egg</item>
+        <item>quail egg</item>
+        <item>milk</item>
+        <item>goat milk</item>
+        <item>potatoes</item>
+        <item>lettuce</item>
+        <item>onion</item>
+        <item>hot sauce</item>
+        <item>orange juice</item>
+        <item>corn starch</item>
+        <item>flour</item>
+        <item>beef</item>
+        <item>chicken</item>
+        <item>fish</item>
+        <item>shrimp</item>
+
+    </string-array>
+    <string-array name="culture">
+        <item>asian</item>
+        <item>mexican</item>
+        <item>american</item>
+
+    </string-array>
+    <string-array name="category">
+        <item>breakfast</item>
+        <item>lunch</item>
+        <item>dinner</item>
+        <item>snack</item>
+        <item>drink</item>
+        <item>alcoholic</item>
+        <item>midnight snack</item>
+        <item>sweet</item>
+        <item>savory</item>
+
+    </string-array>
+
+</resources>

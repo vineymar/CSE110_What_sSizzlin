@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_login)
     Button btn_login;
 
-    @BindView(R.id.txt_skip)
-    TextView txt_skip;
-
 
     @OnClick(R.id.btn_login)
     void loginUser() {
@@ -50,13 +47,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
                 configurationBuilder.build());
         startActivityForResult(intent, APP_REQUEST_CODE);
-    }
-
-    @OnClick(R.id.txt_skip)
-    void skipLoginJustGoHome() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra(Common.IS_LOGIN, false);
-        startActivity(intent);
     }
 
     @Override

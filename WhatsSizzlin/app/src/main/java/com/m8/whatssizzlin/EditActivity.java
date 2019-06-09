@@ -41,46 +41,5 @@ public class EditActivity extends AppCompatActivity {
         ButterKnife.bind(EditActivity.this);
 
 
-
-        userRef = FirebaseFirestore.getInstance().collection("User");
-
-
-        View sheetView = getLayoutInflater().inflate(R.layout.activity_cook_book, null);
-
-        Button btn_update = (Button)sheetView.findViewById(R.id.btn_update);
-        final TextInputEditText edt_name = (TextInputEditText)sheetView.findViewById(R.id.edit_name);
-        final TextInputEditText edt_address = (TextInputEditText)sheetView.findViewById(R.id.edit_address);
-        final TextInputEditText edt_email = (TextInputEditText)sheetView.findViewById(R.id.edit_email);
-        final TextInputEditText edt_preference = (TextInputEditText)sheetView.findViewById(R.id.edit_preference);
-        final TextInputEditText edt_two = (TextInputEditText)sheetView.findViewById(R.id.edit_two);
-
-
-        btn_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final User user = new User(edt_name.getText().toString(), edt_address.getText().toString(),
-                        edt_email.getText().toString(), edt_preference.getText().toString(),
-                        edt_two.getText().toString(), Common.currenUser.getPhoneNumber().toString());
-
-
-                userRef.document(Common.currenUser.getPhoneNumber().toString()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-
-                        Common.currenUser = user;
-
-
-
-                        Toast.makeText(EditActivity.this, "Thank you", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
     }
 }
