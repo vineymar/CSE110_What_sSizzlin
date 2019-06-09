@@ -141,7 +141,7 @@ public class PantryFragment extends Fragment  {
                 {
                     if (a.valueAt(j))
                     {
-                        ingredientItemList.remove(i);
+                        ingredientItemList.remove(j);
                     }
                     else{
                         j++;

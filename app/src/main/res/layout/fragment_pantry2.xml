@@ -16,12 +16,14 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:background="#FF631D"
+                android:fontFamily="@font/audiowide"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
                 android:text="My Pantry"
-                android:background="@drawable/text_border"
                 android:textAlignment="center"
-                android:textColor="#FF631D"
-                android:textSize="70sp"
+                android:textColor="#FFFFFF"
+                android:textSize="63sp"
                 android:typeface="normal" />
 
             <LinearLayout
@@ -58,7 +60,6 @@
                                 android:layout_margin="10dp"
                                 android:background="@drawable/emailshape"
                                 android:drawablePadding="10dp"
-                                android:fontFamily="@font/caveat_bold"
                                 android:hint="Add Ingredient Here"
                                 android:imeOptions="actionNext"
                                 android:padding="15dp"
@@ -151,7 +152,9 @@
                 android:id="@+id/pantryRemove"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#F03232"
                 android:text="Remove Items"
+                android:textColor="#FFFFFF"
                 android:visibility="invisible" />
 
 
