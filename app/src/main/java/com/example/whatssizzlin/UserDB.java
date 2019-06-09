@@ -37,8 +37,31 @@ public class UserDB {
     public static void populateArrays( ){
         readInventory();
         readFav();
+        readPref();
     }
 
+    public static void readPref(){
+        //Toast.makeText(home, "Only once", Toast.LENGTH_SHORT).show();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/favorites");
+        //DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meals/");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Integer recipeId = dataSnapshot1.getValue(Integer.class);
+                    if (!favRecipeList.contains(recipeId.toString())) {
+                        favRecipeList.add(recipeId);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public static void readFav() {
         //Toast.makeText(home, "Only once", Toast.LENGTH_SHORT).show();
