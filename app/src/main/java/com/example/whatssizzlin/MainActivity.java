@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         password_id=findViewById(R.id.password_login_id);
         firebaseAuth = FirebaseAuth.getInstance();
 
+
         /*Underline clickable link in registration page "Already a member - log in"*/
         Button button = (Button) findViewById(R.id.btnRegistration);
         button.setPaintFlags(button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-////
     /*Registration Button Click*/
     public void btnRegistration_Click(View v){
         //setContentView(R.layout.activity_registration);
@@ -52,27 +52,31 @@ public class MainActivity extends AppCompatActivity {
     /*Login Button Click*/
     public void btnLogin_Click(View v){
         //firebaseAuth = FirebaseAuth.getInstance();
-        final ProgressDialog progressDialog = ProgressDialog.show(MainActivity.this, "Please wait...", "Proccessing...", true);
+        if (email_id.length() > 0 && password_id.length()>0) {
+            final ProgressDialog progressDialog = ProgressDialog.show(MainActivity.this, "Please wait...", "Proccessing...", true);
+            (firebaseAuth.signInWithEmailAndPassword(email_id.getText().toString(), password_id.getText().toString()))
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();
 
-        (firebaseAuth.signInWithEmailAndPassword(email_id.getText().toString(), password_id.getText().toString()))
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
+                            if (task.isSuccessful()) {
+                                String email = firebaseAuth.getCurrentUser().getEmail();
+                                RegistrationActivity.name = firebaseAuth.getCurrentUser().getDisplayName();
+                                Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                                i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
+                                startActivity(i);
+                            } else {
+                                Log.e("ERROR", task.getException().toString());
+                                Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
-                        if (task.isSuccessful()) {
-                            String email =firebaseAuth.getCurrentUser().getEmail();
-                            RegistrationActivity.name = firebaseAuth.getCurrentUser().getDisplayName();
-                            Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                            i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                            startActivity(i);
-                        } else {
-                            Log.e("ERROR", task.getException().toString());
-                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-
+                            }
                         }
-                    }
-                });
+                    });
+        }else{
+
+        }
+
     }
               /*Navigation Buttons onClick*/
 }

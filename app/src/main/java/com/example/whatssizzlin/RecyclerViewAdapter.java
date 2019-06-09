@@ -5,7 +5,6 @@ package com.example.whatssizzlin;
 //viewHolderClass inside adapter
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -92,15 +90,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 homeFragment.home.setFragment(nn);
 
 
-               /*
-                Intent tvr = new Intent(homeFragment.getActivity(), ViewRecipe.class);
-                tvr.putExtra("id", mIDs.get(position));
-                homeFragment.startActivity(tvr);
-
-                //homeFragment.startActivity(homeFragment., ViewRecipe.class);
-                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
-                */
             }
         });
     }

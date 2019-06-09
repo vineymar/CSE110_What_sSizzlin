@@ -75,18 +75,18 @@
 
 
         <LinearLayout
-        android:id="@+id/results"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chipGroup"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/search_results_tmp"
+            android:id="@+id/results"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search Results" />
-    </LinearLayout>
+            android:layout_below="@id/chipGroup"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/search_results_tmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search Results" />
+        </LinearLayout>
 
 
         <LinearLayout
@@ -102,8 +102,7 @@
                 android:id="@+id/recycleSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-            </android.support.v7.widget.RecyclerView>
+                android:orientation="vertical"></android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 

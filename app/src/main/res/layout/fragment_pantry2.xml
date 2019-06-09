@@ -16,14 +16,13 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FF631D"
                 android:fontFamily="@font/audiowide"
+                android:background="#FF631D"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
                 android:text="My Pantry"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="63sp"
+
                 android:typeface="normal" />
 
             <LinearLayout
@@ -90,7 +89,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/chipGroup"
                         android:orientation="vertical">
-
                         <ListView
                             android:id="@+id/ingredientListView"
                             android:layout_width="match_parent"
