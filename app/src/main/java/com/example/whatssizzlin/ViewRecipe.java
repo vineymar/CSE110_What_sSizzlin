@@ -78,7 +78,7 @@ public class ViewRecipe extends Fragment {
             }
         });
 
-        final Button btnAddIngredient = v.findViewById(R.id.btnAdd);
+        final Button btnAddIngredient = v.findViewById(R.id.favorite_off);
         btnAddIngredient.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
