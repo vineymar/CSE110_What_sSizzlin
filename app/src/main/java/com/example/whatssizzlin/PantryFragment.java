@@ -110,6 +110,20 @@ public class PantryFragment extends Fragment  {
         mIngredientList.setAdapter(mListViewAdapter);
         mIngredientList.getAdapter();
 
+        Button b = view.findViewById(R.id.pantryClear);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SparseBooleanArray a = mIngredientList.getCheckedItemPositions();
+                int j = 0;
+                while(ingredientItemList.size() > 0)
+                {
+                        ingredientItemList.remove(0);
+                }
+                mListViewAdapter.notifyDataSetChanged();
+            }
+        });
+
 
 //        final EditText editText = view.findViewById(R.id.ingredient_id);
 //        Button btnAddIngredient = view.findViewById(R.id.btnAdd);

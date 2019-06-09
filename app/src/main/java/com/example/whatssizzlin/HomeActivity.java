@@ -140,6 +140,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //Detects request codes
         if(requestCode==65539) {
+            if (data == null){
+                return;
+            }
             Uri selectedImage = data.getData();
             bitmap = null;
             try {
@@ -150,6 +153,8 @@ public class HomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (IOException e) {
 
+                e.printStackTrace();
+            } catch (Exception e){
                 e.printStackTrace();
             }
         }

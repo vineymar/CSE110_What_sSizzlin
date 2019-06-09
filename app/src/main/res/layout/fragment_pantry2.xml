@@ -147,14 +147,6 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/pantryClear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F03232"
-                android:text="Remove Items"
-                android:textColor="#FFFFFF" />
-
-            <Button
                 android:id="@+id/pantryRemove"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -162,6 +154,20 @@
                 android:text="Remove Items"
                 android:textColor="#FFFFFF"
                 android:visibility="invisible" />
+
+            <Space
+                android:layout_width="1dp"
+                android:layout_height="5dp"/>
+
+
+            <Button
+                android:id="@+id/pantryClear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F03232"
+                android:text="Clear Pantry"
+                android:textColor="#FFFFFF" />
+
 
 
 
