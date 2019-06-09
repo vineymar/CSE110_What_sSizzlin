@@ -81,6 +81,7 @@ public class ViewRecipe extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Recipe Added", Toast.LENGTH_LONG).show();
+                if(home == null) return;
                 home.mRecIDs.add(getArguments().getString("id"));
 
                 s.add(getArguments().getString("id"));

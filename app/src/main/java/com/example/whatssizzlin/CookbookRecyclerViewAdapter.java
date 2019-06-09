@@ -52,7 +52,7 @@ public class CookbookRecyclerViewAdapter extends RecyclerView.Adapter<CookbookRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-        if(mImageUrls.size() == 0){
+        if(mImageUrls.size() <= position || mImageUrls.size() == 0){
             return;
         }
         Glide.with(mContext)
