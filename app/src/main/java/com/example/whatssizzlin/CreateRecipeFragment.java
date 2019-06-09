@@ -67,7 +67,6 @@ public class CreateRecipeFragment extends Fragment {
     ArrayAdapter<String> arrayAdapter;
     private Uri filePath;
     private static final int GET_FROM_GALLERY = 3;
-    CookBookFragment cb;
     //
 
     public CreateRecipeFragment() {

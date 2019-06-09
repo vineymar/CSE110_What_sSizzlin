@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
 import android.support.v4.app.Fragment;
@@ -15,8 +13,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,23 +21,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
+import com.algolia.instantsearch.core.helpers.Searcher;
+import com.algolia.instantsearch.core.model.SearchResults;
 import com.algolia.instantsearch.ui.views.Hits;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -380,7 +368,7 @@ public class SearchFragment extends Fragment {
     private void doSearchRequest() throws JSONException {
         final TextView textView = view.findViewById(R.id.search_results_tmp);
 
-        String url = "http://52.13.11.1:8080/";
+        String url = "http://52.13.11.1:443/";
         JSONObject jsonRequest = buildSearchJSON();
         System.out.println("doing search request");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -417,14 +405,20 @@ public class SearchFragment extends Fragment {
 
     private JSONObject buildSearchJSON() throws JSONException {
         JSONObject search = new JSONObject();
-        String query = "";
-        for(Tag tag:selectedTagList){
-            query += tag.getName() + " ";
-        }
-        query += getSearchName();
+        JSONArray ingredientsArr = new JSONArray();
 
-        search.accumulate("query",query);
-        search.accumulate("filters","ingredientTags:macaroni");
+
+        String name = getSearchName();
+        for(Tag tag:selectedTagList){
+            ingredientsArr.put(tag.getName());
+        }
+
+        search.accumulate("name",name);
+        search.accumulate("ingredients", ingredientsArr);
+        search.accumulate("timeLow",min_time);
+        search.accumulate("timeHigh",(max_time == 361)?-1:max_time);
+        search.accumulate("servingLow",min_serving);
+        search.accumulate("servingHigh",(max_serving == 21)?-1:max_serving);
 
         System.out.println(search.toString());
 

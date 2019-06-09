@@ -69,7 +69,6 @@
             android:theme="@style/AppTheme.MyPopup">
 
         </activity>
-        <activity android:name="test" />
     </application>
 
 </manifest>
