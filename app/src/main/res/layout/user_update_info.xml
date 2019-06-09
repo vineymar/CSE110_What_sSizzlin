@@ -32,7 +32,6 @@
         android:text="Enter Name"
         android:paddingLeft="5sp"
         android:paddingRight="5sp"
-        android:textAlignment="left"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:typeface="normal" />
@@ -48,6 +47,7 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:hint="Your Name"
+            android:paddingLeft="5sp"
             android:inputType="text"
             android:textSize="22sp" />
     </android.support.design.widget.TextInputLayout>
@@ -61,7 +61,6 @@
         android:text="Enter Name"
         android:paddingLeft="5sp"
         android:paddingRight="5sp"
-        android:textAlignment="left"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:typeface="normal" />
@@ -82,6 +81,7 @@
             android:background="#FFFFFF"
             android:hint="Your Email"
             android:inputType="text"
+            android:paddingLeft="5sp"
             android:textSize="22sp" />
     </android.support.design.widget.TextInputLayout>
 
