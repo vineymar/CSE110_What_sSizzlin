@@ -47,4 +47,14 @@
 
     </string-array>
 
+<string-array name="restrictions">
+<item>vegan</item>
+<item>peanut allergy</item>
+<item>vegetarian</item>
+<item>low fat</item>
+<item>low sugar</item>
+<item>healthy</item>
+
+</string-array>
+
 </resources>

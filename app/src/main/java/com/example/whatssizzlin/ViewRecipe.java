@@ -3,10 +3,12 @@ package com.example.whatssizzlin;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.facebook.accountkit.internal.AccountKitController.getApplicationContext;
+import static java.lang.Integer.parseInt;
 
 public class ViewRecipe extends Fragment {
 
@@ -38,7 +41,7 @@ public class ViewRecipe extends Fragment {
     Uri uri;
     TextView name;
     String mName;
-    private final List<String> s = new ArrayList<String>();
+    public final List<String> s = new ArrayList<String>();
 
     public ViewRecipe(){}
 
@@ -81,14 +84,18 @@ public class ViewRecipe extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Recipe Added", Toast.LENGTH_LONG).show();
+                if(home == null) return;
                 home.mRecIDs.add(getArguments().getString("id"));
-
+                //Toast.makeText(getContext(), getArguments().getString("id"), Toast.LENGTH_SHORT).show();
+                int recipeID = Integer.parseInt(getArguments().getString("id"));
+                UserDB.addFav( recipeID);
                 s.add(getArguments().getString("id"));
                 home.addFavRecipe(s, 0 );
 
                 //Makes the button unclickable
                 btnAddIngredient.setPressed(true);
                 btnAddIngredient.setClickable(false);
+                btnAddIngredient.setBackgroundColor(Color.TRANSPARENT);
             }
         });
 

@@ -52,7 +52,7 @@ public class CookbookRecyclerViewAdapter extends RecyclerView.Adapter<CookbookRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-        if(mImageUrls.size() == 0){
+        if(mImageUrls.size() <= position || mImageUrls.size() == 0){
             return;
         }
         Glide.with(mContext)
@@ -95,6 +95,7 @@ public class CookbookRecyclerViewAdapter extends RecyclerView.Adapter<CookbookRe
                 Intent tvr = new Intent(homeFragment.getActivity(), ViewRecipe.class);
                 tvr.putExtra("id", mIDs.get(position));
                 homeFragment.startActivity(tvr);
+
                 //homeFragment.startActivity(homeFragment., ViewRecipe.class);
                 Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
                 Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();

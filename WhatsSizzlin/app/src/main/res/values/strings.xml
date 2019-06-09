@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">What\'s Sizzlin\'s</string>
+    <string name="FACEBOOK_APP_ID">342682393105337</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">324fe1b02a557d2d4e3971fb38767916</string>
+    <string name="Just_Skip">Just Skip</string>
+    <string name="Login">LOGIN</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

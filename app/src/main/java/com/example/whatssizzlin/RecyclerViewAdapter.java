@@ -53,6 +53,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
+        if(mImageUrls.size() == 0) return;
+
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImageUrls.get(position))

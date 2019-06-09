@@ -110,6 +110,20 @@ public class PantryFragment extends Fragment  {
         mIngredientList.setAdapter(mListViewAdapter);
         mIngredientList.getAdapter();
 
+        Button b = view.findViewById(R.id.pantryClear);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SparseBooleanArray a = mIngredientList.getCheckedItemPositions();
+                int j = 0;
+                while(ingredientItemList.size() > 0)
+                {
+                        ingredientItemList.remove(0);
+                }
+                mListViewAdapter.notifyDataSetChanged();
+            }
+        });
+
 
 //        final EditText editText = view.findViewById(R.id.ingredient_id);
 //        Button btnAddIngredient = view.findViewById(R.id.btnAdd);
@@ -170,7 +184,7 @@ public class PantryFragment extends Fragment  {
                 for(int i = 0; i < ingredientItemList.size() ; i++)
                 {
                     if (a.valueAt(i))
-                    {
+                    {   UserDB.deleteInventory(  new IngredientTag((String)mIngredientList.getAdapter().getItem(i), 1));
                         deleteItems.setVisibility(View.VISIBLE);
                         my_sel_items = my_sel_items + ","
                                 + (String) mIngredientList.getAdapter().getItem(i);
@@ -222,6 +236,7 @@ public class PantryFragment extends Fragment  {
     }
 
     private void setSuggestionVisibility(){
+        Log.d("RES", tagText.hasFocus() + " " + tagText.getText().toString());
         view.findViewById(R.id.tag_dropdown).setVisibility(tagText.hasFocus() &&
                 !tagText.getText().toString().isEmpty()?View.VISIBLE:View.INVISIBLE);
 
@@ -232,8 +247,8 @@ public class PantryFragment extends Fragment  {
         int i = 0;
         for(String ingredient : ingredients){
             tags.add(new IngredientTag(ingredient,i++));
+            UserDB.writeInventory(new IngredientTag(ingredient,i++));
         }
-
 //        List<String> cultures = Arrays.asList(getResources().getStringArray(R.array.culture));
 //        for(String culture : cultures){
 //            tags.add(new CultureTag(culture,i++));
