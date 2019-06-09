@@ -2,8 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:algolia="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/ClickFocusableTheme"
     tools:context=".SearchFragment">
 
     <RelativeLayout
@@ -29,6 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:focusableInTouchMode="false"
                     android:text="Filters" />
 
                 <Button
@@ -36,6 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:focusableInTouchMode="false"
                     android:text="Add Inventory" />
             </LinearLayout>
 
@@ -52,6 +56,7 @@
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:padding="0dp"
+                    android:focusableInTouchMode="false"
                     app:srcCompat="@android:drawable/ic_menu_search" />
 
                 <EditText
@@ -75,18 +80,14 @@
 
 
         <LinearLayout
-            android:id="@+id/results"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chipGroup"
-            android:orientation="vertical">
+        android:id="@+id/results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chipGroup"
+        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/search_results_tmp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Search Results" />
-        </LinearLayout>
+
+    </LinearLayout>
 
 
         <LinearLayout
@@ -97,12 +98,29 @@
             android:layout_marginTop="18dp"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/search_results_tmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search Results" />
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.algolia.instantsearch.ui.views.Hits
+                android:id="@+id/hits"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                algolia:itemLayout="@layout/hits_item"
+                />
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleSearchView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 
@@ -113,6 +131,7 @@
             android:layout_below="@id/search_bar"
             android:layout_marginLeft="120dp"
             android:background="@android:color/white"
+            android:focusableInTouchMode="false"
             android:orientation="vertical"
             android:visibility="invisible">
 
@@ -120,12 +139,14 @@
                 android:id="@+id/ingredient_lbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:text="Ingredients" />
 
             <android.support.design.chip.ChipGroup
                 android:id="@+id/ingredient_grp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:orientation="vertical">
 
             </android.support.design.chip.ChipGroup>
@@ -134,12 +155,14 @@
                 android:id="@+id/culture_lbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:text="Culture" />
 
             <android.support.design.chip.ChipGroup
                 android:id="@+id/culture_grp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:orientation="vertical">
 
             </android.support.design.chip.ChipGroup>
@@ -148,12 +171,14 @@
                 android:id="@+id/category_lbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:text="Category" />
 
             <android.support.design.chip.ChipGroup
                 android:id="@+id/category_grp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:orientation="vertical">
 
             </android.support.design.chip.ChipGroup>

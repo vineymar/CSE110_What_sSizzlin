@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -24,8 +25,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+import com.algolia.instantsearch.ui.views.Hits;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,14 +43,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.widget.GridLayout.VERTICAL;
 
 
 /**
@@ -57,13 +60,21 @@ public class SearchFragment extends Fragment {
     private static final int SET_FILTER = 100;
     private TextView mTextMessage;
     private ChipGroup searchChipGroup;
+    private List<Tag> selectedTagList;
+
     private Button tagButton;
     private EditText tagText;
 
     private ChipGroup suggestedIngredients;
     private ChipGroup suggestedCultures;
     private ChipGroup suggestedCategories;
-    private int MAX_SUGGESTIONS = 20;
+
+    private Hits hits;
+
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mTimes = new ArrayList<>();
+    private ArrayList<Recipe> mRecs = new ArrayList<>();
 
     private int min_serving = 0;
     private int max_serving = 21;
@@ -74,14 +85,11 @@ public class SearchFragment extends Fragment {
     private View view;
     private Activity activity;
 
-
-
+    private final int MAX_SUGGESTIONS = 20;
 
     /*Vertical View*/
-    RecyclerViewSearchAdapter adapterSearch;
-    private ArrayList<Recipe> mSearchIDs;
-    SearchFragment search;
-    Recipe thisRecipe;
+    RecyclerViewAdapter adapterSearch;
+    private ArrayList<String> mSearchIDs;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -95,28 +103,28 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search2, container, false);
         activity = getActivity();
 
+        selectedTagList = new ArrayList<Tag>();
         searchChipGroup = (ChipGroup)view.findViewById(R.id.chipGroup);
         tagText = (EditText) view.findViewById(R.id.tag_txt);
         suggestedIngredients = (ChipGroup) view.findViewById(R.id.ingredient_grp);
         suggestedCultures = (ChipGroup) view.findViewById(R.id.culture_grp);
         suggestedCategories = (ChipGroup)view.findViewById(R.id.category_grp);
         tags = new ArrayList<>();
-
+        hits = (Hits) view.findViewById(R.id.hits);
+        hits.onReset(null);
+        Searcher searcher = Searcher.create("07ZX63WQSH", "69013fd500045cc7dfc90d5d12dfd651", "Meals");
+        hits.initWithSearcher(searcher);
 
         getSearchImages();
-        /*Search Views*/
+        /*For RecyclerView*/
+        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerSearchView = view.findViewById(R.id.recycleSearchView);
+        recyclerSearchView.setLayoutManager(layoutRecManager);
 
-        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), VERTICAL, false);
-        RecyclerView recyclerRecView = view.findViewById(R.id.recycleSearchView);
-        recyclerRecView.setLayoutManager(layoutRecManager);
-        //adapterSearch = new RecyclerViewSearchAdapter(thisRecipe, getContext());
+                                                    /*From Recipes, grab arraylist names, urls, times, recipes */
+        adapterSearch = new RecyclerViewAdapter(mNames, mImageUrls, mTimes, mRecs, this.getContext(), null);
 
-        //recyclerRecView.setAdapter(adapterSearch);
-
-
-
-        /*Call your function here*/
-        //populateSearch(ArrayList<Recipe>name);
+        recyclerSearchView.setAdapter(adapterSearch);
 
         /*Tag stuff*/
         getTags();
@@ -129,7 +137,7 @@ public class SearchFragment extends Fragment {
 
     private void getSearchImages(){
         //Log.d(TAG, "Inside getImages: ");
-        mSearchIDs = new ArrayList<Recipe>() {
+        mSearchIDs = new ArrayList<String>() {
             {
 //               //Do stuff
             }
@@ -179,6 +187,14 @@ public class SearchFragment extends Fragment {
 //
 //    }
 
+    private void addRecipeToResults(Recipe r){
+        mNames.add(r.name);
+        mImageUrls.add(r.img_url);
+        mTimes.add("60h");//r.getStringTime());
+        mRecs.add(r);
+        adapterSearch.notifyDataSetChanged();
+
+    }
 
 
 
@@ -187,9 +203,10 @@ public class SearchFragment extends Fragment {
         view.setOnTouchListener(
                 new View.OnTouchListener() {
                     @Override
-                    public boolean onTouch(View view, MotionEvent event) {
+                    public boolean onTouch(View _view, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            View v = activity.getCurrentFocus();
+                            Activity a = (Activity) view.getContext();
+                            View v = a.getCurrentFocus();
                             if ( v instanceof EditText) {
                                 Rect outRect = new Rect();
                                 Rect outRect2 = new Rect();
@@ -227,8 +244,12 @@ public class SearchFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        System.out.println("search pressed");
                         try {
+
                             doSearchRequest();
+                            tagText.clearFocus();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -265,11 +286,11 @@ public class SearchFragment extends Fragment {
 
     }
 
-
-
-    private void addTagToChipGroup(Tag tag){
+    private void addTagToChipGroup(final Tag tag){
+        if(selectedTagList.contains(tag))return;
         tagText.setText("");
         final Chip chip = new Chip(view.getContext());
+        selectedTagList.add(tag);
         chip.setText(tag.getName());
         chip.setCloseIconVisible(true);
         chip.setChipBackgroundColor(getResources().getColorStateList(tag.getTagColor()));
@@ -278,6 +299,7 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         searchChipGroup.removeView(chip);
+                        selectedTagList.remove(tag);
                     }
                 }
         );
@@ -327,6 +349,7 @@ public class SearchFragment extends Fragment {
                 txt.setText(tag.getName());
                 txt.setBackgroundColor(getResources().getColor(tag.getTagColor()));
                 txt.setClickable(true);
+                txt.setFocusableInTouchMode(false);
                 txt.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
@@ -357,7 +380,7 @@ public class SearchFragment extends Fragment {
     private void doSearchRequest() throws JSONException {
         final TextView textView = view.findViewById(R.id.search_results_tmp);
 
-        String url = "http://dummy.restapiexample.com/api/v1/create";
+        String url = "http://52.13.11.1:8080/";
         JSONObject jsonRequest = buildSearchJSON();
         System.out.println("doing search request");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -367,14 +390,14 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println("received response");
-                        textView.setText("Response: " + response.toString());
+                        //textView.setText("Response: " + response.toString());
+                        handleResponse(response);
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        textView.setText("ERROR: Request failed");
-                        error.printStackTrace();
+                        textView.setText("ERROR: Request failed\n" + error.getMessage());
 
                     }
                 });
@@ -385,14 +408,38 @@ public class SearchFragment extends Fragment {
 
     }
 
+    private void handleResponse(JSONObject response) {
+        hits = (Hits)view.findViewById(R.id.hits);
+        SearchResults sr = new SearchResults(response);
+        hits.onResults(sr,false);
+
+    }
+
     private JSONObject buildSearchJSON() throws JSONException {
         JSONObject search = new JSONObject();
-        search.accumulate("name","test" + ((EditText)view.findViewById(R.id.tag_txt)).getText());
-        search.accumulate("salary","123");
-        search.accumulate("age","12");
+        String query = "";
+        for(Tag tag:selectedTagList){
+            query += tag.getName() + " ";
+        }
+        query += getSearchName();
 
+        search.accumulate("query",query);
+        search.accumulate("filters","ingredientTags:macaroni");
+
+        System.out.println(search.toString());
 
         return search;
+    }
+
+    private String getSearchName(){
+        return tagText.getText().toString();
+    }
+    private String[] getSelectedTagsStringArray(){
+        String[] tagStringArray = new String[selectedTagList.size()];
+        for(int i = 0 ; i < selectedTagList.size() ; i++){
+            tagStringArray[i] = selectedTagList.get(i).getName();
+        }
+        return tagStringArray;
     }
 
     @Override

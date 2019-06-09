@@ -3,7 +3,6 @@ import android.support.annotation.NonNull;
 import android.telecom.Call;
 
 import com.example.whatssizzlin.Model.User;
-import com.example.whatssizzlin.Service.UserPref;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

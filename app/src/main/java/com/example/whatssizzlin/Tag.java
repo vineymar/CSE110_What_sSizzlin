@@ -24,6 +24,15 @@ public abstract class Tag {
 
     public abstract int getTagColor();
 
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Tag){
+            if(((Tag) o).getName().equals(this.name)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }
