@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -29,8 +30,6 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -60,6 +59,7 @@ public class CreateRecipeFragment extends Fragment {
     private Button mButton_addImage;
     TextInputEditText ingInp;
     TextInputEditText qInp;
+    CookBookFragment cb;
     ListView mIngs;
     ArrayList<String> ings;
     ArrayList<String> quants;
@@ -106,17 +106,8 @@ public class CreateRecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        String author;
-        String description;
-        List<String> difficulty;
-        List<String> ingredients;
-        List<String> method;
-        String name;
-        Map<String, String> nutrition;
-        String servings;
-        List<Map<String, Map<String, String>>> time;
 
-
+        Log.d("CRE", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_recipe, container, false);
@@ -134,7 +125,7 @@ public class CreateRecipeFragment extends Fragment {
         arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, inps);
         mIngs.setAdapter(arrayAdapter);
         mButton_addImage = view.findViewById(R.id.button_addImage);
-        
+
         mButton_addImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -145,7 +136,7 @@ public class CreateRecipeFragment extends Fragment {
         });
 
 
-        
+
         mButton_ing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,23 +236,26 @@ public class CreateRecipeFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         FirebaseDatabase.getInstance().getReference().child("meals").child(key).setValue(r);
-                        Log.d("CRE", key);
+
+                        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("cookbook").child(key).setValue(r.id);
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_frame, new PreferenceFragment());
+                        fragmentTransaction.replace(R.id.main_frame, cb);
                         fragmentTransaction.commit();
+                        ArrayList<String> al = new ArrayList<>();
+                        al.add(r.id);
+                        cb.addRecRecipe(al, 0);
                         Toast.makeText(getContext(), "Recipe submitted", Toast.LENGTH_LONG).show();
 
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
+
                     }
                 });
             }
         });
-       // mButton_ing.setOnClickListener(ing_onClick());
-       // TextView textView = new TextView(Objects.requireNonNull(getActivity()).getApplicationContext()); //this
-       // textView.setText("New text");
+        // mButton_ing.setOnClickListener(ing_onClick());
+        // TextView textView = new TextView(Objects.requireNonNull(getActivity()).getApplicationContext()); //this
+        // textView.setText("New text");
 
-       // Recipe recipe = new Recipe(author, description, difficulty, ingredients, method, name, nutrition, servings. time);
+        // Recipe recipe = new Recipe(author, description, difficulty, ingredients, method, name, nutrition, servings. time);
         inflater.inflate(R.layout.fragment_create_recipe, container, false);
         return view;
     }
@@ -271,14 +265,12 @@ public class CreateRecipeFragment extends Fragment {
 /*
     private View.OnClickListener ing_onClick() {
         return new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 mLayout_ing.addView(createNewTextView(mEditText_ing.getText().toString()));
             }
         };
     }
-
     private TextView createNewTextView(String text) {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final TextView textView = new TextView(Objects.requireNonNull(getActivity()).getApplicationContext());  //this
@@ -286,7 +278,6 @@ public class CreateRecipeFragment extends Fragment {
         textView.setText("New text: " + text);
         return textView;
     }
-
     */
 
 /*
@@ -296,7 +287,6 @@ public class CreateRecipeFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -307,14 +297,11 @@ public class CreateRecipeFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
-
-
 */
     /**
      * This interface must be implemented by activities that contain this

@@ -64,18 +64,13 @@ public class SearchFragment extends Fragment {
     private Activity activity;
 
 
-
-
     /*Vertical View*/
     RecyclerViewSearchAdapter adapterSearch;
-    private ArrayList<Recipe> mSearchIDs;
-    SearchFragment search;
-    Recipe thisRecipe;
+    Recipe thisRecipe = new Recipe();
 
     public SearchFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,8 +97,6 @@ public class SearchFragment extends Fragment {
 
         recyclerRecView.setAdapter(adapterSearch);
 
-
-
         /*Call your function here*/
         //populateSearch(ArrayList<Recipe>name);
 
@@ -118,10 +111,9 @@ public class SearchFragment extends Fragment {
 
     private void getSearchImages(){
         //Log.d(TAG, "Inside getImages: ");
-        thisRecipe = new Recipe();
         thisRecipe.name = "Dummy Name";
         thisRecipe.timeTag = 10;
-        thisRecipe.img_url = "//i0.wp.com/anacortesoilandvinegarbar.com/wp-content/uploads/2015/11/apple.jpg";
+        thisRecipe.img_url = "https://i.redd.it/enxqx1wjsxg21.jpg";
         /*This is what hayden had below. */
        // addSearchRecipe(mRecIDs, 0);
     }
@@ -300,7 +292,7 @@ public class SearchFragment extends Fragment {
     private void doSearchRequest() throws JSONException {
         final TextView textView = view.findViewById(R.id.search_results_tmp);
 
-        String url = "http://dummy.restapiexample.com/api/v1/create";
+        String url = "https://i.redd.it/enxqx1wjsxg21.jpg";
         JSONObject jsonRequest = buildSearchJSON();
         System.out.println("doing search request");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

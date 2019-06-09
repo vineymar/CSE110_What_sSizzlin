@@ -1,6 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="1dp"
+    android:background="@drawable/backgroundcolor">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="1dp"
+        app:cardMaxElevation="2dp">
+
+
+        <RelativeLayout
+            android:id="@+id/outerWall"
+            android:layout_width="match_parent"
+            android:layout_height="206dp"
+            android:background="@android:color/transparent">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_view"
+                android:layout_width="188dp"
+                android:layout_height="156dp"
+
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                app:civ_border_color="#FF631D"
+                app:civ_border_width="4dp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="204dp">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="202dp"
+                    android:layout_height="56dp"
+
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="30dp"
+                    android:autoSizeMaxTextSize="18sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+
+                    android:text="Name_test"
+
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="121dp"
+                    android:layout_height="47dp"
+                    android:layout_marginLeft="240dp"
+                    android:layout_marginTop="88dp"
+                    android:autoSizeMaxTextSize="16sp"
+
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeTextType="uniform"
+
+                    android:gravity="center"
+
+                    android:text="time_test"
+                    android:textColor="#000" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

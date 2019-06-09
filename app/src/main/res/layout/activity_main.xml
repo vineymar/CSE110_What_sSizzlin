@@ -82,7 +82,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textColorHighlight="@color/white"
-
+        android:inputType="textPassword"
         android:imeOptions="actionNext"
         android:singleLine="true"
         />

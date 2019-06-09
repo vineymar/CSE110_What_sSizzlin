@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="666dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:text="My Cookbook"
+            android:id="@+id/textView"
+
+            android:fontFamily="@font/audiowide"
+            android:textColor="#FF631D"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:typeface="normal"
+            />
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="5dp"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cookbookRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            android:orientation="horizontal">
+
+        </android.support.v7.widget.RecyclerView>
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="5dp"/>
+
+        <Button
+            android:id="@+id/cookbook_Create_Recipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F03232"
+            android:textColor="#FFFFFF"
+            android:text="Create Recipe" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
