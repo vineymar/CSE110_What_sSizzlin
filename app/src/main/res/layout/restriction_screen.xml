@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,11 +18,13 @@
             android:background="@drawable/text_border"
             android:backgroundTint="#FF631D"
             android:fontFamily="@font/audiowide"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
             android:paddingBottom="10sp"
-            android:text="My Pantry"
+            android:text="Restrictions"
             android:textAlignment="center"
             android:textColor="#FFF"
-            android:textSize="60sp"
+            android:textSize="50sp"
             android:typeface="normal" />
 
         <LinearLayout
@@ -31,7 +32,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -46,32 +47,21 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
+                        android:orientation="horizontal"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <ImageButton
-                            android:id="@+id/search_btn"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="0dp"
-                            android:layout_weight="1"
-
-                            android:padding="0dp"
-                            app:srcCompat="@android:drawable/ic_menu_search" />
-
                         <EditText
                             android:id="@+id/tag_txt"
-                            android:layout_width="302dp"
+                            android:layout_width="385dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:background="@drawable/emailshape"
                             android:drawablePadding="10dp"
-                            android:hint="Add Ingredient Here"
+                            android:hint="Add Restriction Here"
                             android:imeOptions="actionNext"
                             android:padding="15dp"
                             android:singleLine="true"
@@ -105,7 +95,7 @@
                     <ListView
                         android:id="@+id/ingredientListView"
                         android:layout_width="match_parent"
-                        android:layout_height="478dp"
+                        android:layout_height="match_parent"
 
                         android:textColor="#000" />
 
@@ -152,34 +142,12 @@
                         android:orientation="vertical">
 
                     </android.support.design.chip.ChipGroup>
-
                 </LinearLayout>
-
             </RelativeLayout>
 
 
         </LinearLayout>
-        <Button
-            android:id="@+id/pantryRemove"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#F03232"
-            android:text="Remove Items"
-            android:textColor="#FFFFFF"
-            android:visibility="invisible" />
 
-        <Space
-            android:layout_width="1dp"
-            android:layout_height="5dp"/>
-
-
-        <Button
-            android:id="@+id/pantryClear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#F03232"
-            android:text="Clear Pantry"
-            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

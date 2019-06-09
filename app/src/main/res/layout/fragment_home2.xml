@@ -11,21 +11,26 @@
         android:layout_height="666dp"
         android:orientation="vertical"
        >
+
         <TextView
-            android:text="Discover"
             android:id="@+id/textView"
-
-            android:fontFamily="@font/audiowide"
-            android:textColor="#FF631D"
-
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+            android:fontFamily="@font/audiowide"
+
+            android:paddingLeft="10sp"
+            android:paddingTop="10sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="10sp"
+            android:text="Discover"
+            android:textColor="#FF631D"
             android:textSize="40sp"
-            android:typeface="normal"
-            />
+            android:typeface="normal" />
         <Space
             android:layout_width="1dp"
             android:layout_height="5dp"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleRecommendedView"
             android:layout_width="match_parent"
@@ -41,17 +46,23 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Favorites"
             android:fontFamily="@font/audiowide"
+            android:paddingLeft="10sp"
 
+            android:paddingTop="10sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="10sp"
+            android:text="Favorites"
             android:textColor="#FF631D"
             android:textSize="40sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleFavoritesView"
             android:layout_width="match_parent"
-            android:layout_height="275dp"
-            android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+            android:layout_height="298dp"
+            android:orientation="horizontal">
+
+        </android.support.v7.widget.RecyclerView>
 
 
     </LinearLayout>

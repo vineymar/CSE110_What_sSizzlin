@@ -184,7 +184,7 @@ public class PantryFragment extends Fragment  {
                 for(int i = 0; i < ingredientItemList.size() ; i++)
                 {
                     if (a.valueAt(i))
-                    {
+                    {   UserDB.deleteInventory(  new IngredientTag((String)mIngredientList.getAdapter().getItem(i), 1));
                         deleteItems.setVisibility(View.VISIBLE);
                         my_sel_items = my_sel_items + ","
                                 + (String) mIngredientList.getAdapter().getItem(i);
@@ -247,8 +247,8 @@ public class PantryFragment extends Fragment  {
         int i = 0;
         for(String ingredient : ingredients){
             tags.add(new IngredientTag(ingredient,i++));
+            UserDB.writeInventory(new IngredientTag(ingredient,i++));
         }
-
 //        List<String> cultures = Arrays.asList(getResources().getStringArray(R.array.culture));
 //        for(String culture : cultures){
 //            tags.add(new CultureTag(culture,i++));

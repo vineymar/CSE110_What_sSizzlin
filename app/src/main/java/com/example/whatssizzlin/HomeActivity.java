@@ -127,6 +127,7 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+
     public Bitmap getBitmap(){
         return bitmap;
     }
@@ -181,7 +182,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         }, 2000);
     }
-
 
 
 

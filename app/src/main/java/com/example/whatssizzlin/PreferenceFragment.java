@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import static com.example.whatssizzlin.UserDB.FBUser;
 
 
 /**
@@ -50,6 +53,12 @@ public class PreferenceFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        TextView text = view.findViewById(R.id.txt_user_name);
+
+        text.setText(FBUser.getDisplayName());
+        TextView textv = view.findViewById(R.id.txt_user_name);
+
+        textv.setText(FBUser.getDisplayName());
 
         //Create Recipe Button
 

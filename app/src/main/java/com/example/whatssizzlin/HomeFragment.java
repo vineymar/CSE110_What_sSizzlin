@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,6 +28,12 @@ import java.util.List;
 import java.util.Random;
 
 import static android.widget.GridLayout.HORIZONTAL;
+import static com.example.whatssizzlin.UserDB.FBUser;
+
+//import com.algolia.search.saas.AlgoliaException;
+//import com.algolia.instantsearch.core.searchclient.DefaultSearchClient;
+//import com.algolia.instantsearch.core.searchclient.SearchResultsHandler;
+//import com.algolia.search.saas.AlgoliaException;
 
 
 /**
@@ -57,6 +64,8 @@ public class HomeFragment extends Fragment {
     public ArrayList<String> mFavIDs;
     /*For our images into our view*/
 
+    public static ArrayList<String> favList = new ArrayList<>();
+    //public static int count = 1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -158,6 +167,7 @@ public class HomeFragment extends Fragment {
                 // Create a storage reference from our app
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference sr = storage.getReference();
+
                 StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
                 pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -203,6 +213,27 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
+        if(favList.size() == 0) {
+            //Toast.makeText(home, "Only once", Toast.LENGTH_SHORT).show();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/favorites");
+            //DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meals/");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Integer recipeId = dataSnapshot1.getValue(Integer.class);
+                        if(!favList.contains(recipeId.toString())) {
+                            favList.add(recipeId.toString());
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
 
 
@@ -218,4 +249,4 @@ public class HomeFragment extends Fragment {
 
 
 
-}
+}}
