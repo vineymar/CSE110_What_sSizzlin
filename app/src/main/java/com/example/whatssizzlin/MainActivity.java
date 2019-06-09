@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         email_id=findViewById(R.id.email_login_id);
         password_id=findViewById(R.id.password_login_id);
         firebaseAuth = FirebaseAuth.getInstance();
+        //startActivity(new Intent(MainActivity.this, test.class));
 
 
         /*Underline clickable link in registration page "Already a member - log in"*/

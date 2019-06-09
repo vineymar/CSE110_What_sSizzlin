@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -34,8 +32,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.widget.GridLayout.VERTICAL;
 
 
 /**
@@ -68,6 +64,14 @@ public class SearchFragment extends Fragment {
     RecyclerViewSearchAdapter adapterSearch;
     Recipe thisRecipe = new Recipe();
 
+
+//    private static final String ALGOLIA_APP_ID = "07ZX63WQSH";
+//    private static final String ALGOLIA_SEARCH_API_KEY = "69013fd500045cc7dfc90d5d12dfd651";
+//    private static final String ALGOLIA_INDEX_NAME = "Meals";
+//
+//    Searcher searcher;
+//    InstantSearch helper;
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -86,16 +90,16 @@ public class SearchFragment extends Fragment {
         suggestedCategories = (ChipGroup)view.findViewById(R.id.category_grp);
         tags = new ArrayList<>();
 
-
-        getSearchImages();
-        /*Search Views*/
-
-        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), VERTICAL, false);
-        RecyclerView recyclerRecView = view.findViewById(R.id.recycleSearchView);
-        recyclerRecView.setLayoutManager(layoutRecManager);
-        adapterSearch = new RecyclerViewSearchAdapter(thisRecipe, getContext());
-
-        recyclerRecView.setAdapter(adapterSearch);
+//
+//        getSearchImages();
+//        /*Search Views*/
+//
+//        LinearLayoutManager layoutRecManager = new LinearLayoutManager(this.getContext(), VERTICAL, false);
+//        RecyclerView recyclerRecView = view.findViewById(R.id.recycleSearchView);
+//        recyclerRecView.setLayoutManager(layoutRecManager);
+//        adapterSearch = new RecyclerViewSearchAdapter(thisRecipe, getContext());
+//
+//        recyclerRecView.setAdapter(adapterSearch);
 
         /*Call your function here*/
         //populateSearch(ArrayList<Recipe>name);
@@ -105,6 +109,18 @@ public class SearchFragment extends Fragment {
         setupTouchListener();
         setupSearchBar();
         System.out.println("SETUP SEARCHVIEW");
+
+
+//        /*Testing Hits RestAPI*/
+//        searcher = Searcher.create(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY, ALGOLIA_INDEX_NAME);
+//        helper = new InstantSearch(getActivity(), searcher);
+//        helper.search();
+//
+//
+//
+//
+//
+
         return view;
     }
 

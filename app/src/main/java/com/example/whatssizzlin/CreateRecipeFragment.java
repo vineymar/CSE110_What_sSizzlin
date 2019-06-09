@@ -30,8 +30,6 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -68,6 +66,7 @@ public class CreateRecipeFragment extends Fragment {
     ArrayAdapter<String> arrayAdapter;
     private Uri filePath;
     private static final int GET_FROM_GALLERY = 3;
+    CookBookFragment cb;
     //
 
     public CreateRecipeFragment() {
