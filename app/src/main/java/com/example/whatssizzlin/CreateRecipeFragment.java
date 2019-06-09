@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -106,17 +107,8 @@ public class CreateRecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        String author;
-        String description;
-        List<String> difficulty;
-        List<String> ingredients;
-        List<String> method;
-        String name;
-        Map<String, String> nutrition;
-        String servings;
-        List<Map<String, Map<String, String>>> time;
 
-
+        Log.d("CRE", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_recipe, container, false);
@@ -245,14 +237,13 @@ public class CreateRecipeFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         FirebaseDatabase.getInstance().getReference().child("meals").child(key).setValue(r);
-                        Log.d("CRE", key);
+
+                        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("cookbook").child(key).setValue(r.id);
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_frame, new PreferenceFragment());
                         fragmentTransaction.commit();
                         Toast.makeText(getContext(), "Recipe submitted", Toast.LENGTH_LONG).show();
 
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
                     }
                 });
             }

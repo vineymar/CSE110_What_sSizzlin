@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
                         // Handle any errors
                     }
                 });
-                mRecTimes.add(r.time.get(0).get("prep").get("mins"));
+                mRecTimes.add(r.timeTag + " Minutes");
             }
 
             @Override
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void addFavRecipe(final List<String> ID, final int index){
-        FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment {
                         // Handle any errors
                     }
                 });
-                mFavTimes.add(r.time.get(0).get("prep").get("mins"));
+                mFavTimes.add(r.timeTag + " Minutes");
             }
 
             @Override

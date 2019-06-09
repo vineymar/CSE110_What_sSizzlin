@@ -26,7 +26,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="470dp"
                 android:orientation="vertical">
 
                 <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -44,23 +44,12 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"/>
+                            android:orientation="horizontal" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <ImageButton
-                                android:id="@+id/search_btn"
-                                style="?android:attr/borderlessButtonStyle"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_margin="0dp"
-                                android:layout_weight="1"
-
-                                android:padding="0dp"
-                                app:srcCompat="@android:drawable/ic_menu_search" />
 
                             <EditText
                                 android:id="@+id/tag_txt"
@@ -100,13 +89,14 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/chipGroup"
                         android:orientation="vertical">
+
                         <ListView
                             android:id="@+id/ingredientListView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
 
                             android:textColor="#000"
-                            />
+                            android:visibility="visible" />
 
                     </LinearLayout>
 
@@ -156,6 +146,13 @@
 
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/pantryRemove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remove Items"
+                android:visibility="invisible" />
 
 
         </LinearLayout>
