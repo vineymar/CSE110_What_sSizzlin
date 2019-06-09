@@ -74,7 +74,7 @@
         android:padding="15dp"
 
 
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/emailshape"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
@@ -92,20 +92,21 @@
 
     <Button
         android:id="@+id/btnLogin"
+        android:text="Log In"
         android:layout_width="330dp"
         android:layout_height="50dp"
-
 
         android:background="@drawable/loginshape"
 
         android:onClick="btnLogin_Click"
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
-        android:text="Log In"
         />
+
     <Space
         android:layout_width="1dp"
         android:layout_height="75dp"/>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"

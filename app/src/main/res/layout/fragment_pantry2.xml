@@ -16,12 +16,12 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
                 android:text="My Pantry"
                 android:background="@drawable/text_border"
                 android:textAlignment="center"
                 android:textColor="#FF631D"
-                android:textSize="70sp"
+                android:textSize="60sp"
                 android:typeface="normal" />
 
             <LinearLayout

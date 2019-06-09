@@ -3,17 +3,15 @@ package com.example.whatssizzlin;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +34,7 @@ public class ViewRecipe extends Fragment {
 
     Recipe rec;
     HomeFragment home;
+    SearchFragment search;
     Uri uri;
     TextView name;
     String mName;
@@ -77,7 +76,7 @@ public class ViewRecipe extends Fragment {
             }
         });
 
-        final Button btnAddIngredient = v.findViewById(R.id.btnAdd);
+        final ImageButton btnAddIngredient = v.findViewById(R.id.favorite_off);
         btnAddIngredient.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -88,10 +87,12 @@ public class ViewRecipe extends Fragment {
                 home.addFavRecipe(s, 0 );
 
                 //Makes the button unclickable
+                btnAddIngredient.setPressed(true);
                 btnAddIngredient.setClickable(false);
-                btnAddIngredient.setBackgroundColor(Color.TRANSPARENT);
             }
         });
+
+
 
         return v;
 
