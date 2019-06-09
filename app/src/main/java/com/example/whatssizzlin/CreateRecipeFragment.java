@@ -61,6 +61,7 @@ public class CreateRecipeFragment extends Fragment {
     private Button mButton_addImage;
     TextInputEditText ingInp;
     TextInputEditText qInp;
+    CookBookFragment cb;
     ListView mIngs;
     ArrayList<String> ings;
     ArrayList<String> quants;
@@ -240,9 +241,13 @@ public class CreateRecipeFragment extends Fragment {
 
                         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("cookbook").child(key).setValue(r.id);
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_frame, new PreferenceFragment());
+                        fragmentTransaction.replace(R.id.main_frame, cb);
                         fragmentTransaction.commit();
+                        ArrayList<String> al = new ArrayList<>();
+                        al.add(r.id);
+                        cb.addRecRecipe(al, 0);
                         Toast.makeText(getContext(), "Recipe submitted", Toast.LENGTH_LONG).show();
+
 
                     }
                 });
