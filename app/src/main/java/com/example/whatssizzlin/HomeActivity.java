@@ -1,17 +1,25 @@
 package com.example.whatssizzlin;
 /*---------------------------Imports-------------------------------*/
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -20,10 +28,12 @@ import butterknife.ButterKnife;
 public class HomeActivity extends AppCompatActivity {
 
     private final static String TAG = "HomeActivity: Imaging";
+    private static final int GET_FROM_GALLERY = 3;
     /*For our images into our Recommended view*/
     private ArrayList<String> mRecNames = new ArrayList<>();
     private ArrayList<String> mRecImageUrls = new ArrayList<>();
     private ArrayList<String> mRecTimes = new ArrayList<>();
+    private Bitmap bitmap = null;
     /*For our images into our view*/
 
     /*For our images into our Recommended view*/
@@ -117,10 +127,55 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public Bitmap getBitmap(){
+        return bitmap;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("why", String.valueOf(requestCode) + " " + String.valueOf(GET_FROM_GALLERY) + " " + resultCode);
+
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("why", String.valueOf(requestCode) + " " + String.valueOf(GET_FROM_GALLERY) + " " + resultCode);
+
+        //Detects request codes
+        if(requestCode==65539) {
+            Uri selectedImage = data.getData();
+            bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                Log.d("why", String.valueOf(bitmap.getByteCount()));
+            } catch (FileNotFoundException e) {
+
+                e.printStackTrace();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
 
 
+    boolean doubleBackToExitPressedOnce = false;
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
 
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
 
 

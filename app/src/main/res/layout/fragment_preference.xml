@@ -123,12 +123,20 @@
     </LinearLayout>
 
     <TextView
-        android:text="Your Recipes"
+        android:id="@+id/recipes_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/btn_user"
         android:layout_centerHorizontal="true"
-        android:textSize="33sp"
+        android:text="Your Recipes"
+        android:textSize="33sp" />
+
+    <Button
+        android:layout_below="@+id/recipes_text"
+        android:id="@+id/button_createRecipe"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Create Recipe" />
 
     <Button
         android:id="@+id/btn_logout"

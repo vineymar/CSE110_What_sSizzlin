@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,6 +85,7 @@ public class HomeFragment extends Fragment {
         adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, mFavRecs,this.getContext(), this);
         recyclerFavView.setAdapter(adapterFavorite);
 
+
         return view;
     }
 /*
@@ -158,7 +160,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         mFavImageUrls.add(uri.toString());
-                        if(index == (ID.size() - 1)){
+
+                    if(index == (ID.size() - 1)){
                             adapterFavorite.notifyDataSetChanged();
                         }
                         else{

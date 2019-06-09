@@ -88,18 +88,17 @@
 
     <Button
         android:id="@+id/btnLogin"
+        android:text="Log In"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_below="@id/password_login_id"
         android:layout_centerHorizontal="true"
-
 
         android:background="@drawable/loginshape"
 
         android:onClick="btnLogin_Click"
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
-        android:text="Log In"
         />
     <TextView
         android:id="@+id/textView3"

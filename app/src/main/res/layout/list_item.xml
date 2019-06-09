@@ -2,6 +2,40 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+        </ListView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
     <TextView
         android:id="@+id/listIngredientView"
         android:layout_width="match_parent"
@@ -11,4 +45,5 @@
         android:textColor="#FFF"
         android:background="@drawable/backgroundcolor"
         />
+
 </FrameLayout>

@@ -7,14 +7,16 @@
     tools:context=".ViewRecipe">
 
 
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
         <LinearLayout
-            android:layout_width="397dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/BottomNavigation"
             app:layout_constraintTop_toTopOf="parent"
@@ -24,74 +26,73 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="337dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
+
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="142dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/backgroundcolor"
-                android:fontFamily="@font/caveat_bold"
-                android:text="Add to Favorites"
-                android:textAllCaps="false"
-                android:textColor="#FFF"
-                android:textSize="20dp" />
 
+            <ImageButton
+                android:id="@+id/favorite_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/star_normal"
+                android:background="@color/white"/>
 
 
             <TextView
                 android:id="@+id/recipeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
+                android:paddingLeft="8px"
                 android:text="Recipe Name"
                 android:textColor="@color/colorApp"
-                android:textSize="40sp" />
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/recipeIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
                 android:paddingLeft="12sp"
                 android:text="Ingredients"
                 android:textColor="@color/colorApp"
-                android:textSize="35sp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/ingredientsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="casual"
                 android:paddingLeft="18sp"
                 android:text="Ingredients List"
                 android:textColor="@android:color/black"
-                android:textSize="25sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/recipeInstuctions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
-                android:paddingLeft="12sp"
+                android:fontFamily="@font/audiowide"
+                android:paddingLeft="18dp"
                 android:text="Instructions"
                 android:textColor="@color/colorApp"
-                android:textSize="35sp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/instructionsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="casual"
                 android:paddingLeft="18sp"
                 android:text="Instructions List"
                 android:textColor="@android:color/black"
-                android:textSize="25sp" />
-
+                android:textSize="18sp" />
 
 
         </LinearLayout>
