@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateRecipeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Create Recipe"
+                android:textColor="@color/colorApp"
+                android:textSize="40sp" />
+
+            <Button
+                android:id="@+id/button_addImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Image" />
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Recipe Name"
+                android:textColor="@color/bodyTextColor"
+                android:textSize="30sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="374dp"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/recipeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Recipe Name" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Ingredients"
+                android:textColor="@color/bodyTextColor"
+                android:textSize="30sp" />
+
+            <com.example.whatssizzlin.Service.ExpandedListView
+                android:id="@+id/listIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:padding="0px"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="168dp"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/mQuant"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Quantity" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/mIng"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ingredient" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_ing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Ingredient" />
+
+            <TextView
+                android:id="@+id/text_instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Instructions"
+                android:textColor="@color/bodyTextColor"
+                android:textSize="30sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="68dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/recipeInstructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter the instructions" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caveat_bold"
+                android:text="Other Information"
+                android:textColor="@color/bodyTextColor"
+                android:textSize="30sp" />
+
+            <EditText
+                android:id="@+id/recipeDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Description"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/time_estimate"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Time Estimate"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/recipeServings"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Servings"
+                android:inputType="number" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/submit_button"
+                    android:layout_width="211dp"
+                    android:layout_height="wrap_content"
+                    android:text="submit" />
+
+                <Button
+                    android:id="@+id/recipeCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

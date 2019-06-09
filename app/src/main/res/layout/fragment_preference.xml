@@ -1,14 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PreferenceFragment">
+    android:background="@drawable/backgroundcolor"
+    android:orientation="vertical"
+    tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Preference fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:fontFamily="@font/audiowide"
+            android:includeFontPadding="false"
+            android:paddingTop="10sp"
+            android:text="User Preferences"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="38sp"
+            android:typeface="normal" />
+
+        <LinearLayout
+            android:id="@+id/layout_user_information"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:background="#FF531D"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:weightSum="4">
+
+            <ImageView
+                android:layout_width="159dp"
+                android:layout_height="150dp"
+                android:layout_alignStart="@+id/layout_user_information"
+                android:src="@drawable/ic_account_circle_black_24dp" />
+
+            <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Guest"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="396dp"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="10sp" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="384dp"
+                android:layout_height="90sp"
+                android:layout_gravity="center"
+                android:backgroundTint="#FAE2E2"
+                android:drawableLeft="@drawable/book50"
+                android:drawablePadding="30px"
+                android:paddingLeft="20dp"
+                android:text="My Cook Book"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="RtlCompat" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="10sp" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="384dp"
+                android:layout_height="90sp"
+                android:layout_gravity="center"
+                android:backgroundTint="#FAE2E2"
+                android:drawableLeft="@drawable/restrict50"
+                android:drawablePadding="30px"
+                android:paddingLeft="20dp"
+                android:text="Restrictions"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                tools:ignore="RtlCompat" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="10sp" />
+
+            <Button
+                android:id="@+id/button_edit_profile"
+                android:layout_width="384dp"
+                android:layout_height="90sp"
+                android:layout_gravity="center"
+                android:backgroundTint="#FAE2E2"
+                android:drawableLeft="@drawable/edit50"
+                android:drawablePadding="30px"
+                android:paddingLeft="20dp"
+                android:text="Edit Profile"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                tools:ignore="RtlCompat" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-4dp"
+        android:background="#FF911D"
+        android:text="Logout"
+        android:textColor="#E6E1E1"
+        android:textSize="25sp" />
+
+</RelativeLayout>

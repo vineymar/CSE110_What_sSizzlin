@@ -5,7 +5,6 @@ package com.example.whatssizzlin;
 //viewHolderClass inside adapter
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -22,26 +20,23 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder> {
 
     private static final String TAG = "RecyclerViewAdapter";
     //
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
-    private ArrayList<String> mTimes = new ArrayList<>();
-    private ArrayList<Recipe> mRecs = new ArrayList<>();
+    private ArrayList<Recipe> myRecs;
     private HomeFragment homeFragment;
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> times, ArrayList<Recipe> recs, Context context, HomeFragment hf) {
-        this.mNames = names;
+    public SearchRecyclerViewAdapter(ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> times, ArrayList<Recipe> recs, Context context, HomeFragment hf) {
+    /*    this.mNames = names;
         this.mImageUrls = imageUrls;
         this.mTimes = times;
         this.mContext=context;
         this.mRecs = recs;
         homeFragment = hf;
         //this.mContext = context;
-
+*/
     }
 
     @NonNull
@@ -54,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-
+/*
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImageUrls.get(position))
@@ -62,12 +57,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.image_name.setText(mNames.get(position));
         holder.image_time.setText(mTimes.get(position));
-
+*/
         /*OnClickListener circuluarView*/
         holder.image.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+/*
                 ViewRecipe nn = new ViewRecipe();
                 nn.home = homeFragment;
                 Bundle bundle = new Bundle();
@@ -91,7 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 //nn.setID(mIDs.get(position));
                 homeFragment.home.setFragment(nn);
 
-
+*/
                /*
                 Intent tvr = new Intent(homeFragment.getActivity(), ViewRecipe.class);
                 tvr.putExtra("id", mIDs.get(position));
@@ -107,7 +102,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mNames.size(); //or mImageUrls since they will be the same
+        return myRecs.size(); //or mImageUrls since they will be the same
     }
 
 

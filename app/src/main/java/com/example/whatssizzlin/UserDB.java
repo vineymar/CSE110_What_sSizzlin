@@ -22,7 +22,7 @@ public class UserDB {
 
     public static List<Integer> favRecipeList = new ArrayList();
     public static List<Recipe> recipeList = new ArrayList<>();
-    public static List<IngredientTag> userInventory = new ArrayList<>();
+    public static List<String> uInventory = new ArrayList<>();
     private static DatabaseReference mDatabase = mDatabase = FirebaseDatabase.getInstance().getReference();
     public static FirebaseUser FBUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -63,6 +63,11 @@ public class UserDB {
         });
     }
 
+    public static void deleteInventory( IngredientTag item){
+        uInventory.remove(item.getName());
+        mDatabase.child("users").child(FBUser.getUid()).child("inventory").setValue(uInventory);
+
+    }
     public static void readFav() {
         //Toast.makeText(home, "Only once", Toast.LENGTH_SHORT).show();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/favorites");
@@ -95,6 +100,7 @@ public class UserDB {
         recipeList.add(recipe);
         mDatabase.child("users").child(FBUser.getUid()).child("recipes").setValue(recipeList);
     }
+
     public static void readInventory( ){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/inventory");
 
@@ -102,7 +108,7 @@ public class UserDB {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    userInventory.add( dataSnapshot1.getValue(IngredientTag.class));
+                    uInventory.add( dataSnapshot1.getValue(String.class));
                     }
 
                 }
@@ -116,10 +122,10 @@ public class UserDB {
 
 
     public static void writeInventory( IngredientTag item){
-        if(!userInventory.contains(item)){
-            userInventory.add(item);
+        if(!uInventory.contains(item.getName())){
+            uInventory.add(item.getName());
         }
-        mDatabase.child("users").child(FBUser.getUid()).child("inventory").setValue(userInventory);
+        mDatabase.child("users").child(FBUser.getUid()).child("inventory").setValue(uInventory);
     }
 
 }

@@ -12,13 +12,16 @@ public class Recipe  {
     public String author;
     public String description;
     public List<String> difficulty = new ArrayList<>();
+    public String img_url;
     public List<String> ingredients = new ArrayList<>();
+    public List<String> ingredientTags = new ArrayList<>();
     public List<String> method = new ArrayList<>();
     public String name;
     public Map<String, String> nutrition;
     public String servings;
-    public String img_url;
+    public int servingTag;
     public List<Map<String, Map<String, String>>> time = new ArrayList<>();
+    public int timeTag;
     public String id;
 
 

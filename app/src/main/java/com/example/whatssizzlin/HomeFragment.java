@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static android.widget.GridLayout.HORIZONTAL;
 import static com.example.whatssizzlin.UserDB.FBUser;
@@ -99,6 +101,7 @@ public class HomeFragment extends Fragment {
         adapterFavorite = new RecyclerViewAdapter(mFavNames, mFavImageUrls, mFavTimes, mFavRecs,this.getContext(), this);
         recyclerFavView.setAdapter(adapterFavorite);
 
+
         return view;
     }
 /*
@@ -127,6 +130,7 @@ public class HomeFragment extends Fragment {
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference sr = storage.getReference();
                 StorageReference pic = sr.child("mealImages/" + ID.get(index) + ".jpg");
+                Log.d("CRD", pic.getDownloadUrl().toString());
                 pic.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -144,7 +148,7 @@ public class HomeFragment extends Fragment {
                         // Handle any errors
                     }
                 });
-                mRecTimes.add(r.time.get(0).get("prep").get("mins"));
+                mRecTimes.add(r.timeTag + " Minutes");
             }
 
             @Override
@@ -174,7 +178,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         mFavImageUrls.add(uri.toString());
-                        if(index == (ID.size() - 1)){
+
+                    if(index == (ID.size() - 1)){
                             adapterFavorite.notifyDataSetChanged();
                         }
                         else{
@@ -187,7 +192,7 @@ public class HomeFragment extends Fragment {
                         // Handle any errors
                     }
                 });
-                mFavTimes.add(r.time.get(0).get("prep").get("mins"));
+                mFavTimes.add(r.timeTag + " Minutes");
             }
 
             @Override
@@ -204,12 +209,13 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "Inside getImages: ");
         mRecIDs = new ArrayList<String>() {
             {
-                add("0");
-                add("1");
-                add("2");
-                add("3");
-                add("4");
-                add("5");
+
+                for(int i = 0; i < 5; i++){
+                    Random r = new Random();
+                    int randomInt = r.nextInt(30) + 1;
+                    String random = Integer.toString(randomInt);
+                    add(random);
+                }
             }
         };
         if(favList.size() == 0) {

@@ -3,15 +3,14 @@ package com.example.whatssizzlin;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.io.InputStream;
@@ -42,34 +41,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
-        addOnListenerShowPassword();
-        email_id = findViewById(R.id.email_login_id);
-        password_id = findViewById(R.id.password_login_id);
+        email_id=findViewById(R.id.email_login_id);
+        password_id=findViewById(R.id.password_login_id);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        /*Underline clickable link in registration page "Already a member - log in"*/
+        Button button = (Button) findViewById(R.id.btnRegistration);
+        button.setPaintFlags(button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        /*Underline clickable link in registration page "Already a member - log in"*/
+
 
     }
-                                /*Navigation Buttons onClick*/
-    /*for hiding password feature*/
-    public void addOnListenerShowPassword(){
-        checkBoxShowPwd = findViewById(R.id.show_password_id);
-        checkBoxShowPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // checkbox status is changed from uncheck to checked.
-                if (!isChecked) {
-                    // show password
-                    password_id.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
-                } else {
-                    // hide password
-                    password_id.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-            }
-        });
-        /*End password hidden feature*/
-    }
-
+////
     /*Registration Button Click*/
     public void btnRegistration_Click(View v){
         //setContentView(R.layout.activity_registration);
@@ -87,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (task.isSuccessful()) {
-                            UserDB.populateArrays();
+                            //UserDB.populateArrays();
                             String email =firebaseAuth.getCurrentUser().getEmail();
                             RegistrationActivity.name = firebaseAuth.getCurrentUser().getDisplayName();
                             Intent i = new Intent(MainActivity.this, HomeActivity.class);
@@ -101,9 +85,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-    /*/PhoneNumberLogIn Button Click*/
-    public void btnPhoneNumberLogIn_Click(View v){
-        startActivity(new Intent(MainActivity.this, PhoneNumberActivity.class));
-    }
-                            /*Navigation Buttons onClick*/
+              /*Navigation Buttons onClick*/
 }
