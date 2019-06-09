@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment {
         /*Recommended Views*/
 
     private void addRecRecipe(final List<String> ID, final int index){
+        if(index >= ID.size()) return;
         FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -144,6 +145,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void addFavRecipe(final List<String> ID, final int index){
+        if(index >= ID.size()) return;
         FirebaseDatabase.getInstance().getReference().child("meals").child(ID.get(index)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -201,19 +203,9 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        mFavIDs = new ArrayList<String>() {
-            {
-                add("6");
-                add("7");
-                add("8");
-                add("9");
-                add("10");
-                add("11");
-            }
-        };
 
 
-        addFavRecipe(mFavIDs, 0);
+
         addRecRecipe(mRecIDs, 0);
 
 

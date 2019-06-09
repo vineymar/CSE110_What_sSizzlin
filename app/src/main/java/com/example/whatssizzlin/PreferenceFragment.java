@@ -31,7 +31,7 @@ public class PreferenceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_preference, container, false);
 
-        CardView c = view.findViewById(R.id.card_edit);
+        Button c = view.findViewById(R.id.button4);
         c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +41,7 @@ public class PreferenceFragment extends Fragment {
             }
         });
 
-        CardView b = view.findViewById(R.id.card_cookbook);
+        Button b = view.findViewById(R.id.button2);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,15 +52,6 @@ public class PreferenceFragment extends Fragment {
         });
 
         //Create Recipe Button
-        Button btnCreateRecipe = view.findViewById(R.id.button_createRecipe);
-        btnCreateRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_frame, new CreateRecipeFragment());
-                fragmentTransaction.commit();
-            }
-        });
 
 
         Button btnLogout_Click=view.findViewById(R.id.btn_logout);

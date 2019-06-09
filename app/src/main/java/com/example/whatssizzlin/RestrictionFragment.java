@@ -152,7 +152,7 @@ public class RestrictionFragment extends Fragment  {
                 for(int i = 0; i < a.size() ; i++)
                 {
                     Log.d("PAN", i+ " " + j + " " + a);
-                    if (a.valueAt(j))
+                    if (a.valueAt(i))
                     {
                         ingredientItemList.remove(j);
                     }
