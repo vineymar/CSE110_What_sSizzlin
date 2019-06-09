@@ -19,9 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.algolia.instantsearch.core.searchclient.DefaultSearchClient;
-import com.algolia.instantsearch.core.searchclient.SearchResultsHandler;
-import com.algolia.search.saas.AlgoliaException;
+
+//import com.algolia.search.saas.AlgoliaException;
+import com.example.whatssizzlin.Model.User;
+//import com.algolia.instantsearch.core.searchclient.DefaultSearchClient;
+//import com.algolia.instantsearch.core.searchclient.SearchResultsHandler;
+//import com.algolia.search.saas.AlgoliaException;
 import com.example.whatssizzlin.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -252,5 +255,12 @@ public class HomeFragment extends Fragment {
 
 
     }
+
+
+
+
+
+
+
 
 }

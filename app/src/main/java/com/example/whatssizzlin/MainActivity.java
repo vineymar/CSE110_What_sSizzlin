@@ -15,8 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import java.io.InputStream;
 
-import com.algolia.search.saas.Client;
-import com.algolia.search.saas.Index;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;

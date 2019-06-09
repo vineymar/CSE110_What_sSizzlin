@@ -34,7 +34,7 @@ public class PreferenceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_preference, container, false);
 
-        Button c = view.findViewById(R.id.button2);
+        Button c = view.findViewById(R.id.button4);
         c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +44,7 @@ public class PreferenceFragment extends Fragment {
             }
         });
 
-        Button b = view.findViewById(R.id.button4);
+        Button b = view.findViewById(R.id.button2);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +56,9 @@ public class PreferenceFragment extends Fragment {
         TextView text = view.findViewById(R.id.txt_user_name);
 
         text.setText(FBUser.getDisplayName());
+        TextView textv = view.findViewById(R.id.txt_user_name);
+
+        textv.setText(FBUser.getDisplayName());
 
         //Create Recipe Button
         /*
