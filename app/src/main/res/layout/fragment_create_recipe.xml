@@ -13,13 +13,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="10sp">
 
             <TextView
                 android:id="@+id/text_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
                 android:text="Create Recipe"
                 android:textColor="@color/colorApp"
                 android:textSize="40sp" />
@@ -28,13 +31,15 @@
                 android:id="@+id/button_addImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Image" />
+                android:backgroundTint="@color/colorApp"
+                android:text="Add Image"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/text_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
                 android:text="Recipe Name"
                 android:textColor="@color/bodyTextColor"
                 android:textSize="30sp" />
@@ -54,7 +59,7 @@
                 android:id="@+id/text_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
                 android:text="Ingredients"
                 android:textColor="@color/bodyTextColor"
                 android:textSize="30sp" />
@@ -99,13 +104,15 @@
                 android:id="@+id/button_ing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Ingredient" />
+                android:backgroundTint="@color/colorApp"
+                android:text="Add Ingredient"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/text_instructions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
                 android:text="Instructions"
                 android:textColor="@color/bodyTextColor"
                 android:textSize="30sp" />
@@ -125,7 +132,7 @@
                 android:id="@+id/text_information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
+                android:fontFamily="@font/audiowide"
                 android:text="Other Information"
                 android:textColor="@color/bodyTextColor"
                 android:textSize="30sp" />
@@ -167,7 +174,9 @@
                     android:id="@+id/submit_button"
                     android:layout_width="211dp"
                     android:layout_height="wrap_content"
-                    android:text="submit" />
+                    android:backgroundTint="@color/colorApp"
+                    android:text="submit"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/recipeCancel"

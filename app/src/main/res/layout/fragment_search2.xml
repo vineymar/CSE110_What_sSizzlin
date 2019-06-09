@@ -18,11 +18,24 @@
             android:layout_alignParentTop="true"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:fontFamily="@font/audiowide"
+                android:includeFontPadding="false"
+                android:paddingTop="10sp"
+                android:text="Search Recipes"
+                android:textAlignment="center"
+                android:textColor="@color/colorApp"
+                android:textSize="38sp"
+                android:typeface="normal" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="10sp">
 
                 <Button
                     android:id="@+id/filter_btn"
@@ -36,13 +49,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Add Inventory" />
+                    android:text="Add Inventory"
+                    android:paddingLeft="10sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="10sp">
 
                 <ImageButton
                     android:id="@+id/search_btn"
@@ -51,6 +66,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
+                    android:background="@color/colorApp"
                     android:padding="0dp"
                     app:srcCompat="@android:drawable/ic_menu_search" />
 
@@ -58,7 +74,8 @@
                     android:id="@+id/tag_txt"
                     android:layout_width="310dp"
                     android:layout_height="60dp"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:paddingRight="5sp"/>
             </LinearLayout>
 
 

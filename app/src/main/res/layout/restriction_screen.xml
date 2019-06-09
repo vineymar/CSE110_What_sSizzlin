@@ -91,13 +91,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/chipGroup"
                     android:orientation="vertical">
+
                     <ListView
                         android:id="@+id/ingredientListView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
-                        android:textColor="#000"
-                        />
+                        android:textColor="#000" />
 
                 </LinearLayout>
 
