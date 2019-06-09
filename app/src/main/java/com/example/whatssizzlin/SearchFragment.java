@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,6 +28,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.algolia.instantsearch.core.helpers.Searcher;
+import com.algolia.instantsearch.core.model.SearchResults;
+import com.algolia.instantsearch.ui.views.Hits;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -65,6 +69,8 @@ public class SearchFragment extends Fragment {
     private ChipGroup suggestedIngredients;
     private ChipGroup suggestedCultures;
     private ChipGroup suggestedCategories;
+
+    private Hits hits;
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
@@ -105,7 +111,10 @@ public class SearchFragment extends Fragment {
         suggestedCultures = (ChipGroup) view.findViewById(R.id.culture_grp);
         suggestedCategories = (ChipGroup)view.findViewById(R.id.category_grp);
         tags = new ArrayList<>();
-
+        hits = (Hits) view.findViewById(R.id.hits);
+        hits.onReset(null);
+        Searcher searcher = Searcher.create("07ZX63WQSH", "69013fd500045cc7dfc90d5d12dfd651", "Meals");
+        hits.initWithSearcher(searcher);
 
         getSearchImages();
         /*For RecyclerView*/
@@ -238,6 +247,7 @@ public class SearchFragment extends Fragment {
                     public void onClick(View view) {
                         System.out.println("search pressed");
                         try {
+
                             doSearchRequest();
                             tagText.clearFocus();
 
@@ -371,7 +381,7 @@ public class SearchFragment extends Fragment {
     private void doSearchRequest() throws JSONException {
         final TextView textView = view.findViewById(R.id.search_results_tmp);
 
-        String url = "http://54.185.10.110:8080/";
+        String url = "http://52.13.11.1:8080/";
         JSONObject jsonRequest = buildSearchJSON();
         System.out.println("doing search request");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -381,7 +391,8 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println("received response");
-                        textView.setText("Response: " + response.toString());
+                        //textView.setText("Response: " + response.toString());
+                        handleResponse(response);
                     }
                 }, new Response.ErrorListener() {
 
@@ -398,6 +409,13 @@ public class SearchFragment extends Fragment {
 
     }
 
+    private void handleResponse(JSONObject response) {
+        hits = (Hits)view.findViewById(R.id.hits);
+        SearchResults sr = new SearchResults(response);
+        hits.onResults(sr,false);
+
+    }
+
     private JSONObject buildSearchJSON() throws JSONException {
         JSONObject search = new JSONObject();
         String query = "";
@@ -406,8 +424,10 @@ public class SearchFragment extends Fragment {
         }
         query += getSearchName();
 
-        System.out.println("query:"+query);
         search.accumulate("query",query);
+        search.accumulate("filters","ingredientTags:macaroni");
+
+        System.out.println(search.toString());
 
         return search;
     }
