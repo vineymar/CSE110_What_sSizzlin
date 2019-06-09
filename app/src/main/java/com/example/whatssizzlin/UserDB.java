@@ -22,6 +22,7 @@ public class UserDB {
 
     public static List<Integer> favRecipeList = new ArrayList();
     public static List<Recipe> recipeList = new ArrayList<>();
+    public static List<IngredientTag> userInventory = new ArrayList<>();
     private static DatabaseReference mDatabase = mDatabase = FirebaseDatabase.getInstance().getReference();
     public static FirebaseUser FBUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -43,7 +44,31 @@ public class UserDB {
         recipeList.add(recipe);
         mDatabase.child("users").child(FBUser.getUid()).child("recipes").setValue(recipeList);
     }
+    public static void readInventory( ){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + FBUser.getUid() + "/inventory");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    userInventory.add( dataSnapshot1.getValue(IngredientTag.class));
+                    }
+
+                }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
+    public static void writeInventory( IngredientTag item){
+        if(!userInventory.contains(item)){
+            userInventory.add(item);
+        }
+        mDatabase.child("users").child(FBUser.getUid()).child("inventory").setValue(userInventory);
+    }
 
 }
