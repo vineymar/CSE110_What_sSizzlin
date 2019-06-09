@@ -13,15 +13,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/caveat_bold"
-                android:text="My Pantry"
                 android:background="@drawable/text_border"
+                android:backgroundTint="#FF631D"
+                android:fontFamily="@font/audiowide"
+                android:paddingBottom="10sp"
+                android:text="My Pantry"
                 android:textAlignment="center"
-                android:textColor="#FF631D"
-                android:textSize="70sp"
+                android:textColor="#FFF"
+                android:textSize="60sp"
                 android:typeface="normal" />
 
             <LinearLayout
@@ -69,7 +70,6 @@
                                 android:layout_margin="10dp"
                                 android:background="@drawable/emailshape"
                                 android:drawablePadding="10dp"
-                                android:fontFamily="@font/caveat_bold"
                                 android:hint="Add Ingredient Here"
                                 android:imeOptions="actionNext"
                                 android:padding="15dp"
